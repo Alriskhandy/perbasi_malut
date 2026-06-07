@@ -1,12 +1,11 @@
  <!-- Sidebar -->
- <div class="sidebar" data-background-color="dark">
+ <div class="sidebar" data-background-color="white" id="perbasi-sidebar">
      <div class="sidebar-logo">
          <!-- Logo Header -->
-         <div class="logo-header" data-background-color="dark">
+         <div class="logo-header" data-background-color="white">
              <a href="{{ route('dashboard') }}" class="logo">
-                 <img src="{{ asset('backend/assets/img/logo-unkhair.png') }}" alt="navbar brand"
+                 <img src="{{ asset('backend/assets/img/logo_perbasi.jpeg') }}" alt="navbar brand"
                      class="navbar-brand img-fluid" />
-                 <h5 class="text-white m-2">Perbasi Malut</h5>
              </a>
              <div class="nav-toggle">
                  <button class="btn btn-toggle toggle-sidebar">
@@ -82,7 +81,7 @@
 
                  <li class="nav-item {{ request()->routeIs('comments.index') ? 'active' : '' }}">
                      <a href="{{ route('comments.index') }}">
-                         <i class="fab fa-facebook-messenger"></i>
+                         <i class="fas fa-comments"></i>
                          <p>Komentar</p>
                          @if ($unreadCommentsCount)
                              <span class="badge badge-secondary">{{ $unreadCommentsCount }}</span>
@@ -112,7 +111,7 @@
 
                  <li class="nav-item {{ request()->routeIs('players.*') ? 'active' : '' }}">
                      <a href="{{ route('players.index') }}">
-                         <i class="fas fa-running"></i>
+                         <i class="fas fa-users"></i>
                          <p>Pemain</p>
                      </a>
                  </li>
@@ -133,7 +132,7 @@
 
                  <li class="nav-item {{ request()->routeIs('referees.*') ? 'active' : '' }}">
                      <a href="{{ route('referees.index') }}">
-                         <i class="fas fa-whistle"></i>
+                         <i class="fas fa-flag"></i>
                          <p>Wasit</p>
                      </a>
                  </li>

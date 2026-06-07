@@ -1,15 +1,15 @@
-@extends('backend.layouts.main', ['title' => 'Distrik'])
+@extends('backend.layouts.main', ['title' => 'DPD Kab/Kota'])
 
 @section('body')
     <div class="container">
         <div class="page-inner">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                 <div class="page-header">
-                    <h3 class="fw-bold mb-3 fs-3">Semua Distrik</h3>
+                    <h3 class="fw-bold mb-3 fs-3">Semua DPD Kab/Kota</h3>
                 </div>
                 <div class="ms-md-auto py-2 py-md-0">
                     <a href="{{ route('districts.create') }}" class="btn btn-label-info btn-round me-2">
-                        <i class="fa fa-plus"></i> Tambah Distrik
+                        <i class="fa fa-plus"></i> Tambah DPD Kab/Kota
                     </a>
                 </div>
             </div>

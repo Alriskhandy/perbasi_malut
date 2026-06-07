@@ -16,7 +16,7 @@
             </ul>
         </nav> --}}
         <div class="copyright">
-            &copy; Copyright <strong><span>Universitas Khairun</span></strong> 2024. All Rights Reserved
+            &copy; Copyright <strong><span>Perbasi Maluku Utara</span></strong> 2026. All Rights Reserved
         </div>
         {{-- <div>
             Distributed by
