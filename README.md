@@ -1,69 +1,152 @@
-<p align="center"><a href="https://www.unkhair.ac.id" target="_blank"><img src="public/backend/assets/img/logo-unkhair.png" width="200" alt="Logo Unkhair CMS"></a></p> <p align="center"> <a href="#"><img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Status Build"></a> <a href="#"><img src="https://img.shields.io/badge/coverage-90%25-brightgreen" alt="Status Cakupan"></a> <a href="#"><img src="https://img.shields.io/badge/version-1.0-blue" alt="Versi"></a> </p>
+<p align="center">
+  <img src="public/hero.jpg" width="200" alt="Logo Perbasi Maluku Utara">
+</p>
 
+<p align="center">
+  <a href="#"><img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Status Build"></a>
+  <a href="#"><img src="https://img.shields.io/badge/version-1.0-blue" alt="Versi"></a>
+  <a href="#"><img src="https://img.shields.io/badge/laravel-11.9-red" alt="Laravel"></a>
+  <a href="#"><img src="https://img.shields.io/badge/php-8.2+-blueviolet" alt="PHP"></a>
+</p>
 
-# Unkhair CMS
+# Perbasi Maluku Utara — CMS
 
-Selamat datang di proyek **Unkhair CMS**, sebuah Sistem Manajemen Konten (CMS) khusus yang dikembangkan untuk Universitas Khairun. CMS ini dirancang untuk memudahkan pengelolaan konten digital kampus, seperti berita, pengumuman, manajemen pengguna, dan berbagai kebutuhan lainnya yang berhubungan dengan komunikasi dan informasi universitas.
+Website CMS profil **Persatuan Bola Basket Indonesia (Perbasi) Maluku Utara**. Sistem ini mengelola konten organisasi, data tim, atlet, pelatih, wasit, dan pengurus di seluruh kabupaten/kota Maluku Utara.
 
-## Deskripsi
-
-**Unkhair CMS** bertujuan untuk meningkatkan efisiensi dalam mengelola dan menyampaikan informasi di lingkungan Universitas Khairun. Dengan antarmuka yang intuitif dan fitur-fitur yang disesuaikan dengan kebutuhan kampus, sistem ini mendukung komunikasi internal dan eksternal secara efektif.
+---
 
 ## Fitur Utama
 
-- **Manajemen Pengguna dan Hak Akses**: Mengatur peran dan hak akses untuk administrator, dosen, dan pengguna lainnya.
-- **Pengelolaan Konten**: Tambah, edit, dan kelola berita, pengumuman, dan halaman statis kampus.
-- **Manajemen Media**: Unggah dan kelola berkas gambar, dokumen, dan video.
-- **Pengumuman dan Agenda Acara**: Publikasi berita dan acara universitas secara cepat dan terstruktur.
-- **Desain Responsif**: Antarmuka yang dapat diakses dengan nyaman di perangkat desktop maupun mobile.
-- **SEO Friendly**: Mendukung pengoptimalan konten agar lebih mudah ditemukan.
+- **Manajemen Konten**: Berita, pengumuman, halaman statis, dan galeri foto.
+- **Manajemen Tim & Atlet**: Data distrik, tim, pemain, pelatih, official, dan wasit *(dalam pengembangan)*.
+- **Manajemen Media**: Upload dan kelola berkas gambar & dokumen via Laravel File Manager.
+- **Manajemen Menu**: Susun menu navigasi secara dinamis (drag & drop).
+- **Komentar**: Moderasi komentar pada konten.
+- **Pengaturan Umum**: Konfigurasi nama situs, logo, dan kontak.
+- **Autentikasi & Hak Akses**: Login admin dengan reCAPTCHA.
+- **Desain Responsif**: Antarmuka publik dan admin yang mobile-friendly.
 
-## Teknologi yang Digunakan
+---
 
-- **Framework Backend**: PHP (Laravel)
-- **Frontend**: HTML, CSS, JavaScript (menggunakan Bootstrap)
-- **Database**: MySQL
-- **Manajer Paket**: Composer untuk PHP, npm untuk pengelolaan frontend
+## Tech Stack
 
-## Instalasi
+| Layer       | Teknologi                                      |
+|-------------|------------------------------------------------|
+| Backend     | PHP 8.2+, Laravel 11.9                         |
+| Frontend    | Blade, Tailwind CSS, Alpine.js, Vite           |
+| Database    | MySQL                                          |
+| Web Server  | Nginx                                          |
+| Media       | Intervention Image, Laravel File Manager       |
+| Storage     | Local / AWS S3                                 |
+| UI Extras   | SweetAlert2, Laravel Notify, reCAPTCHA         |
+
+---
+
+## Arsitektur Sistem
+
+```
+app/Http/Controllers/
+├── Auth/                  # Autentikasi
+├── FrontEndController.php # Halaman publik
+├── PostsController.php    # Berita & artikel
+├── GalleriesController.php
+├── MenuController.php
+├── ThemeController.php
+└── ...                    # Controller backend lainnya
+
+resources/views/
+├── themes/                # Tampilan publik (multi-tema)
+├── auth/                  # Halaman login
+└── backend/               # Dashboard admin
+
+routes/
+├── web.php                # Rute frontend publik
+├── auth.php               # Rute autentikasi
+└── backend.php            # Rute dashboard admin
+```
+
+---
+
+## Database — Model Utama
+
+**Sudah ada:**
+- `users`, `categories`, `posts`, `posts_categories`, `comments`
+- `galleries`, `galleries_meta`
+- `general_settings`, `menus`, `menu_items`, `pages`, `themes`, `media`
+
+**Dalam pengembangan:**
+- `districts` — Kabupaten/kota anggota
+- `teams` — Tim basket
+- `coaches` — Pelatih tim
+- `players` — Atlet/pemain
+- `officials` — Pengurus tim
+- `referees` — Wasit
+
+---
+
+## Instalasi Localhost
 
 ### Prasyarat
-
-- PHP >= 8.1
+- PHP >= 8.2
 - Composer
-- Node.js dan npm
-- Database (MySQL)
+- Node.js & npm
+- MySQL
 
-## Langkah Instalasi Hosting (cPanel)
+### Langkah
 
-1. Upload Proyek Laravel ke cPanel
+```bash
+# 1. Clone repositori
+git clone <url-repositori>
+cd perbasi_malut
 
-- Login ke **cPanel**, buka **File Manager**.
-- Upload seluruh folder Laravel ke direktori misalnya:
+# 2. Install dependensi PHP
+composer install
 
-2. Pindahkan Isi Folder `public` ke `public_html`
+# 3. Salin & konfigurasi .env
+cp .env.example .env
+php artisan key:generate
 
-- Pindahkan semua isi dari folder `public` ke dalam `public_html`.
-- Edit file `public_html/index.php` dan ubah baris berikut:
+# 4. Sesuaikan .env (database, app name, dll)
+# DB_DATABASE=perbasi_malut
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+# 5. Migrasi & seed database
+php artisan migrate --seed
+
+# 6. Buat symbolic link storage
+php artisan storage:link
+
+# 7. Install dependensi frontend & build
+npm install
+npm run dev
+
+# 8. Jalankan server
+php artisan serve
+```
+
+Akses:
+- **Frontend**: `http://localhost:8000`
+- **Admin**: `http://localhost:8000/cms/cp/login`
+
+---
+
+## Instalasi Hosting (cPanel)
+
+1. Upload seluruh folder Laravel ke direktori di luar `public_html` (misal: `/home/username/perbasi_malut/`).
+2. Pindahkan isi folder `public/` ke `public_html/`.
+3. Edit `public_html/index.php`:
 
 ```php
-// Sebelumnya
-require __DIR__.'/../vendor/autoload.php';
-$app = require_once __DIR__.'/../bootstrap/app.php';
-
-// Ganti menjadi
-require __DIR__.'/../laravel_project/vendor/autoload.php';
-$app = require_once __DIR__.'/../laravel_project/bootstrap/app.php';
-```
-3. Struktur Folder Ideal
-```/home/username/
-├── laravel_project/       # Semua file Laravel
-└── public_html/           # Hanya isi folder public
+// Ubah path menjadi:
+require __DIR__.'/../perbasi_malut/vendor/autoload.php';
+$app = require_once __DIR__.'/../perbasi_malut/bootstrap/app.php';
 ```
 
-4. Edit .env sesuai konfigurasi database:
-```
-APP_NAME="Unkhair CMS"
+4. Konfigurasi `.env`:
+
+```env
+APP_NAME="Perbasi Maluku Utara"
 APP_URL=https://namadomain.com
 
 DB_CONNECTION=mysql
@@ -72,78 +155,13 @@ DB_PORT=3306
 DB_DATABASE=nama_database
 DB_USERNAME=user_database
 DB_PASSWORD=pass_database
+```
 
-```
-5. Buat Symbolic Link untuk Storage
-Tambahkan ke Cron Jobs atau jalankan via terminal:
-```
-ln -s /home/username/laravel_project/storage/app/public /home/username/public_html/storage
+5. Buat symbolic link storage:
+
+```bash
+ln -s /home/username/perbasi_malut/storage/app/public /home/username/public_html/storage
 ```
 
 ---
 
----
-### Langkah Instalasi Localhost
-
-1. Kloning repositori proyek:
-    ```bash
-    git@github.com:wahyuumaternate/CMS_UNKHAIR_11.git
-    cd CMS_UNKHAIR_11
-    ```
-2. Instal dependensi PHP:
-    ```bash
-    composer install
-    ```
-3. Salin file `.env.example` ke `.env` dan buat kunci aplikasi:
-    ```bash
-    cp .env.example .env
-    php artisan key:generate
-    ```
-4. Sesuaikan konfigurasi database di file `.env`.
-5. Jalankan migrasi dan seeder untuk mengisi basis data awal:
-    ```bash
-    php artisan migrate --seed
-    ```
-6. Instal dependensi frontend:
-    ```bash
-    npm install
-    npm run dev
-    ```
-7. Jalankan server lokal:
-    ```bash
-    php artisan serve
-    ```
-
-## Penggunaan
-
-- Akses sistem di `http://localhost:8000` atau domain server yang telah dikonfigurasi dan untuk admin `http://127.0.0.1:8000/cms-unkhair/cp/login`.
-- Masuk menggunakan kredensial admin yang telah dibuat saat proses instalasi.
-- Kelola konten melalui dashboard untuk membuat berita, mengunggah media, mengatur pengumuman, dan lainnya.
-
-## Konfigurasi
-
-- **File `.env`**: Sesuaikan pengaturan seperti koneksi database, konfigurasi email, dan pengaturan umum lainnya.
-- **Hak Akses Pengguna**: Atur hak akses dan peran pengguna Admin, Author.
-
-## Kontribusi
-
-Pengembangan **Unkhair CMS** adalah proyek internal Universitas Khairun. Untuk kontribusi, harap ikuti langkah-langkah berikut:
-
-1. Pastikan Anda memiliki izin untuk mengakses dan mengubah repositori.
-2. Buat cabang baru untuk fitur atau perbaikan: `git checkout -b fitur/fitur-baru`.
-3. Lakukan commit atas perubahan Anda: `git commit -m 'Tambah fitur baru'`.
-4. Push perubahan ke cabang: `git push origin fitur/fitur-baru`.
-5. Ajukan Pull Request untuk ditinjau.
-
-## Kode Etik
-
-Dalam rangka menciptakan lingkungan kerja yang inklusif dan produktif, harap ikuti pedoman [Kode Etik](#).
-
-## Keamanan
-
-Jika Anda menemukan celah keamanan atau masalah lainnya, segera laporkan ke tim pengembangan melalui email internal.
-
-
----
-
-CMS ini dikembangkan untuk memenuhi kebutuhan pengelolaan informasi Universitas Khairun. Harap jaga kerahasiaan dan keamanan sistem ini dalam penggunaannya.
