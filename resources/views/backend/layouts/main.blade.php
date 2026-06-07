@@ -191,11 +191,11 @@
         window.addEventListener('message', function(event) {
             if (event.origin === "{{ url('/') }}") {
                 var data = event.data;
-                if (data && data.link) {
-                    console.log('File URL:', data.link); // Handle the file URL as needed
-                    // Example: Show the selected file URL in an alert
-                    alert('File URL: ' + data.link);
-                }
+                // if (data && data.link) {
+                //     console.log('File URL:', data.link); // Handle the file URL as needed
+                //     // Example: Show the selected file URL in an alert
+                //     alert('File URL: ' + data.link);
+                // }
             }
         }, false);
     </script>
