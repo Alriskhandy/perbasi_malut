@@ -14,6 +14,12 @@ use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UpdateController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\CoachController;
+use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\OfficialController;
+use App\Http\Controllers\RefereeController;
 
 
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
@@ -68,6 +74,18 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::put('galleries/{id}', [GalleriesController::class, 'update'])->name('galleries.update');
     Route::delete('galleries/{id}', [GalleriesController::class, 'destroy'])->name('galleries.destroy'); 
     Route::delete('/gallery/image/{id}', [GalleriesController::class, 'destroyImage']);
+    // districts
+    Route::resource('districts', DistrictController::class)->except(['show']);
+    // teams
+    Route::resource('teams', TeamController::class)->except(['show']);
+    // coaches
+    Route::resource('coaches', CoachController::class)->except(['show']);
+    // players
+    Route::resource('players', PlayerController::class)->except(['show']);
+    // officials
+    Route::resource('officials', OfficialController::class)->except(['show']);
+    // referees
+    Route::resource('referees', RefereeController::class)->except(['show']);
     // Halaman Daftar Komentar
     Route::get('/comments', [CommentsController::class, 'index'])->name('comments.index');
     // Halaman Edit Komentar
