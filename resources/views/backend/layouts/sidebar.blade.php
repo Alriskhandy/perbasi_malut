@@ -112,7 +112,7 @@
                  <li class="nav-item {{ request()->routeIs('players.*') ? 'active' : '' }}">
                      <a href="{{ route('players.index') }}">
                          <i class="fas fa-users"></i>
-                         <p>Pemain</p>
+                         <p>Atlet</p>
                      </a>
                  </li>
 

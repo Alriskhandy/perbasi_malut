@@ -1,11 +1,11 @@
-@extends('backend.layouts.main', ['title' => 'Tambah Pemain'])
+@extends('backend.layouts.main', ['title' => 'Tambah Atlet'])
 
 @section('body')
     <div class="container">
         <div class="page-inner">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                 <div>
-                    <h3 class="fw-bold mb-3 fs-3">Tambah Pemain</h3>
+                    <h3 class="fw-bold mb-3 fs-3">Tambah Atlet</h3>
                 </div>
             </div>
 
@@ -16,7 +16,7 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label class="form-label">Nama Pemain *</label>
+                                    <label class="form-label">Nama Atlet *</label>
                                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                                         value="{{ old('name') }}" required>
                                     @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror

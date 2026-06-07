@@ -1,15 +1,15 @@
-@extends('backend.layouts.main', ['title' => 'Pemain'])
+@extends('backend.layouts.main', ['title' => 'Atlet'])
 
 @section('body')
     <div class="container">
         <div class="page-inner">
             <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
                 <div class="page-header">
-                    <h3 class="fw-bold mb-3 fs-3">Semua Pemain</h3>
+                    <h3 class="fw-bold mb-3 fs-3">Semua Atlet</h3>
                 </div>
                 <div class="ms-md-auto py-2 py-md-0">
                     <a href="{{ route('players.create') }}" class="btn btn-label-info btn-round me-2">
-                        <i class="fa fa-plus"></i> Tambah Pemain
+                        <i class="fa fa-plus"></i> Tambah Atlet
                     </a>
                 </div>
             </div>
