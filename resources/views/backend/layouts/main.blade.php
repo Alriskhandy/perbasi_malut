@@ -6,12 +6,14 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ @$title != '' ? "$title - " : '' }}{{ config('app.name') }}</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="{{ asset('backend/assets/img/logo-unkhair.png') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('backend/favicon/favicon.ico') }}" type="image/x-icon" />
 
     <!-- Google Fonts: Montserrat (heading) + Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
     <!-- Fonts and icons -->
     <script src="{{ asset('backend/assets/js/plugin/webfont/webfont.min.js') }}"></script>
@@ -59,10 +61,10 @@
         =================================================== */
 
         :root {
-            --perbasi-primary   : #A92333;
-            --perbasi-dark      : #1A1D20;
-            --perbasi-bg        : #F8F9FA;
-            --perbasi-gold      : #D4AF37;
+            --perbasi-primary: #A92333;
+            --perbasi-dark: #1A1D20;
+            --perbasi-bg: #F8F9FA;
+            --perbasi-gold: #D4AF37;
             --perbasi-primary-hover: #8a1c28;
         }
 
@@ -73,8 +75,16 @@
             color: var(--perbasi-dark) !important;
         }
 
-        h1, h2, h3, h4, h5, h6,
-        .fw-bold, .fs-3, .fs-4, .fs-5 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .fw-bold,
+        .fs-3,
+        .fs-4,
+        .fs-5 {
             font-family: 'Montserrat', 'Public Sans', sans-serif !important;
             color: var(--perbasi-dark) !important;
         }
@@ -107,52 +117,59 @@
         }
 
         /* Sidebar nav links — default state */
-        .sidebar .nav.nav-secondary > li.nav-item > a {
+        .sidebar .nav.nav-secondary>li.nav-item>a {
             color: #4a4a4a !important;
             transition: all 0.2s ease !important;
         }
-        .sidebar .nav.nav-secondary > li.nav-item > a p {
+
+        .sidebar .nav.nav-secondary>li.nav-item>a p {
             color: #4a4a4a !important;
             transition: color 0.2s ease !important;
         }
-        .sidebar .nav.nav-secondary > li.nav-item > a i {
+
+        .sidebar .nav.nav-secondary>li.nav-item>a i {
             color: #888 !important;
             transition: color 0.2s ease !important;
         }
 
         /* Sidebar nav links — hover */
-        .sidebar .nav.nav-secondary > li.nav-item > a:hover {
+        .sidebar .nav.nav-secondary>li.nav-item>a:hover {
             background-color: rgba(169, 35, 51, 0.07) !important;
         }
-        .sidebar .nav.nav-secondary > li.nav-item > a:hover p,
-        .sidebar .nav.nav-secondary > li.nav-item > a:hover .caret {
+
+        .sidebar .nav.nav-secondary>li.nav-item>a:hover p,
+        .sidebar .nav.nav-secondary>li.nav-item>a:hover .caret {
             color: var(--perbasi-primary) !important;
         }
-        .sidebar .nav.nav-secondary > li.nav-item > a:hover i {
+
+        .sidebar .nav.nav-secondary>li.nav-item>a:hover i {
             color: var(--perbasi-primary) !important;
         }
 
         /* Active nav item — override Kaiadmin blue */
-        .sidebar .nav.nav-secondary > li.nav-item.active > a,
-        .sidebar .nav.nav-secondary > li.nav-item.submenu.active > a {
+        .sidebar .nav.nav-secondary>li.nav-item.active>a,
+        .sidebar .nav.nav-secondary>li.nav-item.submenu.active>a {
             background-color: rgba(169, 35, 51, 0.09) !important;
             border-left: 3px solid var(--perbasi-primary) !important;
             border-left-color: var(--perbasi-primary) !important;
         }
-        .sidebar .nav.nav-secondary > li.nav-item.active > a p,
-        .sidebar .nav.nav-secondary > li.nav-item.submenu.active > a p,
-        .sidebar .nav.nav-secondary > li.nav-item.active > a .caret,
-        .sidebar .nav.nav-secondary > li.nav-item.submenu.active > a .caret {
+
+        .sidebar .nav.nav-secondary>li.nav-item.active>a p,
+        .sidebar .nav.nav-secondary>li.nav-item.submenu.active>a p,
+        .sidebar .nav.nav-secondary>li.nav-item.active>a .caret,
+        .sidebar .nav.nav-secondary>li.nav-item.submenu.active>a .caret {
             color: var(--perbasi-primary) !important;
             font-weight: 600 !important;
         }
-        .sidebar .nav.nav-secondary > li.nav-item.active > a i,
-        .sidebar .nav.nav-secondary > li.nav-item.submenu.active > a i {
+
+        .sidebar .nav.nav-secondary>li.nav-item.active>a i,
+        .sidebar .nav.nav-secondary>li.nav-item.submenu.active>a i {
             color: var(--perbasi-primary) !important;
         }
+
         /* Kaiadmin sometimes uses ::before for the active border — nuke it */
-        .sidebar .nav.nav-secondary > li.nav-item.active > a::before,
-        .sidebar .nav.nav-secondary > li.nav-item.submenu.active > a::before {
+        .sidebar .nav.nav-secondary>li.nav-item.active>a::before,
+        .sidebar .nav.nav-secondary>li.nav-item.submenu.active>a::before {
             background-color: var(--perbasi-primary) !important;
             border-color: var(--perbasi-primary) !important;
         }
@@ -161,10 +178,12 @@
         .sidebar .nav.nav-collapse a .sub-item {
             color: #666 !important;
         }
+
         .sidebar .nav.nav-collapse li:hover a .sub-item,
         .sidebar .nav.nav-collapse li.active a .sub-item {
             color: var(--perbasi-primary) !important;
         }
+
         .sidebar .nav.nav-collapse li.active a {
             background-color: rgba(169, 35, 51, 0.06) !important;
         }
@@ -181,8 +200,8 @@
         }
 
         /* Force all FA icons (fas, fab, far, fal) in active items to crimson */
-        .sidebar .nav.nav-secondary li.nav-item.active > a [class*="fa-"],
-        .sidebar .nav.nav-secondary li.nav-item.submenu.active > a [class*="fa-"] {
+        .sidebar .nav.nav-secondary li.nav-item.active>a [class*="fa-"],
+        .sidebar .nav.nav-secondary li.nav-item.submenu.active>a [class*="fa-"] {
             color: var(--perbasi-primary) !important;
         }
 
@@ -190,7 +209,7 @@
         .main-header {
             background-color: #ffffff !important;
             border-bottom: 1px solid #e8e8e8 !important;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
         }
 
         .main-header .logo-header {
@@ -252,7 +271,7 @@
 
         .card {
             border: none !important;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07) !important;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07) !important;
             border-radius: 10px !important;
         }
 
@@ -284,8 +303,9 @@
         table.dataTable thead th.sorting_asc::after,
         table.dataTable thead th.sorting_desc::before,
         table.dataTable thead th.sorting_desc::after {
-            color: rgba(255,255,255,0.5) !important;
+            color: rgba(255, 255, 255, 0.5) !important;
         }
+
         table.dataTable thead th.sorting_asc::before,
         table.dataTable thead th.sorting_desc::after {
             color: #ffffff !important;
@@ -330,7 +350,7 @@
 
         .dataTables_wrapper .dataTables_length select,
         .dataTables_wrapper .dataTables_filter input {
-            border: 1px solid rgba(116,115,115,0.35) !important;
+            border: 1px solid rgba(116, 115, 115, 0.35) !important;
             border-radius: 6px !important;
             padding: 4px 8px !important;
             font-size: 0.85rem !important;
@@ -339,7 +359,7 @@
         .dataTables_wrapper .dataTables_filter input:focus {
             border-color: var(--perbasi-primary) !important;
             outline: none !important;
-            box-shadow: 0 0 0 0.15rem rgba(169,35,51,0.15) !important;
+            box-shadow: 0 0 0 0.15rem rgba(169, 35, 51, 0.15) !important;
         }
 
         /* --- Badges --- */
@@ -426,7 +446,7 @@
 
         /* --- DataTable search & length wrapper --- */
         .dataTables_wrapper .dataTables_filter input {
-            border: 1px solid rgba(116,115,115,0.4) !important;
+            border: 1px solid rgba(116, 115, 115, 0.4) !important;
             border-radius: 6px;
         }
 
@@ -515,7 +535,7 @@
     <script src="{{ asset('backend/assets/js/kaiadmin.min.js') }}"></script>
 
     <script>
-        var CRIMSON    = '#A92333';
+        var CRIMSON = '#A92333';
         var CRIMSON_BG = 'rgba(169,35,51,0.09)';
 
         // ── Step 1: MutationObserver — intercept every <style> Kaiadmin injects
@@ -532,28 +552,30 @@
         }
 
         // Watch <head> for new <style> tags
-        var headObserver = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                mutation.addedNodes.forEach(function (node) {
+        var headObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
                     if (node.nodeType === 1 && node.tagName === 'STYLE') {
                         replaceKaiadminColors(node);
                     }
                 });
             });
         });
-        headObserver.observe(document.head, { childList: true });
+        headObserver.observe(document.head, {
+            childList: true
+        });
 
         // Also patch any <style> tags already in <head> at this point
         document.head.querySelectorAll('style').forEach(replaceKaiadminColors);
 
         // ── Step 2: After DOM ready, inject our own override <style> last in <head>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#basic-datatables").DataTable({});
 
             // Inject override style (appended last = highest cascade position)
             if (!document.getElementById('perbasi-override')) {
                 var el = document.createElement('style');
-                el.id  = 'perbasi-override';
+                el.id = 'perbasi-override';
                 el.innerHTML =
                     /* active link */
                     '.sidebar .nav.nav-secondary li.nav-item.active > a,' +
@@ -604,7 +626,7 @@
                     '.sidebar .nav.nav-secondary li.nav-item.active > a,' +
                     '.sidebar .nav.nav-secondary li.nav-item.submenu.active > a';
 
-                $(activeLinks).each(function () {
+                $(activeLinks).each(function() {
                     this.style.removeProperty('border-left-color');
                     this.style.removeProperty('color');
                     this.style.setProperty('border-left', '3px solid ' + CRIMSON, 'important');
@@ -612,7 +634,7 @@
                 });
 
                 $(activeLinks + ' i,' + activeLinks + ' p,' + activeLinks + ' .caret')
-                    .each(function () {
+                    .each(function() {
                         this.style.removeProperty('color');
                         this.style.setProperty('color', CRIMSON, 'important');
                     });
