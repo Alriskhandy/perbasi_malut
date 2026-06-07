@@ -65,8 +65,8 @@
                                 <div class="mb-3">
                                     <label class="form-label">Status *</label>
                                     <select name="status" class="form-select @error('status') is-invalid @enderror" required>
-                                        <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Aktif</option>
-                                        <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
+                                        <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                                        <option value="tidak aktif" {{ old('status') == 'tidak aktif' ? 'selected' : '' }}>Tidak Aktif</option>
                                     </select>
                                     @error('status') <div class="invalid-feedback">{{ $message }}</div> @enderror
                                 </div>

@@ -47,7 +47,7 @@
                                                 <td>{{ $team->district->name ?? '-' }}</td>
                                                 <td>{{ $team->contact ?? '-' }}</td>
                                                 <td>
-                                                    @if ($team->status === 'active')
+                                                    @if ($team->status === 'aktif')
                                                         <span class="badge badge-success">Aktif</span>
                                                     @else
                                                         <span class="badge badge-danger">Tidak Aktif</span>

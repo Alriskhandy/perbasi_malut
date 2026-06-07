@@ -27,7 +27,7 @@ class TeamController extends Controller
             'email'       => 'nullable|email|max:255',
             'contact'     => 'nullable|string|max:50',
             'address'     => 'nullable|string',
-            'status'      => 'required|in:active,inactive',
+            'status'      => 'required|in:aktif,tidak aktif',
             'img_path'    => 'nullable|string|max:255',
             'district_id' => 'required|exists:districts,id',
         ]);
@@ -35,7 +35,7 @@ class TeamController extends Controller
         try {
             Team::create($request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']));
 
-            notify()->success('Tim berhasil ditambahkan!');
+            notify()->success('Klub berhasil ditambahkan!');
             return redirect()->route('teams.index');
         } catch (\Throwable $th) {
             notify()->error('Gagal menambahkan tim! ' . $th->getMessage());
@@ -59,7 +59,7 @@ class TeamController extends Controller
             'email'       => 'nullable|email|max:255',
             'contact'     => 'nullable|string|max:50',
             'address'     => 'nullable|string',
-            'status'      => 'required|in:active,inactive',
+            'status'      => 'required|in:aktif,tidak aktif',
             'img_path'    => 'nullable|string|max:255',
             'district_id' => 'required|exists:districts,id',
         ]);
@@ -67,10 +67,10 @@ class TeamController extends Controller
         try {
             $team->update($request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']));
 
-            notify()->success('Tim berhasil diperbarui!');
+            notify()->success('Klub berhasil diperbarui!');
             return redirect()->route('teams.index');
         } catch (\Throwable $th) {
-            notify()->error('Gagal memperbarui tim! ' . $th->getMessage());
+            notify()->error('Gagal memperbarui klub! ' . $th->getMessage());
             return redirect()->back();
         }
     }
@@ -80,7 +80,7 @@ class TeamController extends Controller
         $team = Team::findOrFail($id);
         $team->delete();
 
-        notify()->success('Tim berhasil dihapus!');
+        notify()->success('Klub berhasil dihapus!');
         return redirect()->route('teams.index');
     }
 }
