@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>3D Viewer</title>
+        <script
+            type="module"
+            src="https://unpkg.com/@splinetool/viewer@1.10.14/build/spline-viewer.js"
+        ></script>
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden; /* Menonaktifkan scroll */
+                height: 100%;
+            }
+
+            spline-viewer {
+                width: 100%;
+                height: 100%;
+                display: block;
+                pointer-events: auto;
+            }
+        </style>
+    </head>
+    <body style="background-color: black">
+        <spline-viewer
+            id="viewer"
+            url="https://prod.spline.design/X5ibWaQmQ7wOrZfh/scene.splinecode"
+        ></spline-viewer>
+
+        <script type="module">
+            const viewer = document.getElementById("viewer");
+
+            // Tunggu sampai viewer siap
+            viewer.addEventListener("load", () => {
+                const canvas = viewer.shadowRoot.querySelector("canvas");
+
+                // Mencegah zoom dengan scroll atau touchpad
+                canvas.addEventListener("wheel", (e) => e.preventDefault(), {
+                    passive: false,
+                });
+            });
+        </script>
+    </body>
+</html>

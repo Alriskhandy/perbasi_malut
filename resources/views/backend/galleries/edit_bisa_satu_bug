@@ -1,0 +1,261 @@
+@extends('backend.layouts.main', ['title' => 'Edit Gallery'])
+
+@section('body')
+    <div class="container">
+        <div class="page-inner">
+            <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+                <div>
+                    <h3 class="fw-bold mb-3 fs-3">Edit Gallery</h3>
+                </div>
+            </div>
+
+            <!-- Form untuk update gallery -->
+            <form id="formGallery" action="{{ route('galleries.update', $gallery->id) }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                @method('PUT') <!-- Gunakan metode PUT untuk update -->
+                <input type="hidden" value="hh" name="image">
+
+                <div class="row">
+                    <!-- Main Form Section -->
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required
+                                        value="{{ old('name', $gallery->name) }}">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="permalink" class="form-label">Permalink *</label>
+                                    <input type="text" class="form-control" id="permalink" name="slug" required
+                                        value="{{ old('slug', $gallery->slug) }}">
+                                    <small class="form-text text-muted">Preview:
+                                        http://localhost/galleries/{{ old('slug', $gallery->slug) }}</small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description *</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3" required>{{ old('description', $gallery->description) }}</textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="sort_order" class="form-label">Sort Order</label>
+                                    <input type="number" class="form-control" id="sort_order" name="sort_order"
+                                        value="{{ old('sort_order', $gallery->sort_order) }}">
+                                </div>
+
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="is_featured" name="is_featured"
+                                        {{ old('is_featured', $gallery->is_featured) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="is_featured">Is featured?</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Section -->
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5>Publish</h5>
+                                <button type="submit" class="btn btn-primary w-100 mb-2">Save</button>
+                                <a href="{{ route('galleries.index') }}" class="btn btn-secondary w-100">Cancel</a>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <label for="status" class="form-label">Status *</label>
+                                <select class="form-select" id="status" name="status" required>
+                                    <option value="active"
+                                        {{ old('status', $gallery->status) == 'active' ? 'selected' : '' }}>Published
+                                    </option>
+                                    <option value="inactive"
+                                        {{ old('status', $gallery->status) == 'inactive' ? 'selected' : '' }}>Draft</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Images Section -->
+                    <div class="col-md-8">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <h5 class="mt-4">Gallery Images</h5>
+                                <button type="button" class="btn btn-secondary mb-3" onclick="openFileManager()">Select
+                                    Images</button>
+                                <button type="button" class="btn btn-danger mb-3" onclick="resetGallery()">Reset
+                                    Gallery</button>
+
+                                <div id="imagePreviewContainer" class="d-flex gap-2 flex-wrap">
+                                    @foreach ($gallery->metas as $index => $meta)
+                                        <div class="image-container">
+                                            <input type="hidden" name="gallery_images[{{ $index }}][image]"
+                                                value="{{ $meta->image }}">
+                                            <input type="hidden" name="gallery_images[{{ $index }}][description]"
+                                                value="{{ $meta->description }}">
+                                            <img src="{{ asset($meta->image) }}" alt="Gallery Image {{ $index + 1 }}"
+                                                class="img-thumbnail" onclick="openDescriptionModal(this)">
+                                            <span class="edit-icon"><i class="fa fa-edit"></i></span>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal untuk menambah atau memperbarui deskripsi gambar -->
+    <div class="modal fade" id="descriptionModal" tabindex="-1" aria-labelledby="descriptionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="descriptionModalLabel">Update Photo's Description</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="imagePath" />
+                    <input type="text" class="form-control" id="imageDescription"
+                        placeholder="Photo's description..." />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" onclick="deleteSelectedImage()">Delete this
+                        photo</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="updateDescription()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@push('css')
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-container img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-container:hover .edit-icon {
+            display: block;
+        }
+
+        .edit-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        let selectedImageContainer;
+
+        // Fungsi untuk membuka modal deskripsi gambar
+        function openDescriptionModal(img) {
+            selectedImageContainer = img.closest('.image-container');
+            const selectedDescriptionInput = selectedImageContainer.querySelector('input[name$="[description]"]');
+            document.getElementById("imageDescription").value = selectedDescriptionInput.value || "";
+
+            const modal = new bootstrap.Modal(document.getElementById('descriptionModal'));
+            modal.show();
+        }
+
+        // Fungsi untuk memperbarui deskripsi gambar
+        function updateDescription() {
+            const description = document.getElementById("imageDescription").value;
+            const selectedDescriptionInput = selectedImageContainer.querySelector('input[name$="[description]"]');
+            selectedDescriptionInput.value = description;
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById("descriptionModal"));
+            modal.hide();
+        }
+
+        // Fungsi untuk menghapus gambar yang dipilih
+        function deleteSelectedImage() {
+            selectedImageContainer.remove();
+            const modal = bootstrap.Modal.getInstance(document.getElementById("descriptionModal"));
+            modal.hide();
+        }
+
+        // Fungsi untuk membuka file manager
+        function openFileManager() {
+            const route_prefix = "{{ url('cms-unkhair-filemanager') }}";
+            window.open(route_prefix + "?type=file", "FileManager", "width=800,height=600");
+        }
+
+        window.SetUrl = function(items) {
+            const imageContainer = document.getElementById('imagePreviewContainer');
+            let imageCount = imageContainer.children.length;
+
+            items.forEach((item) => {
+                let file_url = item.url;
+
+                // Cek apakah gambar sudah ada di dalam form
+                const existingImages = Array.from(imageContainer.children).map(child => child.querySelector(
+                    'input[name$="[image]"]').value);
+                if (existingImages.includes(file_url)) {
+                    return; // Jika gambar sudah ada, lewati
+                }
+
+                // Membuat elemen gambar baru
+                let imgContainer = document.createElement("div");
+                imgContainer.classList.add("image-container");
+
+                let inputImage = document.createElement('input');
+                inputImage.type = 'hidden';
+                inputImage.name = `gallery_images[${imageCount}][image]`;
+                inputImage.value = file_url;
+                imgContainer.appendChild(inputImage);
+
+                let inputDesc = document.createElement('input');
+                inputDesc.type = 'hidden';
+                inputDesc.name = `gallery_images[${imageCount}][description]`;
+                inputDesc.value = '';
+                imgContainer.appendChild(inputDesc);
+
+                let img = document.createElement("img");
+                img.src = file_url;
+                img.classList.add("img-thumbnail");
+
+                imgContainer.onclick = () => openDescriptionModal(img);
+
+                let editIcon = document.createElement("span");
+                editIcon.classList.add("edit-icon");
+                editIcon.innerHTML = '<i class="fa fa-edit"></i>';
+
+                imgContainer.appendChild(img);
+                imgContainer.appendChild(editIcon);
+                imageContainer.appendChild(imgContainer);
+
+                imageCount++;
+            });
+        };
+
+        // Fungsi untuk mereset galeri (menghapus semua gambar)
+        function resetGallery() {
+            document.getElementById('imagePreviewContainer').innerHTML = '';
+        }
+    </script>
+@endpush

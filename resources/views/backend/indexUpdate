@@ -1,0 +1,226 @@
+@extends('backend.layouts.main', ['title' => 'Dashboard']) @section('body')
+<div class="container">
+    <div class="page-inner">
+        <div
+            class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
+        >
+            <div>
+                <h3 class="fw-bold mb-3 fs-3">Dashboard</h3>
+                <h6 class="op-7 mb-2">Welcome Back {{ Auth::user()->name }}</h6>
+            </div>
+            <div class="ms-md-auto py-2 py-md-0">
+                {{--
+                <a href="#" class="btn btn-label-info btn-round me-2">Manage</a>
+                --}} {{--
+                <a href="#" class="btn btn-primary btn-round"
+                    ><i class="fa fa-plus"></i> Tambah User</a
+                >
+                --}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div
+                                    class="icon-big text-center icon-primary bubble-shadow-small"
+                                >
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Pages</p>
+                                    <h4 class="card-title">
+                                        {{ $totalPages }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div
+                                    class="icon-big text-center icon-info bubble-shadow-small"
+                                >
+                                    <i class="fas fa-pencil-alt"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Posts</p>
+                                    <h4 class="card-title">
+                                        {{ $totalPosts }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div
+                                    class="icon-big text-center icon-success bubble-shadow-small"
+                                >
+                                    <i class="fas fa-images"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Galleries</p>
+                                    <h4 class="card-title">
+                                        {{ $totalGalleries }}
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div
+                                    class="icon-big text-center icon-secondary bubble-shadow-small"
+                                >
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Themes</p>
+                                    <h4 class="card-title">{{ $themes }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card card-round">
+                <div class="card-header">
+                    <div class="card-head-row">
+                        <div class="card-title">Visitors Statistics</div>
+                        <div class="card-tools">
+                            <a
+                                href="#"
+                                class="btn btn-label-success btn-round btn-sm me-2"
+                            >
+                                <span class="btn-label">
+                                    <i class="fa fa-pencil"></i>
+                                </span>
+                                Export
+                            </a>
+                            <a
+                                href="#"
+                                class="btn btn-label-info btn-round btn-sm"
+                            >
+                                <span class="btn-label">
+                                    <i class="fa fa-print"></i>
+                                </span>
+                                Print
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container" style="min-height: 375px">
+                        <canvas id="statisticsChart"></canvas>
+                    </div>
+                    <div id="myChartLegend"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Include Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            // Dummy data for the chart from January to December
+            const labels = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December",
+            ];
+            const data = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "User Registrations",
+                        data: [
+                            50, 60, 70, 90, 100, 120, 130, 150, 160, 180, 190,
+                            210,
+                        ], // Example values for each month
+                        backgroundColor: "rgba(75, 192, 192, 0.2)", // Light green fill
+                        borderColor: "rgba(75, 192, 192, 1)", // Green border
+                        borderWidth: 1,
+                    },
+                ],
+            };
+
+            // Chart configuration options
+            const config = {
+                type: "line", // Specify line chart
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: "top",
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return tooltipItem.raw + " users"; // Format tooltip value
+                                },
+                            },
+                        },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true, // Start Y-axis at zero
+                            ticks: {
+                                stepSize: 20, // Control the spacing between ticks
+                            },
+                        },
+                    },
+                },
+            };
+
+            // Create the chart
+            const statisticsChart = new Chart(
+                document.getElementById("statisticsChart"),
+                config
+            );
+        </script>
+    </div>
+    @endsection
+</div>

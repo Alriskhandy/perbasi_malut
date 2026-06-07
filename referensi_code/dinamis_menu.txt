@@ -1,0 +1,129 @@
+https://github.com/efectn/laravel-menu-builder
+
+@foreach($menus as $menu)
+                <li>
+                    <a href="{{ $menu->url }}">{{ $menu->title }}</a>
+
+                    <!-- Cek apakah ada sub-menu -->
+                    @if($menu->children->count() > 0)
+                        <ul>
+                            @foreach($menu->children as $child)
+                                <li><a href="{{ $child->url }}">{{ $child->title }}</a></li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </li>
+            @endforeach
+
+///
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Dinamis</title>
+    <style>
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        ul ul {
+            padding-left: 20px;
+        }
+
+        .ui-state-highlight {
+            height: 2em;
+            line-height: 1.2em;
+            background-color: #ffd;
+            border: 1px dashed #ccc;
+        }
+    </style>
+    <!-- Load jQuery UI untuk fitur drag-and-drop -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+    <h1>Daftar Menu</h1>
+
+    <!-- Tampilkan pesan sukses jika ada -->
+    @if(session('success'))
+        <div>{{ session('success') }}</div>
+    @endif
+
+    <!-- Daftar menu dan sub-menu -->
+    <ul id="menu-list">
+        @foreach($menus as $menu)
+            <li data-id="{{ $menu->id }}">
+                <a href="{{ $menu->url }}">{{ $menu->title }}</a>
+
+                <!-- Edit dan Hapus Menu -->
+                <a href="{{ route('menu.edit', $menu->id) }}">Edit</a>
+                <form action="{{ route('menu.destroy', $menu->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Hapus</button>
+                </form>
+
+                <!-- Tampilkan sub-menu jika ada -->
+                @if($menu->children->count() > 0)
+                    @include('menu.submenu', ['children' => $menu->children])
+                @endif
+            </li>
+        @endforeach
+    </ul>
+
+    <h2>Tambah Menu</h2>
+    <!-- Form Tambah Menu -->
+    <form action="{{ route('menu.store') }}" method="POST">
+        @csrf
+        <label for="title">Nama Menu:</label>
+        <input type="text" name="title" required>
+        <br>
+
+        <label for="url">URL:</label>
+        <input type="text" name="url" required>
+        <br>
+
+        <label for="parent_id">Sub Menu dari:</label>
+        <select name="parent_id">
+            <option value="">--Menu Utama--</option>
+            @foreach($allMenus as $parent)
+                <option value="{{ $parent->id }}">{{ $parent->title }}</option>
+            @endforeach
+        </select>
+        <br>
+
+        <button type="submit">Tambah</button>
+    </form>
+
+    <script>
+        // Aktifkan drag-and-drop untuk menu
+        $(document).ready(function() {
+            $("#menu-list").sortable({
+                placeholder: "ui-state-highlight",
+                update: function(event, ui) {
+                    var menuOrder = $(this).sortable('toArray', { attribute: 'data-id' });
+                    $.ajax({
+                        url: "{{ route('menu.reorder') }}",
+                        method: "POST",
+                        data: {
+                            order: menuOrder,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(response) {
+                            alert(response.message);
+                        }
+                    });
+                }
+            });
+            $("#menu-list").disableSelection();
+        });
+    </script>
+</body>
+</html>
