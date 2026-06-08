@@ -30,6 +30,10 @@ Route::get('/gallery/{slug}', [GalleriesController::class, 'detail'])->name('gal
 Route::get('pages/{slug}', [FrontEndController::class, 'showPage'])->name('pages.show');
 
 
+// Route for DPD
+Route::get('/dpd', [FrontEndController::class, 'dpd'])->name('dpd.index')->middleware('throttle:60,1');
+Route::get('/dpd/{slug}', [FrontEndController::class, 'dpdDetail'])->name('dpd.detail')->where('slug', '[a-z0-9-]+');
+
 // Route for Athletes
 Route::get('/atlet', [FrontEndController::class, 'athletes'])->name('athletes.index')->middleware('throttle:60,1');
 Route::get('/atlet/{hash}', [FrontEndController::class, 'athleteDetail'])->name('athletes.detail')->where('hash', '[a-zA-Z0-9]+');

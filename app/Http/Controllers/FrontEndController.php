@@ -154,6 +154,40 @@ class FrontEndController extends Controller
         return view($theme . '.detail_athlete', compact('player', 'relatedPlayers'));
     }
 
+    public function dpd(Request $request)
+    {
+        $theme    = Theme::where('active', true)->first()->path;
+        $search   = $request->input('search', '');
+        $safeLike = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
+
+        $query = District::withCount(['teams', 'referees', 'players', 'coaches']);
+        if ($safeLike !== '') {
+            $query->where(function ($q) use ($safeLike) {
+                $q->where('name', 'like', '%' . $safeLike . '%')
+                  ->orWhere('district_name', 'like', '%' . $safeLike . '%');
+            });
+        }
+
+        $districts = $query->orderBy('name')->get();
+        return view($theme . '.dpd', compact('districts', 'search'));
+    }
+
+    public function dpdDetail(string $slug)
+    {
+        $theme    = Theme::where('active', true)->first()->path;
+        $district = District::withCount(['teams', 'referees', 'players', 'coaches'])
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $teams = Team::where('district_id', $district->id)
+            ->where('status', 'aktif')
+            ->withCount(['players' => fn ($q) => $q->where('status', 'active')])
+            ->orderBy('name')
+            ->get();
+
+        return view($theme . '.detail_dpd', compact('district', 'teams'));
+    }
+
     public function coaches(Request $request)
     {
         $theme      = Theme::where('active', true)->first()->path;

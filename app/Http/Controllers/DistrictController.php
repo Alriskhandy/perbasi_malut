@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\District;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class DistrictController extends Controller
 {
@@ -23,6 +22,7 @@ class DistrictController extends Controller
     {
         $request->validate([
             'name'          => 'required|string|max:255',
+            'slug'          => 'nullable|string|max:255|unique:districts,slug|regex:/^[a-z0-9-]+$/',
             'district_name' => 'nullable|string|max:255',
             'pic'           => 'nullable|string|max:255',
             'pic_position'  => 'nullable|string|max:255',
@@ -34,9 +34,8 @@ class DistrictController extends Controller
         ]);
 
         try {
-            District::create([
+            $data = [
                 'name'          => $request->name,
-                'slug'          => Str::slug($request->name),
                 'district_name' => $request->district_name,
                 'pic'           => $request->pic,
                 'pic_position'  => $request->pic_position,
@@ -45,7 +44,11 @@ class DistrictController extends Controller
                 'address'       => $request->address,
                 'web_url'       => $request->web_url,
                 'img_path'      => $request->img_path,
-            ]);
+            ];
+            if ($request->filled('slug')) {
+                $data['slug'] = $request->slug;
+            }
+            District::create($data);
 
             notify()->success('Distrik berhasil ditambahkan!');
             return redirect()->route('districts.index');
@@ -67,6 +70,7 @@ class DistrictController extends Controller
 
         $request->validate([
             'name'          => 'required|string|max:255',
+            'slug'          => 'nullable|string|max:255|unique:districts,slug,' . $id . '|regex:/^[a-z0-9-]+$/',
             'district_name' => 'nullable|string|max:255',
             'pic'           => 'nullable|string|max:255',
             'pic_position'  => 'nullable|string|max:255',
@@ -78,9 +82,8 @@ class DistrictController extends Controller
         ]);
 
         try {
-            $district->update([
+            $data = [
                 'name'          => $request->name,
-                'slug'          => Str::slug($request->name),
                 'district_name' => $request->district_name,
                 'pic'           => $request->pic,
                 'pic_position'  => $request->pic_position,
@@ -89,7 +92,11 @@ class DistrictController extends Controller
                 'address'       => $request->address,
                 'web_url'       => $request->web_url,
                 'img_path'      => $request->img_path,
-            ]);
+            ];
+            if ($request->filled('slug')) {
+                $data['slug'] = $request->slug;
+            }
+            $district->update($data);
 
             notify()->success('Distrik berhasil diperbarui!');
             return redirect()->route('districts.index');

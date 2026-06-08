@@ -24,6 +24,26 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label class="form-label">
+                                        Slug URL
+                                        <small class="text-muted">(digunakan di URL publik /dpd/{slug})</small>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text text-muted">/dpd/</span>
+                                        <input type="text" name="slug"
+                                            class="form-control @error('slug') is-invalid @enderror"
+                                            value="{{ old('slug', $district->slug) }}"
+                                            pattern="[a-z0-9-]+"
+                                            title="Hanya huruf kecil, angka, dan tanda hubung">
+                                    </div>
+                                    @error('slug') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                                    <div class="form-text text-warning">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        Mengubah slug akan memutus tautan lama ke halaman DPD ini.
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
                                     <label class="form-label">Kabupaten / Kota</label>
                                     <select name="district_name" class="form-select @error('district_name') is-invalid @enderror">
                                         <option value="">-- Pilih Kabupaten / Kota --</option>

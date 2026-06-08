@@ -25,6 +25,7 @@
                                             <th>#</th>
                                             <th>Logo</th>
                                             <th>Nama</th>
+                                            <th>Slug</th>
                                             <th>PIC</th>
                                             <th>Kontak</th>
                                             <th>Tim</th>
@@ -48,6 +49,13 @@
                                                     <strong>{{ $district->name }}</strong>
                                                     @if ($district->district_name)
                                                         <br><small class="text-muted">{{ $district->district_name }}</small>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($district->slug)
+                                                        <code class="text-muted small">{{ $district->slug }}</code>
+                                                    @else
+                                                        <span class="badge badge-warning">belum ada</span>
                                                     @endif
                                                 </td>
                                                 <td>
