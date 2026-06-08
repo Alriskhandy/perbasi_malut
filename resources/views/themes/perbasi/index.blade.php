@@ -81,8 +81,8 @@
                     <div>
                         <h2
                             class="font-headline-lg text-headline-lg text-charcoal uppercase leading-tight tracking-tight">
-                            Galeri <span class="text-crimson-red">Media</span></h2>
-                        <p class="text-secondary font-body-md mt-2">Momen-momen terbaik dari setiap kompetisi.</p>
+                            Galeri <span class="text-crimson-red">Foto</span></h2>
+                        <p class="text-secondary font-body-md mt-2">Momen Berharga, Semangat Kompetisi dan Dedikasi Pengembangan Basket di Maluku Utara.</p>
                     </div>
                     <a class="text-crimson-red font-label-bold flex items-center gap-1 hover:underline"
                         href="{{ route('galleries.front') }}">LIHAT SEMUA <span

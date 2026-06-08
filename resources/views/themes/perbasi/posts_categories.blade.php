@@ -23,10 +23,6 @@
                     BERITA <span class="text-crimson-red">TERBARU</span>
                 @endif
             </h1>
-            <p class="font-body-lg text-body-lg text-secondary max-w-2xl">
-                Tetap terhubung dengan perkembangan terbaru bola basket di Maluku Utara. Mulai dari hasil
-                pertandingan, agenda organisasi, hingga prestasi atlet lokal.
-            </p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
