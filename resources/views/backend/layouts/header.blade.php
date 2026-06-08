@@ -3,7 +3,7 @@
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
             <a href="{{ route('dashboard') }}" class="logo">
-                <img src="{{ asset('backend/assets/img/logo-unkhair.png') }}" alt="navbar brand" class="navbar-brand"
+                <img src="{{ asset('backend/favicon/favicon.ico') }}" alt="navbar brand" class="navbar-brand"
                     height="20" />
             </a>
             <div class="nav-toggle">

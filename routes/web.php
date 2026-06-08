@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/search-menu', [SearchController::class, 'searchMenu'])->name('search-menu')->middleware('auth');
 
 Route::get('/', [FrontEndController::class, 'index']);
-Route::get('/search', [SearchController::class, 'searchPosts'])->name('search');
+Route::get('/search', [SearchController::class, 'searchPosts'])->name('search')->middleware('throttle:30,1');
 
 // Daftarkan rute-rute Laravel File Manager secara terpisah
 Route::group(['prefix' => 'cms-unkhair-filemanager', 'middleware' => ['web', 'auth']], function () {

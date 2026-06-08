@@ -6,6 +6,12 @@ use App\Models\Categories;
 use App\Models\Comments;
 use App\Models\Page;
 use App\Models\Posts;
+use App\Models\Galleries;
+use App\Models\District;
+use App\Models\Team;
+use App\Models\Coach;
+use App\Models\Player;
+use App\Models\Referee;
 use Illuminate\Http\Request;
 use App\Models\Theme;
 class FrontEndController extends Controller
@@ -18,14 +24,8 @@ class FrontEndController extends Controller
         // Ambil berita utama
         $beritaUtama = Posts::where('is_featured', 1)->latest()->get();
 
-        // Ambil pengumuman
-        $pengumumanPosts = Posts::whereHas('category', function ($query) {
-            $query->where('name', 'Pengumuman');
-        })->latest()->get();
-
         // Ambil ID dari post yang sudah digunakan
         $excludedIds = $beritaUtama->pluck('id')
-            ->merge($pengumumanPosts->pluck('id'))
             ->unique()
             ->toArray();
 
@@ -35,7 +35,16 @@ class FrontEndController extends Controller
             ->latest()
             ->get();
 
-        return view($theme . '.index', compact('beritaUtama', 'pengumumanPosts', 'posts'));
+        // Ambil Galleri
+        $galleries = Galleries::all();
+
+        // Statistik klub, pelatih, atlet, wasit
+        $klubCount = Team::count();
+        $pelatihCount = Coach::count();
+        $atletCount = Player::count();
+        $wasitCount = Referee::count();
+
+        return view($theme . '.index', compact('beritaUtama', 'posts', 'galleries', 'klubCount', 'pelatihCount', 'atletCount', 'wasitCount'));
     }
 
     public function showPage($slug)

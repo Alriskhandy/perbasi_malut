@@ -11,7 +11,7 @@ class SearchController extends Controller
 {
     public function searchMenu(Request $request)
     {
-        $query = $request->input('q');
+        $query = strip_tags(trim($request->input('q', '')));
 
         // data for menu items
         $menuItems = [
@@ -53,17 +53,24 @@ class SearchController extends Controller
     }
     public function searchPosts(Request $request)
     {
+        $request->validate([
+            'q' => ['nullable', 'string', 'max:100'],
+        ]);
+
         $theme = Theme::where('active', true)->first()->path;
-        $query = $request->input('q');
-        
-        if($query) {
-            $posts = Posts::where('title', 'LIKE', "%{$query}%")
-                        ->orWhere('content', 'LIKE', "%{$query}%")
-                        ->paginate(10);
-                        
-            $pages = Page::where('title', 'LIKE', "%{$query}%")
-                        ->orWhere('content', 'LIKE', "%{$query}%")
-                        ->paginate(10);
+
+        $query = strip_tags(trim($request->input('q', '')));
+
+        if ($query !== '') {
+            $posts = Posts::where('title', 'LIKE', '%' . $query . '%')
+                ->orWhere('content', 'LIKE', '%' . $query . '%')
+                ->paginate(10)
+                ->withQueryString();
+
+            $pages = Page::where('title', 'LIKE', '%' . $query . '%')
+                ->orWhere('content', 'LIKE', '%' . $query . '%')
+                ->paginate(10)
+                ->withQueryString();
         } else {
             $posts = collect([]);
             $pages = collect([]);
