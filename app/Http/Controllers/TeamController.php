@@ -24,6 +24,7 @@ class TeamController extends Controller
     {
         $request->validate([
             'name'        => 'required|string|max:255',
+            'slug'        => 'nullable|string|max:255|unique:teams,slug|regex:/^[a-z0-9-]+$/',
             'email'       => 'nullable|email|max:255',
             'contact'     => 'nullable|string|max:50',
             'address'     => 'nullable|string',
@@ -33,7 +34,11 @@ class TeamController extends Controller
         ]);
 
         try {
-            Team::create($request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']));
+            $data = $request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']);
+            if ($request->filled('slug')) {
+                $data['slug'] = $request->slug;
+            }
+            Team::create($data);
 
             notify()->success('Klub berhasil ditambahkan!');
             return redirect()->route('teams.index');
@@ -56,6 +61,7 @@ class TeamController extends Controller
 
         $request->validate([
             'name'        => 'required|string|max:255',
+            'slug'        => 'nullable|string|max:255|unique:teams,slug,' . $id . '|regex:/^[a-z0-9-]+$/',
             'email'       => 'nullable|email|max:255',
             'contact'     => 'nullable|string|max:50',
             'address'     => 'nullable|string',
@@ -65,7 +71,11 @@ class TeamController extends Controller
         ]);
 
         try {
-            $team->update($request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']));
+            $data = $request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']);
+            if ($request->filled('slug')) {
+                $data['slug'] = $request->slug;
+            }
+            $team->update($data);
 
             notify()->success('Klub berhasil diperbarui!');
             return redirect()->route('teams.index');

@@ -17,9 +17,26 @@
                             <div class="card-body">
                                 <div class="mb-3">
                                     <label class="form-label">Nama Klub *</label>
-                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                    <input type="text" name="name" id="teamName" class="form-control @error('name') is-invalid @enderror"
                                         value="{{ old('name') }}" required>
                                     @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        Slug URL
+                                        <small class="text-muted">(opsional — otomatis dari nama jika dikosongkan)</small>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text text-muted">/klub/</span>
+                                        <input type="text" name="slug" id="teamSlug"
+                                            class="form-control @error('slug') is-invalid @enderror"
+                                            value="{{ old('slug') }}"
+                                            placeholder="contoh: pancasila-junior"
+                                            pattern="[a-z0-9-]+"
+                                            title="Hanya huruf kecil, angka, dan tanda hubung">
+                                    </div>
+                                    @error('slug') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
                                 </div>
 
                                 <div class="mb-3">
@@ -111,5 +128,24 @@
                 preview.style.display = 'block';
             }
         };
+
+        // Auto-preview slug from name (only when slug field is empty)
+        const nameInput = document.getElementById('teamName');
+        const slugInput = document.getElementById('teamSlug');
+        let slugManuallyEdited = false;
+
+        slugInput.addEventListener('input', function () {
+            slugManuallyEdited = this.value.length > 0;
+        });
+
+        nameInput.addEventListener('input', function () {
+            if (!slugManuallyEdited) {
+                slugInput.placeholder = this.value
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .trim()
+                    .replace(/\s+/g, '-');
+            }
+        });
     </script>
 @endpush

@@ -114,7 +114,7 @@
                     </a>
                     <span class="material-symbols-outlined text-[14px] text-surface-variant/50">chevron_right</span>
                     @if ($player->team)
-                        <a href="{{ route('clubs.detail', $player->team->id) }}"
+                        <a href="{{ route('clubs.detail', $player->team->slug) }}"
                             class="text-surface-variant hover:text-crimson-red transition-colors truncate max-w-[120px]">
                             {{ $player->team->name }}
                         </a>
@@ -179,7 +179,7 @@
                     <!-- Info -->
                     <div class="flex-1 text-center md:text-left">
                         @if ($player->team)
-                            <a href="{{ route('clubs.detail', $player->team->id) }}"
+                            <a href="{{ route('clubs.detail', $player->team->slug) }}"
                                 class="inline-flex items-center gap-1.5 font-label-bold text-crimson-red uppercase tracking-widest text-xs mb-3 hover:underline anim-fade-up anim-delay-1">
                                 <span class="material-symbols-outlined text-[14px]">groups</span>
                                 {{ $player->team->name }}
@@ -280,7 +280,7 @@
                         @if ($player->team)
                             <div class="flex items-center px-6 py-4">
                                 <span class="w-36 font-label-bold text-secondary text-xs uppercase tracking-wider shrink-0">Klub</span>
-                                <a href="{{ route('clubs.detail', $player->team->id) }}"
+                                <a href="{{ route('clubs.detail', $player->team->slug) }}"
                                     class="font-body-md text-crimson-red hover:underline flex items-center gap-1.5">
                                     <span class="material-symbols-outlined text-[16px]">groups</span>
                                     {{ $player->team->name }}
@@ -303,7 +303,7 @@
                             Semua Atlet
                         </a>
                         @if ($player->team)
-                            <a href="{{ route('clubs.detail', $player->team->id) }}"
+                            <a href="{{ route('clubs.detail', $player->team->slug) }}"
                                 class="inline-flex items-center gap-2 bg-crimson-red text-off-white font-label-bold px-5 py-2.5 rounded hover:bg-primary-container transition-colors text-sm">
                                 <span class="material-symbols-outlined text-[16px]">groups</span>
                                 Lihat Profil Klub
@@ -320,7 +320,7 @@
                                 Atlet Lainnya
                             </h2>
                             @if ($player->team)
-                                <a href="{{ route('clubs.detail', $player->team->id) }}"
+                                <a href="{{ route('clubs.detail', $player->team->slug) }}"
                                     class="font-label-bold text-xs text-crimson-red hover:underline uppercase tracking-widest flex items-center gap-0.5 shrink-0">
                                     Lihat Semua
                                     <span class="material-symbols-outlined text-[14px]">chevron_right</span>
@@ -335,7 +335,7 @@
 
                         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                             @foreach ($relatedPlayers as $related)
-                                <a href="{{ route('athletes.detail', $related->id) }}"
+                                <a href="{{ route('athletes.detail', \App\Helpers\Hashid::encode($related->id)) }}"
                                     class="group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col
                                            transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
                                     <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">

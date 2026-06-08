@@ -165,7 +165,7 @@
                 <!-- Grid -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
                     @foreach ($teams as $team)
-                        <a href="{{ route('clubs.detail', $team->id) }}"
+                        <a href="{{ route('clubs.detail', $team->slug) }}"
                             class="club-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col">
 
                             <!-- Logo 1:1 -->

@@ -32,11 +32,11 @@ Route::get('pages/{slug}', [FrontEndController::class, 'showPage'])->name('pages
 
 // Route for Athletes
 Route::get('/atlet', [FrontEndController::class, 'athletes'])->name('athletes.index')->middleware('throttle:60,1');
-Route::get('/atlet/{id}', [FrontEndController::class, 'athleteDetail'])->name('athletes.detail')->where('id', '[0-9]+');
+Route::get('/atlet/{hash}', [FrontEndController::class, 'athleteDetail'])->name('athletes.detail')->where('hash', '[a-zA-Z0-9]+');
 
 // Route for Clubs
 Route::get('/klub', [FrontEndController::class, 'clubs'])->name('clubs.index')->middleware('throttle:60,1');
-Route::get('/klub/{id}', [FrontEndController::class, 'clubDetail'])->name('clubs.detail')->where('id', '[0-9]+');
+Route::get('/klub/{slug}', [FrontEndController::class, 'clubDetail'])->name('clubs.detail')->where('slug', '[a-z0-9-]+');
 
 // Route for Coaches, Officials, Referees
 Route::get('/pelatih', [FrontEndController::class, 'coaches'])->name('coaches.front')->middleware('throttle:60,1');

@@ -170,7 +170,7 @@
             @else
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
                     @foreach ($players as $player)
-                        <a href="{{ route('athletes.detail', $player->id) }}"
+                        <a href="{{ route('athletes.detail', \App\Helpers\Hashid::encode($player->id)) }}"
                             class="athlete-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col">
 
                             <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">

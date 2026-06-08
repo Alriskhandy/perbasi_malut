@@ -214,7 +214,7 @@
                 @else
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
                         @foreach ($activePlayers as $player)
-                            <a href="{{ route('athletes.detail', $player->id) }}"
+                            <a href="{{ route('athletes.detail', \App\Helpers\Hashid::encode($player->id)) }}"
                                 class="person-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden">
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
                                     @if ($player->img_path)

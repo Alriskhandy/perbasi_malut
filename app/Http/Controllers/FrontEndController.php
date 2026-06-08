@@ -7,6 +7,7 @@ use App\Models\Comments;
 use App\Models\Page;
 use App\Models\Posts;
 use App\Models\Galleries;
+use App\Helpers\Hashid;
 use App\Models\District;
 use App\Models\Team;
 use App\Models\Coach;
@@ -133,8 +134,9 @@ class FrontEndController extends Controller
         return view($theme . '.athletes', compact('players', 'teams', 'districts', 'search', 'teamId', 'districtId', 'gender'));
     }
 
-    public function athleteDetail($id)
+    public function athleteDetail(string $hash)
     {
+        $id     = Hashid::decode($hash) ?? abort(404);
         $theme  = Theme::where('active', true)->first()->path;
         $player = Player::with('team.district')->where('status', 'active')->findOrFail($id);
 
@@ -223,13 +225,14 @@ class FrontEndController extends Controller
         return view($theme . '.clubs', compact('teams', 'districts', 'search', 'districtId'));
     }
 
-    public function clubDetail($id)
+    public function clubDetail(string $slug)
     {
         $theme = Theme::where('active', true)->first()->path;
 
         $team = Team::with('district')
             ->where('status', 'aktif')
-            ->findOrFail($id);
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         $activePlayers = $team->players()->where('status', 'active')->get();
         $activeCoaches = $team->coaches()->where('status', 'active')->get();

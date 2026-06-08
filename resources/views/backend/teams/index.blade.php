@@ -28,6 +28,7 @@
                                             <th>#</th>
                                             <th>Logo</th>
                                             <th>Nama Klub</th>
+                                            <th>Slug</th>
                                             <th>DPD</th>
                                             <th>Kontak</th>
                                             <th>Status</th>
@@ -47,6 +48,13 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $team->name }}</td>
+                                                <td>
+                                                    @if ($team->slug)
+                                                        <code class="text-muted small">{{ $team->slug }}</code>
+                                                    @else
+                                                        <span class="badge badge-warning">belum ada</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $team->district->name ?? '-' }}</td>
                                                 <td>{{ $team->contact ?? '-' }}</td>
                                                 <td>

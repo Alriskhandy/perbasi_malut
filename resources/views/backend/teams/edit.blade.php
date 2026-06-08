@@ -24,6 +24,26 @@
                                 </div>
 
                                 <div class="mb-3">
+                                    <label class="form-label">
+                                        Slug URL
+                                        <small class="text-muted">(digunakan di URL publik /klub/{slug})</small>
+                                    </label>
+                                    <div class="input-group">
+                                        <span class="input-group-text text-muted">/klub/</span>
+                                        <input type="text" name="slug"
+                                            class="form-control @error('slug') is-invalid @enderror"
+                                            value="{{ old('slug', $team->slug) }}"
+                                            pattern="[a-z0-9-]+"
+                                            title="Hanya huruf kecil, angka, dan tanda hubung">
+                                    </div>
+                                    @error('slug') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
+                                    <div class="form-text text-warning">
+                                        <i class="fa fa-exclamation-triangle"></i>
+                                        Mengubah slug akan memutus tautan lama ke halaman klub ini.
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
                                     <label class="form-label">DPD *</label>
                                     <select name="district_id" class="form-select @error('district_id') is-invalid @enderror" required>
                                         <option value="">-- Pilih DPD --</option>
