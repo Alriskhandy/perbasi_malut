@@ -7,8 +7,11 @@
                 <div class="page-header">
                     <h3 class="fw-bold mb-3 fs-3">Semua Klub</h3>
                 </div>
-                <div class="ms-md-auto py-2 py-md-0">
-                    <a href="{{ route('teams.create') }}" class="btn btn-label-info btn-round me-2">
+                <div class="ms-md-auto py-2 py-md-0 d-flex flex-wrap gap-2">
+                    <a href="{{ route('teams.import.template') }}" class="btn btn-outline-secondary btn-round">
+                        <i class="fa fa-download"></i> Download Template Import
+                    </a>
+                    <a href="{{ route('teams.create') }}" class="btn btn-label-info btn-round">
                         <i class="fa fa-plus"></i> Tambah Klub
                     </a>
                 </div>
@@ -55,12 +58,16 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{ route('teams.edit', $team->id) }}"
-                                                        class="btn btn-warning btn-sm">
+                                                        class="btn btn-warning btn-sm" title="Edit">
                                                         <i class="fa fa-edit"></i>
+                                                    </a>
+                                                    <a href="{{ route('teams.import.form', $team->id) }}"
+                                                        class="btn btn-info btn-sm" title="Import Data Excel" tooltip="Import Data Excel">
+                                                        <i class="fa fa-download"></i>
                                                     </a>
                                                     <form id="delete-form-{{ $team->id }}"
                                                         action="{{ route('teams.destroy', $team->id) }}"
-                                                        method="POST" style="display:inline;">
+                                                        method="POST" style="display:inline;" tooltip="Hapus Klub" title="Hapus">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-danger btn-sm"

@@ -20,6 +20,7 @@ use App\Http\Controllers\CoachController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\OfficialController;
 use App\Http\Controllers\RefereeController;
+use App\Http\Controllers\TeamImportController;
 
 
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
@@ -77,6 +78,9 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     // districts
     Route::resource('districts', DistrictController::class)->except(['show']);
     // teams
+    Route::get('teams/import/template', [TeamImportController::class, 'downloadTemplate'])->name('teams.import.template');
+    Route::get('teams/{id}/import', [TeamImportController::class, 'importForm'])->name('teams.import.form');
+    Route::post('teams/{id}/import', [TeamImportController::class, 'import'])->name('teams.import');
     Route::resource('teams', TeamController::class)->except(['show']);
     // coaches
     Route::resource('coaches', CoachController::class)->except(['show']);
