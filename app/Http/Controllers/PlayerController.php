@@ -8,10 +8,37 @@ use Illuminate\Http\Request;
 
 class PlayerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $players = Player::with('team')->latest()->get();
-        return view('backend.players.index', compact('players'));
+        $query = Player::with('team')->latest();
+
+        if ($request->filled('team_id')) $query->where('team_id', $request->team_id);
+        if ($request->filled('gender'))  $query->where('gender', $request->gender);
+        if ($request->filled('status'))  $query->where('status', $request->status);
+
+        $players = $query->get();
+        $teams   = Team::orderBy('name')->get();
+        return view('backend.players.index', compact('players', 'teams'));
+    }
+
+    public function bulkAction(Request $request)
+    {
+        $ids = array_filter((array) $request->input('selected_ids', []));
+        if (empty($ids)) {
+            notify()->error('Tidak ada data yang dipilih.');
+            return redirect()->back()->withInput();
+        }
+
+        match ($request->action) {
+            'aktifkan'    => Player::whereIn('id', $ids)->update(['status' => 'active']),
+            'nonaktifkan' => Player::whereIn('id', $ids)->update(['status' => 'inactive']),
+            'hapus'       => Player::whereIn('id', $ids)->delete(),
+            default       => null,
+        };
+
+        $labels = ['aktifkan' => 'diaktifkan', 'nonaktifkan' => 'dinonaktifkan', 'hapus' => 'dihapus'];
+        notify()->success('Pemain berhasil ' . ($labels[$request->action] ?? 'diproses') . '.');
+        return redirect()->route('players.index');
     }
 
     public function create()

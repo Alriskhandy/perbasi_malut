@@ -8,10 +8,36 @@ use Illuminate\Http\Request;
 
 class CoachController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $coaches = Coach::with('team')->latest()->get();
-        return view('backend.coaches.index', compact('coaches'));
+        $query = Coach::with('team')->latest();
+
+        if ($request->filled('team_id')) $query->where('team_id', $request->team_id);
+        if ($request->filled('status'))  $query->where('status', $request->status);
+
+        $coaches = $query->get();
+        $teams   = Team::orderBy('name')->get();
+        return view('backend.coaches.index', compact('coaches', 'teams'));
+    }
+
+    public function bulkAction(Request $request)
+    {
+        $ids = array_filter((array) $request->input('selected_ids', []));
+        if (empty($ids)) {
+            notify()->error('Tidak ada data yang dipilih.');
+            return redirect()->back()->withInput();
+        }
+
+        match ($request->action) {
+            'aktifkan'    => Coach::whereIn('id', $ids)->update(['status' => 'active']),
+            'nonaktifkan' => Coach::whereIn('id', $ids)->update(['status' => 'inactive']),
+            'hapus'       => Coach::whereIn('id', $ids)->delete(),
+            default       => null,
+        };
+
+        $labels = ['aktifkan' => 'diaktifkan', 'nonaktifkan' => 'dinonaktifkan', 'hapus' => 'dihapus'];
+        notify()->success('Pelatih berhasil ' . ($labels[$request->action] ?? 'diproses') . '.');
+        return redirect()->route('coaches.index');
     }
 
     public function create()

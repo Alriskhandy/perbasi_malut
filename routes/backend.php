@@ -83,12 +83,16 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::post('teams/{id}/import', [TeamImportController::class, 'import'])->name('teams.import');
     Route::resource('teams', TeamController::class)->except(['show']);
     // coaches
+    Route::post('coaches/bulk', [CoachController::class, 'bulkAction'])->name('coaches.bulk_action');
     Route::resource('coaches', CoachController::class)->except(['show']);
     // players
+    Route::post('players/bulk', [PlayerController::class, 'bulkAction'])->name('players.bulk_action');
     Route::resource('players', PlayerController::class)->except(['show']);
     // officials
+    Route::post('officials/bulk', [OfficialController::class, 'bulkAction'])->name('officials.bulk_action');
     Route::resource('officials', OfficialController::class)->except(['show']);
     // referees
+    Route::post('referees/bulk', [RefereeController::class, 'bulkAction'])->name('referees.bulk_action');
     Route::resource('referees', RefereeController::class)->except(['show']);
     // Halaman Daftar Komentar
     Route::get('/comments', [CommentsController::class, 'index'])->name('comments.index');

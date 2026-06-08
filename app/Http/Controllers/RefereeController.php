@@ -8,10 +8,31 @@ use Illuminate\Http\Request;
 
 class RefereeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $referees = Referee::with('district')->latest()->get();
-        return view('backend.referees.index', compact('referees'));
+        $query = Referee::with('district')->latest();
+
+        if ($request->filled('district_id')) $query->where('district_id', $request->district_id);
+
+        $referees  = $query->get();
+        $districts = District::orderBy('name')->get();
+        return view('backend.referees.index', compact('referees', 'districts'));
+    }
+
+    public function bulkAction(Request $request)
+    {
+        $ids = array_filter((array) $request->input('selected_ids', []));
+        if (empty($ids)) {
+            notify()->error('Tidak ada data yang dipilih.');
+            return redirect()->back()->withInput();
+        }
+
+        if ($request->action === 'hapus') {
+            Referee::whereIn('id', $ids)->delete();
+            notify()->success('Wasit berhasil dihapus.');
+        }
+
+        return redirect()->route('referees.index');
     }
 
     public function create()

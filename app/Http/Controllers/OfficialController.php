@@ -8,10 +8,31 @@ use Illuminate\Http\Request;
 
 class OfficialController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $officials = Official::with('team')->latest()->get();
-        return view('backend.officials.index', compact('officials'));
+        $query = Official::with('team')->latest();
+
+        if ($request->filled('team_id')) $query->where('team_id', $request->team_id);
+
+        $officials = $query->get();
+        $teams     = Team::orderBy('name')->get();
+        return view('backend.officials.index', compact('officials', 'teams'));
+    }
+
+    public function bulkAction(Request $request)
+    {
+        $ids = array_filter((array) $request->input('selected_ids', []));
+        if (empty($ids)) {
+            notify()->error('Tidak ada data yang dipilih.');
+            return redirect()->back()->withInput();
+        }
+
+        if ($request->action === 'hapus') {
+            Official::whereIn('id', $ids)->delete();
+            notify()->success('Official berhasil dihapus.');
+        }
+
+        return redirect()->route('officials.index');
     }
 
     public function create()

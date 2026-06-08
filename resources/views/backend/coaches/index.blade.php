@@ -14,66 +14,106 @@
                 </div>
             </div>
 
+            <!-- Filter -->
+            <form method="GET" action="{{ route('coaches.index') }}" class="row g-2 mb-3">
+                <div class="col-md-3">
+                    <select name="team_id" class="form-select form-select-sm">
+                        <option value="">Semua Klub</option>
+                        @foreach ($teams as $team)
+                            <option value="{{ $team->id }}" {{ request('team_id') == $team->id ? 'selected' : '' }}>
+                                {{ $team->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="status" class="form-select form-select-sm">
+                        <option value="">Semua Status</option>
+                        <option value="active"   {{ request('status') === 'active'   ? 'selected' : '' }}>Aktif</option>
+                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
+                    </select>
+                </div>
+                <div class="col-auto d-flex gap-2">
+                    <button type="submit" class="btn btn-sm btn-primary">Filter</button>
+                    <a href="{{ route('coaches.index') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
+                </div>
+            </form>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="basic-datatables" class="display table table-striped table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Foto</th>
-                                            <th>Nama</th>
-                                            <th>Klub</th>
-                                            <th>Kontak</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($coaches as $coach)
+                            <form id="bulk-form" action="{{ route('coaches.bulk_action') }}" method="POST">
+                                @csrf
+                                <div class="d-flex mb-3 gap-2">
+                                    <select name="action" class="form-select" style="width:220px">
+                                        <option value="" disabled selected>Pilih Tindakan Bulk</option>
+                                        <option value="aktifkan">Aktifkan</option>
+                                        <option value="nonaktifkan">Nonaktifkan</option>
+                                        <option value="hapus">Hapus</option>
+                                    </select>
+                                    <button type="button" class="btn btn-primary btn-apply-bulk">Terapkan</button>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="basic-datatables" class="display table table-striped table-hover">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>
-                                                    @if ($coach->img_path)
-                                                        <img src="{{ $coach->img_path }}" alt="{{ $coach->name }}"
-                                                            style="max-height: 45px; object-fit: cover;">
-                                                    @else
-                                                        <span class="text-muted">-</span>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $coach->name }}</td>
-                                                <td>{{ $coach->team->name ?? '-' }}</td>
-                                                <td>{{ $coach->contact ?? '-' }}</td>
-                                                <td>
-                                                    @if ($coach->status === 'active')
-                                                        <span class="badge badge-success">Aktif</span>
-                                                    @else
-                                                        <span class="badge badge-danger">Tidak Aktif</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('coaches.edit', $coach->id) }}"
-                                                        class="btn btn-warning btn-sm">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    <form id="delete-form-{{ $coach->id }}"
-                                                        action="{{ route('coaches.destroy', $coach->id) }}"
-                                                        method="POST" style="display:inline;">
-                                                        @csrf
-                                                        @method('DELETE')
+                                                <th><input type="checkbox" class="select-all-cb"></th>
+                                                <th>Foto</th>
+                                                <th>Nama</th>
+                                                <th>Klub</th>
+                                                <th>Kontak</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($coaches as $coach)
+                                                <tr>
+                                                    <td><input type="checkbox" name="selected_ids[]" value="{{ $coach->id }}"></td>
+                                                    <td>
+                                                        @if ($coach->img_path)
+                                                            <img src="{{ $coach->img_path }}" alt="{{ $coach->name }}"
+                                                                style="max-height:45px;object-fit:cover;">
+                                                        @else
+                                                            <span class="text-muted">-</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>{{ $coach->name }}</td>
+                                                    <td>{{ $coach->team->name ?? '-' }}</td>
+                                                    <td>{{ $coach->contact ?? '-' }}</td>
+                                                    <td>
+                                                        @if ($coach->status === 'active')
+                                                            <span class="badge badge-success">Aktif</span>
+                                                        @else
+                                                            <span class="badge badge-danger">Tidak Aktif</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('coaches.edit', $coach->id) }}"
+                                                            class="btn btn-warning btn-sm">
+                                                            <i class="fa fa-edit"></i>
+                                                        </a>
                                                         <button type="button" class="btn btn-danger btn-sm"
                                                             onclick="confirmDelete({{ $coach->id }})">
                                                             <i class="fa fa-trash"></i>
                                                         </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+
+                            @foreach ($coaches as $coach)
+                                <form id="delete-form-{{ $coach->id }}"
+                                    action="{{ route('coaches.destroy', $coach->id) }}"
+                                    method="POST" style="display:none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -81,3 +121,7 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @include('backend.partials._bulk_scripts', ['formId' => 'bulk-form', 'entity' => 'Pelatih'])
+@endpush
