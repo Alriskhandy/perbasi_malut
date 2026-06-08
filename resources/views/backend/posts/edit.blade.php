@@ -258,7 +258,7 @@
         });
 
         function openFileManager() {
-            let route_prefix = "{{ url('cms-unkhair-filemanager') }}";
+            let route_prefix = "{{ url('files') }}";
             window.open(route_prefix + '?type=file', 'FileManager', 'width=800,height=600');
         }
 
@@ -290,7 +290,7 @@
                 console.log(meta.filetype);
 
                 if (meta.filetype === 'image') {
-                    let route_prefix = "{{ url('cms-unkhair-filemanager') }}";
+                    let route_prefix = "{{ url('files') }}";
                     window.open(route_prefix + '?type=file', 'FileManager', 'width=800,height=600');
                     window.SetUrl = function(items) {
                         let file_url = items[0].url;
@@ -300,7 +300,7 @@
                     };
                 }
                 if (meta.filetype === 'media') {
-                    let route_prefix = "{{ url('cms-unkhair-filemanager') }}";
+                    let route_prefix = "{{ url('files') }}";
                     window.open(route_prefix + '?type=file', 'FileManager', 'width=800,height=600');
                     window.SetUrl = function(items) {
                         let file_url = items[0].url;
@@ -310,7 +310,7 @@
                     };
                 }
                 if (meta.filetype === 'file') {
-                    let route_prefix = "{{ url('cms-unkhair-filemanager') }}";
+                    let route_prefix = "{{ url('files') }}";
                     window.open(route_prefix + '?type=file', 'FileManager', 'width=800,height=600');
                     window.SetUrl = function(items) {
                         // Memeriksa apakah ada file yang dipilih
@@ -346,7 +346,7 @@
         });
 
         function openFileManager() {
-            let route_prefix = "{{ url('cms-unkhair-filemanager') }}";
+            let route_prefix = "{{ url('files') }}";
             window.open(route_prefix + '?type=file', 'FileManager', 'width=800,height=600');
         }
 

@@ -41,7 +41,7 @@
             <div class="row">
                 {{-- Implementasi File Manager --}}
                 <div class="col-md-12">
-                    <iframe src="{{ url('cms-unkhair-filemanager?type=Files') }}"
+                    <iframe src="{{ url('files?type=Files') }}"
                         style="width: 100%; height: 80vh; border: none; overflow: hidden;">
                     </iframe>
                 </div>

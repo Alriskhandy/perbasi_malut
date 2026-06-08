@@ -108,7 +108,7 @@
             ],
             file_picker_callback: function(callback, value, meta) {
                 if (meta.filetype === 'image') {
-                    let route_prefix = "{{ url('cms-unkhair-filemanager') }}";
+                    let route_prefix = "{{ url('files') }}";
                     window.open(route_prefix + '?type=file', 'FileManager', 'width=800,height=600');
                     window.SetUrl = function(items) {
                         let file_url = items[0].url;

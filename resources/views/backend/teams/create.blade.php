@@ -116,7 +116,7 @@
 @push('scripts')
     <script>
         function openFileManager() {
-            const route_prefix = "{{ url('cms-unkhair-filemanager') }}";
+            const route_prefix = "{{ url('files') }}";
             window.open(route_prefix + "?type=file", "FileManager", "width=800,height=600");
         }
         window.SetUrl = function(items) {

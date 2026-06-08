@@ -133,47 +133,6 @@
                             @endforelse
                         </div>
 
-                        <!-- Add Comment Form -->
-                        <div class="border-t border-charcoal/10 p-stack-lg">
-                            <h4 class="font-headline-md text-[20px] uppercase tracking-tight mb-stack-md">
-                                Tulis <span class="text-crimson-red">Komentar</span>
-                            </h4>
-                            <form action="{{ route('comments.store') }}" method="POST" class="space-y-stack-md">
-                                @csrf
-                                <input type="hidden" name="post_id" value="{{ $page->id }}">
-                                <div class="grid md:grid-cols-2 gap-gutter">
-                                    <div>
-                                        <label class="font-label-bold text-label-bold text-charcoal block mb-2">Nama</label>
-                                        <input type="text" name="name"
-                                            class="w-full border border-charcoal/20 px-4 py-3 font-body-md focus:outline-none focus:border-crimson-red transition-colors"
-                                            placeholder="Nama Anda" required />
-                                    </div>
-                                    <div>
-                                        <label class="font-label-bold text-label-bold text-charcoal block mb-2">Email</label>
-                                        <input type="email" name="email"
-                                            class="w-full border border-charcoal/20 px-4 py-3 font-body-md focus:outline-none focus:border-crimson-red transition-colors"
-                                            placeholder="Email Anda" required />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="font-label-bold text-label-bold text-charcoal block mb-2">Komentar</label>
-                                    <textarea name="content" rows="4"
-                                        class="w-full border border-charcoal/20 px-4 py-3 font-body-md focus:outline-none focus:border-crimson-red transition-colors"
-                                        placeholder="Tulis komentar Anda..." required></textarea>
-                                </div>
-                                <div>
-                                    {!! ReCaptcha::htmlScriptTagJsApi() !!}
-                                    {!! ReCaptcha::htmlFormSnippet() !!}
-                                    @error('g-recaptcha-response')
-                                        <span class="text-crimson-red text-sm font-label-bold">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <button type="submit"
-                                    class="bg-crimson-red text-off-white px-8 py-3 font-label-bold text-label-bold uppercase hover:bg-primary-container transition-colors">
-                                    Kirim Komentar
-                                </button>
-                            </form>
-                        </div>
                     </div>
                 @endif
 
