@@ -30,6 +30,18 @@ Route::get('/gallery/{slug}', [GalleriesController::class, 'detail'])->name('gal
 Route::get('pages/{slug}', [FrontEndController::class, 'showPage'])->name('pages.show');
 
 
+// Route for Athletes
+Route::get('/atlet', [FrontEndController::class, 'athletes'])->name('athletes.index')->middleware('throttle:60,1');
+Route::get('/atlet/{id}', [FrontEndController::class, 'athleteDetail'])->name('athletes.detail')->where('id', '[0-9]+');
+
+// Route for Clubs
+Route::get('/klub', [FrontEndController::class, 'clubs'])->name('clubs.index')->middleware('throttle:60,1');
+Route::get('/klub/{id}', [FrontEndController::class, 'clubDetail'])->name('clubs.detail')->where('id', '[0-9]+');
+
+// Route for Coaches, Officials, Referees
+Route::get('/pelatih', [FrontEndController::class, 'coaches'])->name('coaches.front')->middleware('throttle:60,1');
+Route::get('/wasit', [FrontEndController::class, 'referees'])->name('referees.front')->middleware('throttle:60,1');
+
 // Route for Posts
 Route::get('posts/{slug}', [FrontEndController::class, 'showPost'])->name('posts.show');
 Route::get('posts', [FrontEndController::class, 'allPosts'])->name('allPosts');

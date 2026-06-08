@@ -85,12 +85,44 @@
                             </div>
                         </div>
                     @else
-                        <a class="font-label-bold text-label-bold text-off-white hover:text-crimson-red transition-colors duration-300"
+                        <a class="font-label-bold text-label-bold {{ url()->current() === $href ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
                             href="{{ $href }}">{{ $item->label }}</a>
                     @endif
                 @endforeach
             @endforeach
         @endif
+
+        @php
+            $resourcesActive = request()->routeIs('athletes.*', 'clubs.*', 'coaches.*', 'officials.*', 'referees.*');
+        @endphp
+        <div class="relative nav-dropdown-wrapper">
+            <button class="nav-dropdown-btn flex items-center gap-1 font-label-bold text-label-bold {{ $resourcesActive ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300">
+                Resources
+                <span class="material-symbols-outlined text-[16px] nav-chevron transition-transform duration-200">expand_more</span>
+            </button>
+            <div class="nav-dropdown-menu absolute top-full left-0 mt-2 w-48 bg-charcoal border-t-2 border-crimson-red shadow-xl opacity-0 invisible translate-y-2 transition-all duration-200 z-50">
+                <a href="{{ route('athletes.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold {{ request()->routeIs('athletes.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
+                    <span class="material-symbols-outlined text-[17px]">person</span>
+                    Atlet
+                </a>
+                <a href="{{ route('clubs.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold {{ request()->routeIs('clubs.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
+                    <span class="material-symbols-outlined text-[17px]">groups</span>
+                    Klub
+                </a>
+                <a href="{{ route('coaches.front') }}"
+                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold {{ request()->routeIs('coaches.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
+                    <span class="material-symbols-outlined text-[17px]">sports</span>
+                    Pelatih
+                </a>
+                <a href="{{ route('referees.front') }}"
+                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold {{ request()->routeIs('referees.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[17px]">sports_cricket</span>
+                    Wasit
+                </a>
+            </div>
+        </div>
 
         <a class="font-label-bold text-label-bold {{ request()->routeIs('galleries.front') ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
             href="{{ route('galleries.front') }}">Galeri</a>
@@ -132,7 +164,7 @@
     <button id="mobile-close-btn"
         class="absolute top-6 right-6 text-off-white material-symbols-outlined text-3xl">close</button>
 
-    <a class="font-headline-md text-headline-md text-off-white hover:text-crimson-red transition-colors"
+    <a class="font-headline-md text-headline-md {{ request()->is('/') ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors"
         href="/">Beranda</a>
 
     @if (isset($menus))
@@ -190,14 +222,39 @@
                         </div>
                     </div>
                 @else
-                    <a class="font-headline-md text-headline-md text-off-white hover:text-crimson-red transition-colors"
+                    <a class="font-headline-md text-headline-md {{ url()->current() === $href ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors"
                         href="{{ $href }}">{{ $item->label }}</a>
                 @endif
             @endforeach
         @endforeach
     @endif
 
-    <a class="font-headline-md text-headline-md text-off-white hover:text-crimson-red transition-colors"
+    <div class="w-full max-w-xs text-center">
+        <button class="mobile-dropdown-btn w-full font-headline-md text-headline-md {{ $resourcesActive ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
+            Resources
+            <span class="material-symbols-outlined mobile-chevron transition-transform duration-200">expand_more</span>
+        </button>
+        <div class="mobile-dropdown-content hidden flex-col gap-3 mt-3 border-t border-white/10 pt-3">
+            <a href="{{ route('athletes.index') }}"
+                class="font-label-bold text-label-bold {{ request()->routeIs('athletes.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">person</span>Atlet
+            </a>
+            <a href="{{ route('clubs.index') }}"
+                class="font-label-bold text-label-bold {{ request()->routeIs('clubs.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">groups</span>Klub
+            </a>
+            <a href="{{ route('coaches.front') }}"
+                class="font-label-bold text-label-bold {{ request()->routeIs('coaches.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">sports</span>Pelatih
+            </a>
+            <a href="{{ route('referees.front') }}"
+                class="font-label-bold text-label-bold {{ request()->routeIs('referees.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">sports_cricket</span>Wasit
+            </a>
+        </div>
+    </div>
+
+    <a class="font-headline-md text-headline-md {{ request()->routeIs('galleries.front') ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors"
         href="{{ route('galleries.front') }}">Galeri</a>
 </div>
 
