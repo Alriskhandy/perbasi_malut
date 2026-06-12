@@ -25,16 +25,16 @@ class SearchController extends Controller
             ['name' => 'Pages > Add Pages', 'url' => route('pages.create')],
             // Media
             ['name' => 'Media', 'url' => route('media.index')],
-            // Themes
-            ['name' => 'Themes', 'url' => route('tema.index')],
+            // Themes (dinonaktifkan)
+            // ['name' => 'Themes', 'url' => route('tema.index')],
             // Menus
             ['name' => 'Menu', 'url' => route('menus.create')],
             // ['name' => 'Menu > Create Menu', 'url' => route('menus.create')],
             // Galleries
             ['name' => 'Galleries', 'url' => route('galleries.index')],
             ['name' => 'Galleries > Add Gallery', 'url' => route('galleries.create')],
-            // Comments
-            ['name' => 'Comments', 'url' => route('comments.index')],
+            // Comments (dinonaktifkan)
+            // ['name' => 'Comments', 'url' => route('comments.index')],
             // Profile
             ['name' => 'Profile', 'url' => route('profile.index')],
             // Settings

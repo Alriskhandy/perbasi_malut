@@ -49,9 +49,11 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::get('/categories/{id}/edit', [PostsCategoriesController::class, 'edit'])->name('categories.edit');
     Route::put('/posts/categories/all/{id}', [PostsCategoriesController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{id}', [PostsCategoriesController::class, 'destroy'])->name('categories.destroy');
-    // themes
-    Route::get('/tema', [ThemeController::class, 'index'])->name('tema.index');
-    Route::get('/ganti-tema/{themeId}', [ThemeController::class, 'switchTheme'])->name('ganti.tema');
+    
+    // themes (dinonaktifkan)
+    // Route::get('/tema', [ThemeController::class, 'index'])->name('tema.index');
+    // Route::get('/ganti-tema/{themeId}', [ThemeController::class, 'switchTheme'])->name('ganti.tema');
+
     // pages
     Route::get('/pages', [PageController::class, 'index'])->name('pages.index');
     Route::get('/pages/create', [PageController::class, 'create'])->name('pages.create');
@@ -94,14 +96,15 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     // referees
     Route::post('referees/bulk', [RefereeController::class, 'bulkAction'])->name('referees.bulk_action');
     Route::resource('referees', RefereeController::class)->except(['show']);
-    // Halaman Daftar Komentar
-    Route::get('/comments', [CommentsController::class, 'index'])->name('comments.index');
+    
+    // Halaman Komentar (dinonaktifkan)
+    // Route::get('/comments', [CommentsController::class, 'index'])->name('comments.index');
     // Halaman Edit Komentar
-    Route::get('/comments/{id}/edit', [CommentsController::class, 'edit'])->name('comments.edit');
+    // Route::get('/comments/{id}/edit', [CommentsController::class, 'edit'])->name('comments.edit');
     // Proses Update Komentar
-    Route::put('/comments/{id}', [CommentsController::class, 'update'])->name('comments.update');
+    // Route::put('/comments/{id}', [CommentsController::class, 'update'])->name('comments.update');
     // Hapus Komentar
-    Route::delete('/comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+    // Route::delete('/comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
 
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');

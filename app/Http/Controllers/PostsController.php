@@ -76,7 +76,7 @@ class PostsController extends Controller
             'excerpt' => Str::limit(strip_tags($validatedData['content']), 150),
             'status' => $validatedData['status'],
             'content' => $validatedData['content'],
-            'comments_is_active' => $validatedData['comments_is_active'],
+            'comments_is_active' => false,
             'is_featured' =>$validatedData['is_featured'],
             'is_banner' =>$validatedData['is_banner'],
             'views' => 0,
@@ -104,7 +104,6 @@ class PostsController extends Controller
             'content' => 'required',
             'image' => 'required',
             'status' => 'required|in:draft,published,trashed',
-            'comments_is_active' => 'required|boolean',
             'category_id' => 'required|exists:categories,id',
             'is_featured' => 'required|boolean',
             'is_banner' => 'required|boolean',
@@ -188,7 +187,6 @@ class PostsController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
             'status' => 'required|in:draft,published,trashed',
-            'comments_is_active' => 'required|boolean',
            'is_featured' => [
             'nullable', 
             'boolean', 
@@ -216,7 +214,7 @@ class PostsController extends Controller
             'content' => $request->content,
             'status' => $request->status,
             'category_id' => $request->category_id,
-            'comments_is_active' => $request->comments_is_active,
+            'comments_is_active' => false,
             'is_featured' => $request->has('is_featured') ? $request->is_featured : $post->is_featured, // Jika tidak ada perubahan, tetap gunakan nilai lama
         'is_banner' => $request->has('is_banner') ? $request->is_banner : $post->is_banner, // Jika tidak ada perubahan, tetap gunakan nilai lama
             // Tambahkan kategori jika diperlukan

@@ -137,32 +137,6 @@
                             </div>
                         </div>
 
-                        {{-- comments --}}
-                        <div class="card">
-                            <div class="card-body">
-                                <label for="comments_is_active" class="form-label">Comments</label>
-                                <div class="mb-3">
-                                    <small class="text-muted">Aktifkan untuk izinkan komentar</small>
-                                    <div class="d-flex">
-                                        <div class="form-check me-3">
-                                            <input class="form-check-input" type="radio" name="comments_is_active"
-                                                id="commentsActive" value="1"
-                                                {{ old('comments_is_active', $post->comments_is_active) == '1' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="commentsActive">Aktif</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="comments_is_active"
-                                                id="commentsInactive" value="0"
-                                                {{ old('comments_is_active', $post->comments_is_active) == '0' ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="commentsInactive">Tidak Aktif</label>
-                                        </div>
-                                    </div>
-                                    @error('comments_is_active')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
                         {{-- Featured Post --}}
                         <div class="card">
                             <div class="card-body">

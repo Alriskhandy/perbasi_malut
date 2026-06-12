@@ -79,6 +79,7 @@
                      </a>
                  </li>
 
+                 {{-- Menu Komentar dinonaktifkan
                  <li class="nav-item {{ request()->routeIs('comments.index') ? 'active' : '' }}">
                      <a href="{{ route('comments.index') }}">
                          <i class="fas fa-comments"></i>
@@ -88,6 +89,7 @@
                          @endif
                      </a>
                  </li>
+                 --}}
 
                  {{-- ===== DATA PERBASI ===== --}}
                  <li class="nav-section">
@@ -145,12 +147,14 @@
                              <h4 class="text-section">Pengaturan</h4>
                          </li>
 
+                         {{-- Menu Tema dinonaktifkan
                          <li class="nav-item {{ request()->routeIs('tema.index') ? 'active' : '' }}">
                              <a href="{{ route('tema.index') }}">
                                  <i class="far fa-window-restore"></i>
                                  <p>Tema</p>
                              </a>
                          </li>
+                         --}}
 
                          <li class="nav-item {{ request()->routeIs('pages.*') ? 'active submenu' : '' }}">
                              <a data-bs-toggle="collapse" href="#menu-pages">
