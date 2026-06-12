@@ -64,7 +64,9 @@ class FrontEndController extends Controller
         $theme = Theme::where('active', true)->first()->path;
 
         // Temukan halaman berdasarkan slug
-        $page = Posts::where('slug', $slug)->firstOrFail();
+        $page = Posts::where('slug', $slug)
+            ->whereIn('status', ['published', 'approved'])
+            ->firstOrFail();
 
         // Tambahkan jumlah views
         $page->increment('views');

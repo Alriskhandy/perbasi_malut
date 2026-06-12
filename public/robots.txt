@@ -1,2 +1,8 @@
 User-agent: *
-Disallow:
+Disallow: /dashboard
+Disallow: /login
+Disallow: /files
+Disallow: /search
+
+Sitemap: https://perbasimalut.id/sitemap.xml
+
