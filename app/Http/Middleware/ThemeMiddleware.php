@@ -26,7 +26,7 @@ class ThemeMiddleware
         }
 
         // Log untuk debugging
-        Log::info('Theme Middleware dijalankan dengan tema: ' . ($theme ? $theme->path : 'default'));
+        // Log::info('Theme Middleware dijalankan dengan tema: ' . ($theme ? $theme->path : 'default'));
 
         return $next($request);
     }

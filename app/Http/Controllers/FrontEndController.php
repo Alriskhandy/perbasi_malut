@@ -106,21 +106,24 @@ class FrontEndController extends Controller
     {
         $theme = Theme::where('active', true)->first()->path;
 
-        $search     = $request->input('search', '');
-        $teamId     = $request->integer('team_id');
-        $districtId = $request->integer('district_id');
-        $gender     = $request->input('gender');
-        $safeLike   = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
+        $search       = $request->input('search', '');
+        $teamHash     = (string) ($request->input('team_id') ?? '');
+        $districtHash = (string) ($request->input('district_id') ?? '');
+        $gender       = $request->input('gender');
+        $safeLike     = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
+
+        $teamId     = $teamHash !== '' ? Hashid::decode($teamHash) : null;
+        $districtId = $districtHash !== '' ? Hashid::decode($districtHash) : null;
 
         $query = Player::with('team.district')->where('status', 'active');
 
         if ($safeLike !== '') {
             $query->where('name', 'like', '%' . $safeLike . '%');
         }
-        if ($teamId > 0) {
+        if ($teamId) {
             $query->where('team_id', $teamId);
         }
-        if ($districtId > 0) {
+        if ($districtId) {
             $query->whereHas('team', fn ($q) => $q->where('district_id', $districtId));
         }
         if (in_array($gender, ['L', 'P'])) {
@@ -131,7 +134,7 @@ class FrontEndController extends Controller
         $teams     = Team::where('status', 'aktif')->orderBy('name')->get();
         $districts = District::orderBy('name')->get();
 
-        return view($theme . '.athletes', compact('players', 'teams', 'districts', 'search', 'teamId', 'districtId', 'gender'));
+        return view($theme . '.athletes', compact('players', 'teams', 'districts', 'search', 'teamHash', 'districtHash', 'gender'));
     }
 
     public function athleteDetail(string $hash)
@@ -190,58 +193,64 @@ class FrontEndController extends Controller
 
     public function coaches(Request $request)
     {
-        $theme      = Theme::where('active', true)->first()->path;
-        $search     = $request->input('search', '');
-        $districtId = $request->integer('district_id');
-        $safeLike   = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
+        $theme        = Theme::where('active', true)->first()->path;
+        $search       = $request->input('search', '');
+        $districtHash = (string) ($request->input('district_id') ?? '');
+        $safeLike     = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
+
+        $districtId = $districtHash !== '' ? Hashid::decode($districtHash) : null;
 
         $query = Coach::with('team.district')->where('status', 'active');
 
         if ($safeLike !== '') {
             $query->where('name', 'like', '%' . $safeLike . '%');
         }
-        if ($districtId > 0) {
+        if ($districtId) {
             $query->whereHas('team', fn ($q) => $q->where('district_id', $districtId));
         }
 
         $coaches   = $query->orderBy('name')->paginate(24)->withQueryString();
         $districts = District::orderBy('name')->get();
 
-        return view($theme . '.coaches', compact('coaches', 'districts', 'search', 'districtId'));
+        return view($theme . '.coaches', compact('coaches', 'districts', 'search', 'districtHash'));
     }
 
 
     public function referees(Request $request)
     {
-        $theme      = Theme::where('active', true)->first()->path;
-        $search     = $request->input('search', '');
-        $districtId = $request->integer('district_id');
-        $safeLike   = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
+        $theme        = Theme::where('active', true)->first()->path;
+        $search       = $request->input('search', '');
+        $districtHash = (string) ($request->input('district_id') ?? '');
+        $safeLike     = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
+
+        $districtId = $districtHash !== '' ? Hashid::decode($districtHash) : null;
 
         $query = Referee::with('district');
 
         if ($safeLike !== '') {
             $query->where('name', 'like', '%' . $safeLike . '%');
         }
-        if ($districtId > 0) {
+        if ($districtId) {
             $query->where('district_id', $districtId);
         }
 
         $referees  = $query->orderBy('name')->paginate(24)->withQueryString();
         $districts = District::orderBy('name')->get();
 
-        return view($theme . '.referees', compact('referees', 'districts', 'search', 'districtId'));
+        return view($theme . '.referees', compact('referees', 'districts', 'search', 'districtHash'));
     }
 
     public function clubs(Request $request)
     {
         $theme = Theme::where('active', true)->first()->path;
 
-        $search     = $request->input('search', '');
-        $districtId = $request->integer('district_id');
+        $search       = $request->input('search', '');
+        $districtHash = (string) ($request->input('district_id') ?? '');
 
         // Escape wildcard chars to prevent expensive LIKE patterns
         $safeLike = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
+
+        $districtId = $districtHash !== '' ? Hashid::decode($districtHash) : null;
 
         $query = Team::with('district')->where('status', 'aktif');
 
@@ -249,14 +258,14 @@ class FrontEndController extends Controller
             $query->where('name', 'like', '%' . $safeLike . '%');
         }
 
-        if ($districtId > 0) {
+        if ($districtId) {
             $query->where('district_id', $districtId);
         }
 
         $teams     = $query->orderBy('name')->paginate(12)->withQueryString();
         $districts = District::orderBy('name')->get();
 
-        return view($theme . '.clubs', compact('teams', 'districts', 'search', 'districtId'));
+        return view($theme . '.clubs', compact('teams', 'districts', 'search', 'districtHash'));
     }
 
     public function clubDetail(string $slug)

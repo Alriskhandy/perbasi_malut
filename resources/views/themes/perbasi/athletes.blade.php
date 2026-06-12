@@ -94,7 +94,7 @@
                         class="w-full sm:w-44 px-4 py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-sm bg-white appearance-none outline-none transition">
                         <option value="">Semua Kab/Kota</option>
                         @foreach ($districts as $district)
-                            <option value="{{ $district->id }}" {{ $districtId == $district->id ? 'selected' : '' }}>
+                            <option value="{{ \App\Helpers\Hashid::encode($district->id) }}" {{ $districtHash === \App\Helpers\Hashid::encode($district->id) ? 'selected' : '' }}>
                                 {{ $district->name }}
                             </option>
                         @endforeach
@@ -104,7 +104,7 @@
                         class="w-full sm:w-48 px-4 py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-sm bg-white appearance-none outline-none transition">
                         <option value="">Semua Klub</option>
                         @foreach ($teams as $team)
-                            <option value="{{ $team->id }}" {{ $teamId == $team->id ? 'selected' : '' }}>
+                            <option value="{{ \App\Helpers\Hashid::encode($team->id) }}" {{ $teamHash === \App\Helpers\Hashid::encode($team->id) ? 'selected' : '' }}>
                                 {{ $team->name }}
                             </option>
                         @endforeach
@@ -123,7 +123,7 @@
                         FILTER
                     </button>
 
-                    @if ($search || $teamId || $districtId || $gender)
+                    @if ($search || $teamHash || $districtHash || $gender)
                         <a href="{{ route('athletes.index') }}"
                             class="border border-outline-variant text-secondary font-label-bold px-5 py-2.5 rounded hover:bg-surface-variant transition-colors flex items-center justify-center gap-1 text-sm">
                             <span class="material-symbols-outlined text-[16px]">close</span>
@@ -137,18 +137,22 @@
         <!-- Content -->
         <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
 
-            @if ($search || $teamId || $districtId || $gender)
+            @if ($search || $teamHash || $districtHash || $gender)
                 <div class="flex items-center gap-2 mb-6 text-sm text-secondary font-body-md">
                     <span class="material-symbols-outlined text-[16px]">filter_list</span>
                     Menampilkan <strong class="text-charcoal">{{ $players->total() }}</strong> hasil
                     @if ($search)
                         untuk "<strong class="text-charcoal">{{ e($search) }}</strong>"
                     @endif
-                    @if ($districtId && $districts->firstWhere('id', $districtId))
-                        &bull; DPD <strong class="text-charcoal">{{ $districts->firstWhere('id', $districtId)->name }}</strong>
+                    @php
+                        $selectedDistrict = $districtHash ? $districts->first(fn ($d) => \App\Helpers\Hashid::encode($d->id) === $districtHash) : null;
+                        $selectedTeam = $teamHash ? $teams->first(fn ($t) => \App\Helpers\Hashid::encode($t->id) === $teamHash) : null;
+                    @endphp
+                    @if ($selectedDistrict)
+                        &bull; DPD <strong class="text-charcoal">{{ $selectedDistrict->name }}</strong>
                     @endif
-                    @if ($teamId && $teams->firstWhere('id', $teamId))
-                        dari klub <strong class="text-charcoal">{{ $teams->firstWhere('id', $teamId)->name }}</strong>
+                    @if ($selectedTeam)
+                        dari klub <strong class="text-charcoal">{{ $selectedTeam->name }}</strong>
                     @endif
                     @if ($gender)
                         &bull; <strong class="text-charcoal">{{ $gender === 'L' ? 'Putra' : 'Putri' }}</strong>

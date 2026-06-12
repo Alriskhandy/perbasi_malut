@@ -97,7 +97,7 @@
                         class="w-full sm:w-48 px-4 py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-sm bg-white appearance-none outline-none transition">
                         <option value="">Semua Kab/Kota</option>
                         @foreach ($districts as $district)
-                            <option value="{{ $district->id }}" {{ $districtId == $district->id ? 'selected' : '' }}>
+                            <option value="{{ \App\Helpers\Hashid::encode($district->id) }}" {{ $districtHash === \App\Helpers\Hashid::encode($district->id) ? 'selected' : '' }}>
                                 {{ $district->name }}
                             </option>
                         @endforeach
@@ -109,7 +109,7 @@
                         FILTER
                     </button>
 
-                    @if ($search || $districtId)
+                    @if ($search || $districtHash)
                         <a href="{{ route('coaches.front') }}"
                             class="border border-outline-variant text-secondary font-label-bold px-5 py-2.5 rounded hover:bg-surface-variant transition-colors flex items-center justify-center gap-1 text-sm">
                             <span class="material-symbols-outlined text-[16px]">close</span>
@@ -123,15 +123,18 @@
         <!-- Content -->
         <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
 
-            @if ($search || $districtId)
+            @if ($search || $districtHash)
                 <div class="flex items-center gap-2 mb-6 text-sm text-secondary font-body-md">
                     <span class="material-symbols-outlined text-[16px]">filter_list</span>
                     Menampilkan <strong class="text-charcoal">{{ $coaches->total() }}</strong> hasil
                     @if ($search)
                         untuk "<strong class="text-charcoal">{{ e($search) }}</strong>"
                     @endif
-                    @if ($districtId && $districts->firstWhere('id', $districtId))
-                        &bull; DPD <strong class="text-charcoal">{{ $districts->firstWhere('id', $districtId)->name }}</strong>
+                    @php
+                        $selectedDistrict = $districtHash ? $districts->first(fn ($d) => \App\Helpers\Hashid::encode($d->id) === $districtHash) : null;
+                    @endphp
+                    @if ($selectedDistrict)
+                        &bull; DPD <strong class="text-charcoal">{{ $selectedDistrict->name }}</strong>
                     @endif
                 </div>
             @endif
