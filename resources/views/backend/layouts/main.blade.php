@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ @$title != '' ? "$title - " : '' }}{{ config('app.name') }}</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href="{{ asset('backend/favicon/favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('backend/favicon/android-chrome-192x192.png') }}" type="image/png" />
 
     <!-- Google Fonts: Montserrat (heading) + Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

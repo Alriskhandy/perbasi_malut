@@ -127,7 +127,7 @@ php artisan serve
 
 Akses:
 - **Frontend**: `http://localhost:8000`
-- **Admin**: `http://localhost:8000/cms/cp/login`
+- **Admin**: `http://localhost:8000/login`
 
 ---
 

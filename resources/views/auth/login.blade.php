@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login — {{ config('app.name', 'Perbasi Malut') }}</title>
 
-    <link rel="icon" href="{{ asset('backend/favicon/favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('backend/favicon/android-chrome-192x192.png') }}" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
