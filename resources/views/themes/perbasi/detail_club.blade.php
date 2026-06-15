@@ -1,5 +1,7 @@
 @extends('themes.perbasi.layouts.main')
 
+@section('title', $team->name . ' - Klub ' . $site_name->value)
+
 @push('styles')
     <style>
         .hero-bg {

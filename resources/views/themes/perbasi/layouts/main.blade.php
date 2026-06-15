@@ -47,6 +47,11 @@
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
+    @else
+        <title>@yield('title', $site_name->value)</title>
+        <meta name="description" content="{{ $seo_description }}">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="{{ url()->current() }}">
     @endif
 
     <!-- Favicon -->

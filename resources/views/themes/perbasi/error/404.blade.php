@@ -1,5 +1,7 @@
 @extends('themes.perbasi.layouts.main')
 
+@section('title', '404 - Halaman Tidak Ditemukan | ' . $site_name->value)
+
 @push('styles')
     <style>
         .hero-bg {

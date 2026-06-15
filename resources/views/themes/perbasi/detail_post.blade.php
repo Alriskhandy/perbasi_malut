@@ -1,5 +1,7 @@
 @extends('themes.perbasi.layouts.main')
 
+@section('title', $page->title . ' - ' . $site_name->value)
+
 @push('styles')
     <style>
         .bento-grid-item {

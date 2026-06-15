@@ -1,5 +1,7 @@
 @extends('themes.perbasi.layouts.main')
 
+@section('title', $page->title . ' - ' . $site_name->value)
+
 @section('main')
     <main class="mt-16 md:mt-20">
         <!-- Page Header -->
