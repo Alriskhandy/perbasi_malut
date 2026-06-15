@@ -158,13 +158,9 @@
                         <div class="person-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col">
 
                             <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                @if ($coach->img_path)
-                                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                        src="{{ \App\Helpers\Media::url($coach->img_path) }}"
-                                        alt="{{ $coach->name }}" />
-                                @else
-                                    <span class="material-symbols-outlined text-6xl text-charcoal/15">person</span>
-                                @endif
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    src="{{ $coach->img_path ? \App\Helpers\Media::url($coach->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
+                                    alt="{{ $coach->name }}" />
                                 <div class="absolute top-2 right-2 bg-charcoal/80 text-off-white font-label-bold text-[10px] px-2 py-0.5 rounded uppercase">
                                     Pelatih
                                 </div>

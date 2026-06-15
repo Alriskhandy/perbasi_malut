@@ -179,13 +179,9 @@
                         @foreach ($activeCoaches as $coach)
                             <div class="person-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden">
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                    @if ($coach->img_path)
-                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            src="{{ \App\Helpers\Media::url($coach->img_path) }}"
-                                            alt="{{ $coach->name }}" />
-                                    @else
-                                        <span class="material-symbols-outlined text-6xl text-charcoal/15">person</span>
-                                    @endif
+                                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        src="{{ $coach->img_path ? \App\Helpers\Media::url($coach->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
+                                        alt="{{ $coach->name }}" />
                                 </div>
                                 <div class="p-4 border-t border-outline-variant/50 border-b-4 border-b-crimson-red">
                                     <p class="font-label-bold text-charcoal text-sm truncate">{{ $coach->name }}</p>
@@ -219,15 +215,9 @@
                             <a href="{{ route('athletes.detail', \App\Helpers\Hashid::encode($player->id)) }}"
                                 class="person-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden">
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                    @if ($player->img_path)
-                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            src="{{ \App\Helpers\Media::url($player->img_path) }}"
-                                            alt="{{ $player->name }}" />
-                                    @else
-                                        <div class="w-full h-full flex items-center justify-center">
-                                            <span class="material-symbols-outlined text-6xl text-charcoal/15">person</span>
-                                        </div>
-                                    @endif
+                                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        src="{{ $player->img_path ? \App\Helpers\Media::url($player->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
+                                        alt="{{ $player->name }}" />
                                     <!-- Gender badge -->
                                     <div class="absolute top-2 right-2 bg-charcoal/80 text-off-white font-label-bold text-[10px] px-2 py-0.5 rounded uppercase">
                                         {{ $player->gender === 'L' ? 'Putra' : 'Putri' }}
@@ -256,13 +246,9 @@
                         @foreach ($officials as $official)
                             <div class="person-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden">
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                    @if ($official->img_path)
-                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            src="{{ \App\Helpers\Media::url($official->img_path) }}"
-                                            alt="{{ $official->name }}" />
-                                    @else
-                                        <span class="material-symbols-outlined text-6xl text-charcoal/15">person</span>
-                                    @endif
+                                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        src="{{ $official->img_path ? \App\Helpers\Media::url($official->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
+                                        alt="{{ $official->name }}" />
                                 </div>
                                 <div class="p-4 border-t border-outline-variant/50 border-b-4 border-b-amber-gold">
                                     <p class="font-label-bold text-charcoal text-sm truncate">{{ $official->name }}</p>

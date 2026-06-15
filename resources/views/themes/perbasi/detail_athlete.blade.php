@@ -158,15 +158,9 @@
 
                             <!-- Photo -->
                             <div class="photo-glow overflow-hidden w-full h-full border border-crimson-red/20 relative">
-                                @if ($player->img_path)
-                                    <img src="{{ \App\Helpers\Media::url($player->img_path) }}"
-                                        alt="{{ $player->name }}"
-                                        class="w-full h-full object-cover" />
-                                @else
-                                    <div class="w-full h-full flex items-center justify-center bg-surface-container-low">
-                                        <span class="material-symbols-outlined text-8xl text-charcoal/15">person</span>
-                                    </div>
-                                @endif
+                                <img src="{{ $player->img_path ? \App\Helpers\Media::url($player->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
+                                    alt="{{ $player->name }}"
+                                    class="w-full h-full object-cover" />
                                 <!-- Scan line overlay -->
                                 <div class="scan-line absolute left-0 right-0 pointer-events-none"></div>
                             </div>
@@ -341,13 +335,9 @@
                                     class="group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col
                                            transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
                                     <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                        @if ($related->img_path)
-                                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                src="{{ \App\Helpers\Media::url($related->img_path) }}"
-                                                alt="{{ $related->name }}" />
-                                        @else
-                                            <span class="material-symbols-outlined text-5xl text-charcoal/15">person</span>
-                                        @endif
+                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            src="{{ $related->img_path ? \App\Helpers\Media::url($related->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
+                                            alt="{{ $related->name }}" />
                                         <div class="absolute top-2 right-2 bg-charcoal/75 text-off-white font-label-bold text-[9px] px-1.5 py-0.5 rounded uppercase">
                                             {{ $related->gender === 'L' ? 'Putra' : 'Putri' }}
                                         </div>
