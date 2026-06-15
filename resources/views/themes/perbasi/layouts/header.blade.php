@@ -105,7 +105,7 @@
         <div class="relative nav-dropdown-wrapper">
             <button
                 class="nav-dropdown-btn flex items-center gap-1 font-label-bold text-label-bold {{ $resourcesActive ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300">
-                Resources
+                Data
                 <span
                     class="material-symbols-outlined text-[16px] nav-chevron transition-transform duration-200">expand_more</span>
             </button>
@@ -253,7 +253,7 @@
         <div class="border-b border-outline-variant/60">
             <button
                 class="mobile-dropdown-btn w-full flex items-center justify-between py-3.5 font-label-bold text-xs {{ $resourcesActive ? 'text-crimson-red' : 'text-secondary' }} uppercase tracking-widest">
-                Resources
+                Data
                 <span class="material-symbols-outlined mobile-chevron text-[18px] transition-transform duration-200">expand_more</span>
             </button>
             <div class="mobile-dropdown-content hidden flex-col pb-2">
