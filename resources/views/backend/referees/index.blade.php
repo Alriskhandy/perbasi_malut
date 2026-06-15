@@ -63,7 +63,7 @@
                                                     <td><input type="checkbox" name="selected_ids[]" value="{{ $referee->id }}"></td>
                                                     <td>
                                                         @if ($referee->img_path)
-                                                            <img src="{{ $referee->img_path }}" alt="{{ $referee->name }}"
+                                                            <img src="{{ \App\Helpers\Media::url($referee->img_path) }}" alt="{{ $referee->name }}"
                                                                 style="max-height:45px;object-fit:cover;">
                                                         @else
                                                             <span class="text-muted">-</span>

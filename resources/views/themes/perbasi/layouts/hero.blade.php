@@ -63,7 +63,7 @@
                                 <div class="relative overflow-hidden group" style="height: 270px;">
                                     <img alt="{{ $carouselPost->title }}"
                                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                        src="{{ $carouselPost->image }}" />
+                                        src="{{ \App\Helpers\Media::url($carouselPost->image) }}" />
                                     @if ($carouselPost->category)
                                         <div class="absolute top-6 left-6 bg-crimson-red text-white text-[11px] font-bold px-4 py-1.5 uppercase tracking-widest shadow-lg">
                                             {{ strtoupper($carouselPost->category->name) }}

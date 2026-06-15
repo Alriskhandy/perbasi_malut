@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Media;
 use App\Models\Galleries;
 use App\Models\GalleriesMeta;
 use App\Models\Theme;
@@ -46,7 +47,7 @@ class GalleriesController extends Controller
             // Simpan galeri baru
             $gallery = new Galleries();
             $gallery->name = $request->name;
-            $gallery->image = $request->image;
+            $gallery->image = Media::toRelativePath($request->image);
             $gallery->slug = $request->slug;
             $gallery->description = $request->description;
             $gallery->order = $request->order ?? 0;
@@ -60,7 +61,7 @@ class GalleriesController extends Controller
                 foreach ($request->gallery_images as $imageData) {
                     $meta = new GalleriesMeta();
                     $meta->gallery_id = $gallery->id;
-                    $meta->image = $imageData['image'];
+                    $meta->image = Media::toRelativePath($imageData['image']);
                     $meta->description = $imageData['description']; // Tambahkan deskripsi jika tersedia
                     $meta->save();
                 }
@@ -110,7 +111,7 @@ class GalleriesController extends Controller
         $gallery = Galleries::findOrFail($id);
 
         // Cek apakah user upload image baru atau tidak
-        $image = $request->image ?: $gallery->image;
+        $image = $request->image ? Media::toRelativePath($request->image) : $gallery->image;
         // Update data gallery utama
         $gallery->update([
             'name' => $request->name,
@@ -126,9 +127,11 @@ class GalleriesController extends Controller
         // Memproses dan menyimpan metadata gambar jika ada
         if ($request->has('gallery_images')) {
             foreach ($request->gallery_images as $imageData) {
+                $imagePath = Media::toRelativePath($imageData['image']);
+
                 // Mengecek apakah gambar sudah ada di metadata
                 $existingMeta = GalleriesMeta::where('gallery_id', $gallery->id)
-                    ->where('image', $imageData['image'])
+                    ->where('image', $imagePath)
                     ->first();
 
                 if ($existingMeta) {
@@ -140,7 +143,7 @@ class GalleriesController extends Controller
                     // Jika gambar belum ada, buat entri baru di metadata
                     $meta = new GalleriesMeta();
                     $meta->gallery_id = $gallery->id;
-                    $meta->image = $imageData['image'];
+                    $meta->image = $imagePath;
                     $meta->description = $imageData['description']; // Deskripsi gambar jika ada
                     $meta->save();
                 }

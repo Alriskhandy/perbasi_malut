@@ -175,7 +175,7 @@
                             <div class="relative aspect-square bg-surface-container-low overflow-hidden flex items-center justify-center p-4">
                                 @if ($team->img_path)
                                     <img class="club-logo w-full h-full object-contain"
-                                        src="{{ asset($team->img_path) }}"
+                                        src="{{ \App\Helpers\Media::url($team->img_path) }}"
                                         alt="Logo {{ $team->name }}" />
                                 @else
                                     <span class="material-symbols-outlined text-6xl text-charcoal/15">shield</span>

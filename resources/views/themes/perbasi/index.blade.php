@@ -42,7 +42,7 @@
                         <div class="h-56 overflow-hidden relative">
                             <img alt="{{ $post->title }}"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                src="{{ $post->image }}" />
+                                src="{{ \App\Helpers\Media::url($post->image) }}" />
                             @if ($post->category)
                                 <div
                                     class="absolute top-4 left-4 bg-crimson-red text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">
@@ -95,7 +95,7 @@
                                 <div class="relative w-full h-full overflow-hidden group z-10">
                                     <img alt="{{ $gallery->title }}"
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                        src="{{ $gallery->cover_image ?? $gallery->image }}" />
+                                        src="{{ \App\Helpers\Media::url($gallery->cover_image ?? $gallery->image) }}" />
                                 </div>
                                 <div class="absolute -bottom-3 -left-3 w-full h-full border-2 border-crimson-red z-0"></div>
                             </div>
@@ -103,7 +103,7 @@
                             <div class="aspect-square overflow-hidden group">
                                 <img alt="{{ $gallery->title }}"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                                    src="{{ $gallery->cover_image ?? $gallery->image }}" />
+                                    src="{{ \App\Helpers\Media::url($gallery->cover_image ?? $gallery->image) }}" />
                             </div>
                         @endif
                     @endforeach

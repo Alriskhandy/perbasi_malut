@@ -2,7 +2,7 @@
     class="bg-charcoal fixed top-0 w-full z-50 border-b border-crimson-red shadow-md h-20 flex justify-between items-center px-margin-desktop">
     <div class="flex items-center gap-stack-md">
         <img alt="PERBASI Logo" class="h-12 w-auto"
-            src="{{ isset($site_logo) ? asset('storage/' . $site_logo->value) : asset('backend/assets/img/logo-perbasi.png') }}" />
+            src="{{ isset($site_logo) ? \App\Helpers\Media::url($site_logo->value) : asset('backend/assets/img/logo-perbasi.png') }}" />
         <span class="font-headline-md text-headline-md font-bold text-off-white tracking-tighter">PERBASI
             MALUT</span>
     </div>

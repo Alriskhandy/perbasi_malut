@@ -81,7 +81,7 @@
 
                         <div class="relative aspect-[4/3] overflow-hidden">
                             <img class="w-full h-full object-cover transition-transform duration-500"
-                                src="{{ $gallery->cover_image ?? $gallery->image }}"
+                                src="{{ \App\Helpers\Media::url($gallery->cover_image ?? $gallery->image) }}"
                                 alt="{{ $gallery->name }}" />
                             <div class="album-overlay absolute inset-0 bg-charcoal/50 opacity-0 transition-opacity duration-300 flex items-center justify-center">
                                 <span class="material-symbols-outlined text-white text-5xl">visibility</span>

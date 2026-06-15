@@ -73,7 +73,7 @@
                                                     <td><input type="checkbox" name="selected_ids[]" value="{{ $coach->id }}"></td>
                                                     <td>
                                                         @if ($coach->img_path)
-                                                            <img src="{{ $coach->img_path }}" alt="{{ $coach->name }}"
+                                                            <img src="{{ \App\Helpers\Media::url($coach->img_path) }}" alt="{{ $coach->name }}"
                                                                 style="max-height:45px;object-fit:cover;">
                                                         @else
                                                             <span class="text-muted">-</span>

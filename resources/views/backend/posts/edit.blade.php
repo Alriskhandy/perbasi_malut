@@ -81,7 +81,7 @@
                                 <!-- Preview Gambar -->
                                 <div class="mb-3">
                                     <img id="imagePreview"
-                                        src="{{ asset(old('image', $post->image) ?: 'path/to/default-image.jpg') }}"
+                                        src="{{ old('image', $post->image) ? \App\Helpers\Media::url(old('image', $post->image)) : asset('path/to/default-image.jpg') }}"
                                         alt="Preview Gambar"
                                         style="max-width: 100%; height: auto; display: {{ old('image', $post->image) ? 'block' : 'none' }};">
                                 </div>

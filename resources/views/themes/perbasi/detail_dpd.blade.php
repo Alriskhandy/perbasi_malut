@@ -59,7 +59,7 @@
                     <div class="flex-shrink-0 anim-logo">
                         <div class="w-28 h-28 md:w-36 md:h-36 rounded-full bg-white/10 border-2 border-crimson-red/40 flex items-center justify-center overflow-hidden shadow-lg">
                             @if ($district->img_path)
-                                <img src="{{ asset('storage/' . $district->img_path) }}"
+                                <img src="{{ \App\Helpers\Media::url($district->img_path) }}"
                                     class="w-full h-full object-cover"
                                     alt="{{ $district->name }}" />
                             @else
@@ -179,7 +179,7 @@
                             <div class="relative aspect-square bg-surface-container-low overflow-hidden flex items-center justify-center p-4">
                                 @if ($team->img_path)
                                     <img class="club-logo w-full h-full object-contain"
-                                        src="{{ asset($team->img_path) }}"
+                                        src="{{ \App\Helpers\Media::url($team->img_path) }}"
                                         alt="Logo {{ $team->name }}" />
                                 @else
                                     <span class="material-symbols-outlined text-5xl text-charcoal/15">shield</span>

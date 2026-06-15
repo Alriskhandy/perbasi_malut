@@ -22,14 +22,14 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="{{ $page->title }}">
     <meta property="og:description" content="{{ Str::limit(strip_tags($page->content), 160) }}">
-    <meta property="og:image" content="{{ $page->image }}">
+    <meta property="og:image" content="{{ \App\Helpers\Media::url($page->image) }}">
     <meta property="og:url" content="{{ request()->url() }}">
     <meta property="og:site_name" content="{{ $site_name ?? 'Perbasi Maluku Utara' }}">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $page->title }}">
     <meta name="twitter:description" content="{{ Str::limit(strip_tags($page->content), 160) }}">
-    <meta name="twitter:image" content="{{ $page->image }}">
+    <meta name="twitter:image" content="{{ \App\Helpers\Media::url($page->image) }}">
 @endpush
 
 @section('main')
@@ -67,7 +67,7 @@
                 <!-- Featured Image -->
                 @if ($page->image)
                     <div class="relative overflow-hidden bento-grid-item shadow-sm">
-                        <img class="w-full h-[400px] object-cover" src="{{ $page->image }}"
+                        <img class="w-full h-[400px] object-cover" src="{{ \App\Helpers\Media::url($page->image) }}"
                             alt="{{ $page->title }}" />
                         <div class="absolute bottom-0 left-0 right-0 h-1 bg-crimson-red"></div>
                     </div>

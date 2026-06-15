@@ -96,7 +96,7 @@
                              data-index="{{ $i }}"
                              onclick="openLightbox({{ $i }})">
                             <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                 src="{{ $item->image }}"
+                                 src="{{ \App\Helpers\Media::url($item->image) }}"
                                  alt="{{ $item->description ?? $gallery->name }}"
                                  loading="lazy" />
                             <div class="photo-overlay absolute inset-0 bg-charcoal/60 opacity-0 flex flex-col items-center justify-center gap-3">
@@ -165,7 +165,7 @@
 
 @push('scripts')
     <script>
-        const photos = @json($meta->map(fn($m) => ['src' => $m->image, 'caption' => $m->description])->values());
+        const photos = @json($meta->map(fn($m) => ['src' => \App\Helpers\Media::url($m->image), 'caption' => $m->description])->values());
         let currentIndex = 0;
 
         function openLightbox(index) {

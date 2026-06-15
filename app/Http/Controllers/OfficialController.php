@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Media;
 use App\Models\Official;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -50,7 +51,9 @@ class OfficialController extends Controller
         ]);
 
         try {
-            Official::create($request->only(['name', 'img_path', 'team_id']));
+            $data = $request->only(['name', 'img_path', 'team_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            Official::create($data);
 
             notify()->success('Official berhasil ditambahkan!');
             return redirect()->route('officials.index');
@@ -78,7 +81,9 @@ class OfficialController extends Controller
         ]);
 
         try {
-            $official->update($request->only(['name', 'img_path', 'team_id']));
+            $data = $request->only(['name', 'img_path', 'team_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            $official->update($data);
 
             notify()->success('Official berhasil diperbarui!');
             return redirect()->route('officials.index');

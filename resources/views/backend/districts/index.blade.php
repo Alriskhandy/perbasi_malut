@@ -39,7 +39,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
                                                     @if ($district->img_path)
-                                                        <img src="{{ $district->img_path }}" alt="{{ $district->name }}"
+                                                        <img src="{{ \App\Helpers\Media::url($district->img_path) }}" alt="{{ $district->name }}"
                                                             style="max-height: 45px; object-fit: cover;">
                                                     @else
                                                         <span class="text-muted">-</span>

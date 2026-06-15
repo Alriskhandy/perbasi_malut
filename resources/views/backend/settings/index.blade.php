@@ -101,7 +101,7 @@
                                     <input type="file" class="form-control" id="site_logo" name="site_logo"
                                         accept="image/*">
                                     @if (isset($settings['site_logo']))
-                                        <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo"
+                                        <img src="{{ \App\Helpers\Media::url($settings['site_logo']) }}" alt="Logo"
                                             class="mt-3" style="max-height: 100px;">
                                     @endif
                                 </div>

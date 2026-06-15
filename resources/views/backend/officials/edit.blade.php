@@ -58,7 +58,7 @@
                                     <button type="button" class="btn btn-secondary" onclick="openFileManager()">Pilih</button>
                                 </div>
                                 @error('img_path') <div class="text-danger small">{{ $message }}</div> @enderror
-                                <img id="imgPreview" src="{{ old('img_path', $official->img_path) }}"
+                                <img id="imgPreview" src="{{ \App\Helpers\Media::url(old('img_path', $official->img_path)) }}"
                                     style="max-width:100%; display: {{ $official->img_path ? 'block' : 'none' }}; margin-top:8px;">
                             </div>
                         </div>

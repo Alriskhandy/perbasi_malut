@@ -23,7 +23,7 @@
                 <section class="lg:col-span-8">
                     @if ($page->image)
                         <div class="mb-stack-lg overflow-hidden shadow-sm">
-                            <img src="{{ asset('storage/' . $page->image) }}" alt="{{ $page->title }}"
+                            <img src="{{ \App\Helpers\Media::url($page->image) }}" alt="{{ $page->title }}"
                                 class="w-full h-64 object-cover" />
                         </div>
                     @endif

@@ -33,7 +33,7 @@
                                     @if ($post->image)
                                         <div class="w-40 h-32 flex-shrink-0 overflow-hidden">
                                             <a href="{{ route('posts.show', $post->slug) }}">
-                                                <img src="{{ $post->image }}" alt="{{ $post->title }}"
+                                                <img src="{{ \App\Helpers\Media::url($post->image) }}" alt="{{ $post->title }}"
                                                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                                             </a>
                                         </div>

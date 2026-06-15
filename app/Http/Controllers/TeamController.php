@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Media;
 use App\Models\District;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -35,6 +36,7 @@ class TeamController extends Controller
 
         try {
             $data = $request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
             if ($request->filled('slug')) {
                 $data['slug'] = $request->slug;
             }
@@ -72,6 +74,7 @@ class TeamController extends Controller
 
         try {
             $data = $request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
             if ($request->filled('slug')) {
                 $data['slug'] = $request->slug;
             }

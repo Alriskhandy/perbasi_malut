@@ -157,7 +157,7 @@
                             <!-- Photo -->
                             <div class="photo-glow overflow-hidden w-full h-full border border-crimson-red/20 relative">
                                 @if ($player->img_path)
-                                    <img src="{{ asset($player->img_path) }}"
+                                    <img src="{{ \App\Helpers\Media::url($player->img_path) }}"
                                         alt="{{ $player->name }}"
                                         class="w-full h-full object-cover" />
                                 @else
@@ -341,7 +341,7 @@
                                     <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
                                         @if ($related->img_path)
                                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                                src="{{ asset($related->img_path) }}"
+                                                src="{{ \App\Helpers\Media::url($related->img_path) }}"
                                                 alt="{{ $related->name }}" />
                                         @else
                                             <span class="material-symbols-outlined text-5xl text-charcoal/15">person</span>

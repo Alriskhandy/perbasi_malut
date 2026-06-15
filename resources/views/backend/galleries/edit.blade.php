@@ -73,7 +73,7 @@
                                             <input type="hidden" name="gallery_images[{{ $index }}][description]"
                                                 value="{{ $meta->description }}">
 
-                                            <img src="{{ asset($meta->image) }}" alt="Gallery Image {{ $index + 1 }}"
+                                            <img src="{{ \App\Helpers\Media::url($meta->image) }}" alt="Gallery Image {{ $index + 1 }}"
                                                 class="img-thumbnail" onclick="openDescriptionModal(this)">
                                             <span class="edit-icon"><i class="fa fa-edit"></i></span>
                                         </div>
@@ -109,7 +109,7 @@
                         <!-- Preview Gambar -->
                         <div class="mb-3">
                             <img id="imagePreview"
-                                src="{{ asset(old('image', $gallery->image) ?: 'path/to/default-image.jpg') }}"
+                                src="{{ old('image', $gallery->image) ? \App\Helpers\Media::url(old('image', $gallery->image)) : asset('path/to/default-image.jpg') }}"
                                 alt="Preview Gambar"
                                 style="max-width: 100%; height: auto; display: {{ old('image', $gallery->image) ? 'block' : 'none' }};">
                         </div>

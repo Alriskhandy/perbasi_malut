@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Media;
 use App\Models\District;
 use App\Models\Referee;
 use Illuminate\Http\Request;
@@ -50,7 +51,9 @@ class RefereeController extends Controller
         ]);
 
         try {
-            Referee::create($request->only(['name', 'img_path', 'district_id']));
+            $data = $request->only(['name', 'img_path', 'district_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            Referee::create($data);
 
             notify()->success('Wasit berhasil ditambahkan!');
             return redirect()->route('referees.index');
@@ -78,7 +81,9 @@ class RefereeController extends Controller
         ]);
 
         try {
-            $referee->update($request->only(['name', 'img_path', 'district_id']));
+            $data = $request->only(['name', 'img_path', 'district_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            $referee->update($data);
 
             notify()->success('Wasit berhasil diperbarui!');
             return redirect()->route('referees.index');

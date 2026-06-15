@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Media;
 use App\Models\Coach;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -59,7 +60,9 @@ class CoachController extends Controller
         ]);
 
         try {
-            Coach::create($request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'team_id']));
+            $data = $request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'team_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            Coach::create($data);
 
             notify()->success('Pelatih berhasil ditambahkan!');
             return redirect()->route('coaches.index');
@@ -91,7 +94,9 @@ class CoachController extends Controller
         ]);
 
         try {
-            $coach->update($request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'team_id']));
+            $data = $request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'team_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            $coach->update($data);
 
             notify()->success('Pelatih berhasil diperbarui!');
             return redirect()->route('coaches.index');

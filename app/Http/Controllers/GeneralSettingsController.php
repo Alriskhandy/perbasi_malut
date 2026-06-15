@@ -102,7 +102,7 @@ class GeneralSettingsController extends Controller
                 }
     
                 // Upload logo baru
-                $logoPath = $request->file('site_logo')->store('logo', 'public');
+                $logoPath = $request->file('site_logo')->store('branding', 'public');
                 DB::table('general_settings')->where('key', 'site_logo')->update([
                     'value' => $logoPath,
                     'updated_at' => now(),

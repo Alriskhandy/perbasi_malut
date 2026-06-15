@@ -153,7 +153,7 @@
                             <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
                                 @if ($referee->img_path)
                                     <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                        src="{{ asset($referee->img_path) }}"
+                                        src="{{ \App\Helpers\Media::url($referee->img_path) }}"
                                         alt="{{ $referee->name }}" />
                                 @else
                                     <span class="material-symbols-outlined text-6xl text-charcoal/15">person</span>

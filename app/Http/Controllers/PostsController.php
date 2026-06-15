@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PostStatus;
+use App\Helpers\Media;
 use App\Models\Categories;
 use App\Models\Posts;
 use Illuminate\Http\Request;
@@ -13,39 +14,39 @@ class PostsController extends Controller
 {
    
     public function index(Request $request)
-{
-    // Mendapatkan status dari query string
-    $status = $request->query('status');
-    
-    // Menghitung total posts yang tidak dihapus
-    $totalPosts = Posts::whereNull('deleted_at')->count();
-    
-    // Menghitung total posts yang dihapus
-    $totalTrashed = Posts::onlyTrashed()->count();
-    
-    // Memilih posts berdasarkan status
-    if ($status === 'trashed') {
-        // Mengambil posts yang dihapus dan mengurutkan berdasarkan yang terbaru
-        $posts = Posts::onlyTrashed()
-                      ->with('categories')
-                      ->orderBy('deleted_at', 'desc') // Urutkan berdasarkan deleted_at (terbaru)
-                      ->get();
-    } else {
-        // Mengambil posts yang tidak dihapus dan mengurutkan berdasarkan yang terbaru
-        $posts = Posts::whereNull('deleted_at')
-                      ->with('categories')
-                      ->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at (terbaru)
-                      ->get();
+    {
+        // Mendapatkan status dari query string
+        $status = $request->query('status');
+        
+        // Menghitung total posts yang tidak dihapus
+        $totalPosts = Posts::whereNull('deleted_at')->count();
+        
+        // Menghitung total posts yang dihapus
+        $totalTrashed = Posts::onlyTrashed()->count();
+        
+        // Memilih posts berdasarkan status
+        if ($status === 'trashed') {
+            // Mengambil posts yang dihapus dan mengurutkan berdasarkan yang terbaru
+            $posts = Posts::onlyTrashed()
+                        ->with('categories')
+                        ->orderBy('deleted_at', 'desc') // Urutkan berdasarkan deleted_at (terbaru)
+                        ->get();
+        } else {
+            // Mengambil posts yang tidak dihapus dan mengurutkan berdasarkan yang terbaru
+            $posts = Posts::whereNull('deleted_at')
+                        ->with('categories')
+                        ->orderBy('created_at', 'desc') // Urutkan berdasarkan created_at (terbaru)
+                        ->get();
+        }
+        
+        // Menentukan apakah ada posts yang dihapus
+        $hasTrashed = $totalTrashed > 0;
+
+        $categories = Categories::all();
+
+        // Mengembalikan tampilan dengan data yang diperlukan
+        return view('backend.posts.index', compact('posts','categories', 'status', 'hasTrashed', 'totalPosts', 'totalTrashed'));
     }
-    
-    // Menentukan apakah ada posts yang dihapus
-    $hasTrashed = $totalTrashed > 0;
-
-    $categories = Categories::all();
-
-    // Mengembalikan tampilan dengan data yang diperlukan
-    return view('backend.posts.index', compact('posts','categories', 'status', 'hasTrashed', 'totalPosts', 'totalTrashed'));
-}
 
     
     public function create()
@@ -81,7 +82,7 @@ class PostsController extends Controller
             'is_banner' =>$validatedData['is_banner'],
             'views' => 0,
             'author' => Auth::user()->name,
-            'image' => $request->input('image'),
+            'image' => Media::toRelativePath($request->input('image')),
             'category_id' => $request->input('category_id'),
         ]);
 
@@ -157,23 +158,23 @@ class PostsController extends Controller
     }
 
     public function edit(Posts $post)
-{
-    
-    // Temukan post berdasarkan ID
-    // $post = Posts::findOrFail($slug);
-    $categories = Categories::all(); // Mengambil semua kategori untuk dropdown
-    // Menghitung jumlah post dengan is_featured = 1 dan is_banner = 1
-    $featuredCount = Posts::where('is_featured', 1)->count();
-    $bannerCount = Posts::where('is_banner', 1)->count();
+    {
+        
+        // Temukan post berdasarkan ID
+        // $post = Posts::findOrFail($slug);
+        $categories = Categories::all(); // Mengambil semua kategori untuk dropdown
+        // Menghitung jumlah post dengan is_featured = 1 dan is_banner = 1
+        $featuredCount = Posts::where('is_featured', 1)->count();
+        $bannerCount = Posts::where('is_banner', 1)->count();
 
-    // Menentukan apakah opsi is_featured dan is_banner bisa dipilih
-    $canBeFeatured = $featuredCount < 4; // Batas 4 untuk featured
-    $canBeBanner = $bannerCount < 3;     // Batas 3 untuk banner
+        // Menentukan apakah opsi is_featured dan is_banner bisa dipilih
+        $canBeFeatured = $featuredCount < 4; // Batas 4 untuk featured
+        $canBeBanner = $bannerCount < 3;     // Batas 3 untuk banner
 
-    // dd($post);
-    // dd($post->status); // This will halt execution and display the status
-    return view('backend.posts.edit', compact('post', 'categories', 'canBeFeatured', 'canBeBanner'));
-}
+        // dd($post);
+        // dd($post->status); // This will halt execution and display the status
+        return view('backend.posts.edit', compact('post', 'categories', 'canBeFeatured', 'canBeBanner'));
+    }
 
 
     public function update(Request $request, Posts $post)
@@ -210,7 +211,7 @@ class PostsController extends Controller
         $post->update([
             'title' => $request->title,
             'slug' => $slugs,
-            'image' => $request->input('image'),
+            'image' => Media::toRelativePath($request->input('image')),
             'content' => $request->content,
             'status' => $request->status,
             'category_id' => $request->category_id,

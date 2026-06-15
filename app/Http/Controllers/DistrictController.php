@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Media;
 use App\Models\District;
 use Illuminate\Http\Request;
 
@@ -43,7 +44,7 @@ class DistrictController extends Controller
                 'contact'       => $request->contact,
                 'address'       => $request->address,
                 'web_url'       => $request->web_url,
-                'img_path'      => $request->img_path,
+                'img_path'      => Media::toRelativePath($request->img_path),
             ];
             if ($request->filled('slug')) {
                 $data['slug'] = $request->slug;
@@ -91,7 +92,7 @@ class DistrictController extends Controller
                 'contact'       => $request->contact,
                 'address'       => $request->address,
                 'web_url'       => $request->web_url,
-                'img_path'      => $request->img_path,
+                'img_path'      => Media::toRelativePath($request->img_path),
             ];
             if ($request->filled('slug')) {
                 $data['slug'] = $request->slug;

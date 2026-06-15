@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Media;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -61,7 +62,9 @@ class PlayerController extends Controller
         ]);
 
         try {
-            Player::create($request->only(['name', 'gender', 'height', 'weight', 'status', 'position', 'img_path', 'team_id']));
+            $data = $request->only(['name', 'gender', 'height', 'weight', 'status', 'position', 'img_path', 'team_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            Player::create($data);
 
             notify()->success('Pemain berhasil ditambahkan!');
             return redirect()->route('players.index');
@@ -94,7 +97,9 @@ class PlayerController extends Controller
         ]);
 
         try {
-            $player->update($request->only(['name', 'gender', 'height', 'weight', 'status', 'position', 'img_path', 'team_id']));
+            $data = $request->only(['name', 'gender', 'height', 'weight', 'status', 'position', 'img_path', 'team_id']);
+            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            $player->update($data);
 
             notify()->success('Pemain berhasil diperbarui!');
             return redirect()->route('players.index');

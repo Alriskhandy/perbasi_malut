@@ -35,7 +35,7 @@
                         class="group bg-white border border-charcoal/10 overflow-hidden bento-grid-item shadow-sm">
                         <div class="relative h-[400px] overflow-hidden">
                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                src="{{ $featured->image }}" alt="{{ $featured->title }}" />
+                                src="{{ \App\Helpers\Media::url($featured->image) }}" alt="{{ $featured->title }}" />
                             @if ($featured->category)
                                 <div class="absolute top-4 left-4">
                                     <span
@@ -69,7 +69,7 @@
                                 <article
                                     class="bg-white border border-charcoal/10 overflow-hidden bento-grid-item flex flex-col">
                                     <div class="relative h-64 overflow-hidden">
-                                        <img class="w-full h-full object-cover" src="{{ $post->image }}"
+                                        <img class="w-full h-full object-cover" src="{{ \App\Helpers\Media::url($post->image) }}"
                                             alt="{{ $post->title }}" />
                                         @if ($post->category)
                                             <div class="absolute top-4 left-4">

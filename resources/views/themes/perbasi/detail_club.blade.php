@@ -87,7 +87,7 @@
                         <div class="relative w-40 h-40 md:w-56 md:h-56 bg-white border-4 border-crimson-red
                                     flex items-center justify-center rounded-full overflow-hidden shadow-2xl logo-enter">
                             @if ($team->img_path)
-                                <img src="{{ asset($team->img_path) }}"
+                                <img src="{{ \App\Helpers\Media::url($team->img_path) }}"
                                     alt="Logo {{ $team->name }}"
                                     class="w-4/5 h-4/5 object-contain" />
                             @else
@@ -179,7 +179,7 @@
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
                                     @if ($coach->img_path)
                                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            src="{{ asset($coach->img_path) }}"
+                                            src="{{ \App\Helpers\Media::url($coach->img_path) }}"
                                             alt="{{ $coach->name }}" />
                                     @else
                                         <span class="material-symbols-outlined text-6xl text-charcoal/15">person</span>
@@ -219,7 +219,7 @@
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
                                     @if ($player->img_path)
                                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            src="{{ asset($player->img_path) }}"
+                                            src="{{ \App\Helpers\Media::url($player->img_path) }}"
                                             alt="{{ $player->name }}" />
                                     @else
                                         <div class="w-full h-full flex items-center justify-center">
@@ -256,7 +256,7 @@
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
                                     @if ($official->img_path)
                                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                            src="{{ asset($official->img_path) }}"
+                                            src="{{ \App\Helpers\Media::url($official->img_path) }}"
                                             alt="{{ $official->name }}" />
                                     @else
                                         <span class="material-symbols-outlined text-6xl text-charcoal/15">person</span>

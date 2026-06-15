@@ -38,7 +38,7 @@
                                                 <!-- Menampilkan gambar -->
                                                 <td>
                                                     @if ($gallery->image)
-                                                        <img src="{{ $gallery->image }}" alt="{{ $gallery->name }}"
+                                                        <img src="{{ \App\Helpers\Media::url($gallery->image) }}" alt="{{ $gallery->name }}"
                                                             class="img-fluid" style="max-height: 50px;">
                                                     @else
                                                         <span>No Image</span>

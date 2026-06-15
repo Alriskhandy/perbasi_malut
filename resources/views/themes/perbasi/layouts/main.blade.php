@@ -25,14 +25,14 @@
         <meta property="og:url" content="{{ url('') }}">
         <meta property="og:title" content="{{ $site_name->value }}">
         <meta property="og:description" content="{{ $seo_description }}">
-        <meta property="og:image" content="{{ asset('storage/' . $site_logo->value) }}">
+        <meta property="og:image" content="{{ \App\Helpers\Media::url($site_logo->value) }}">
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:url" content="{{ url('') }}">
         <meta property="twitter:title" content="{{ $site_name->value }}">
         <meta property="twitter:description" content="{{ $seo_description }}">
-        <meta property="twitter:image" content="{{ asset('storage/' . $site_logo->value) }}">
+        <meta property="twitter:image" content="{{ \App\Helpers\Media::url($site_logo->value) }}">
 
         <!-- Canonical URL -->
         <link rel="canonical" href="{{ url('') }}">
