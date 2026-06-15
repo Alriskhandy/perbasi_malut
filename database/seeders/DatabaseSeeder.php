@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'perbasi',
             'path' => 'themes/perbasi',
             'image' => 'themes/perbasi.png',
-            'active' => 0,
+            'active' => 1,
         ]);
 
         $this->call([
