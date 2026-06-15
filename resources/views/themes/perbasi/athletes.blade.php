@@ -28,19 +28,19 @@
 @endpush
 
 @section('main')
-    <main class="mt-20">
+    <main class="mt-16 md:mt-20">
 
         <!-- Page Hero -->
         <div class="hero-bg border-b-4 border-crimson-red overflow-hidden relative">
             <div class="hero-dot-grid absolute inset-0 pointer-events-none"></div>
-            <div class="absolute right-0 top-0 bottom-0 flex items-center pr-margin-desktop select-none pointer-events-none overflow-hidden">
+            <div class="absolute right-0 top-0 bottom-0 hidden md:flex items-center pr-margin-desktop select-none pointer-events-none overflow-hidden">
                 <span class="font-headline-xl oswald text-white/[0.04] uppercase leading-none text-[clamp(120px,18vw,240px)] tracking-tighter">
                     ATLET
                 </span>
             </div>
 
-            <div class="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-20 md:py-28
-                        flex flex-col lg:flex-row lg:items-end gap-12 lg:gap-24">
+            <div class="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-14 md:py-20 lg:py-28
+                        flex flex-col lg:flex-row lg:items-end gap-8 lg:gap-24">
                 <div class="flex-1 anim-fade-up">
                     <p class="font-label-bold text-crimson-red uppercase tracking-widest text-xs mb-4">
                         Resources &rarr; Atlet
@@ -54,17 +54,17 @@
                     </p>
                 </div>
 
-                <div class="flex lg:flex-col gap-8 lg:gap-6 anim-fade-up anim-delay-2">
-                    <div class="border-l-2 border-crimson-red pl-6">
-                        <span class="font-headline-xl oswald text-off-white leading-none block text-[clamp(40px,6vw,64px)]">
+                <div class="flex gap-6 sm:gap-8 lg:flex-col lg:gap-6 anim-fade-up anim-delay-2">
+                    <div class="border-l-2 border-crimson-red pl-4 md:pl-6">
+                        <span class="font-headline-xl oswald text-off-white leading-none block text-[clamp(32px,8vw,64px)]">
                             {{ $players->total() }}
                         </span>
                         <p class="font-label-bold text-xs text-surface-variant uppercase tracking-widest mt-1">
                             Atlet Aktif
                         </p>
                     </div>
-                    <div class="border-l-2 border-amber-gold pl-6">
-                        <span class="font-headline-xl oswald text-amber-gold leading-none block text-[clamp(40px,6vw,64px)]">
+                    <div class="border-l-2 border-amber-gold pl-4 md:pl-6">
+                        <span class="font-headline-xl oswald text-amber-gold leading-none block text-[clamp(32px,8vw,64px)]">
                             {{ $teams->count() }}
                         </span>
                         <p class="font-label-bold text-xs text-surface-variant uppercase tracking-widest mt-1">
@@ -77,21 +77,21 @@
 
         <!-- Filter Bar -->
         <div class="bg-white border-b border-outline-variant sticky top-20 z-30 shadow-sm">
-            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-4">
+            <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-3 md:py-4">
                 <form method="GET" action="{{ route('athletes.index') }}"
-                    class="flex flex-wrap gap-3 items-stretch sm:items-center">
+                    class="flex flex-wrap gap-2 md:gap-3 items-stretch sm:items-center">
 
                     <div class="relative flex-1 min-w-[180px]">
-                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
+                        <span class="material-symbols-outlined absolute left-2.5 md:left-3 top-1/2 -translate-y-1/2 text-secondary text-[16px] md:text-[18px]">search</span>
                         <input type="search" name="search"
                             value="{{ e(old('search', $search)) }}"
                             maxlength="100" autocomplete="off"
-                            class="w-full pl-10 pr-4 py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-sm bg-transparent outline-none transition"
+                            class="w-full pl-9 pr-3 py-2 md:py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-xs md:text-sm bg-transparent outline-none transition"
                             placeholder="Cari nama atlet..." />
                     </div>
 
                     <select name="district_id"
-                        class="w-full sm:w-44 px-4 py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-sm bg-white appearance-none outline-none transition">
+                        class="w-full sm:w-44 px-3 md:px-4 py-2 md:py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-xs md:text-sm bg-white appearance-none outline-none transition">
                         <option value="">Semua Kab/Kota</option>
                         @foreach ($districts as $district)
                             <option value="{{ \App\Helpers\Hashid::encode($district->id) }}" {{ $districtHash === \App\Helpers\Hashid::encode($district->id) ? 'selected' : '' }}>
@@ -101,7 +101,7 @@
                     </select>
 
                     <select name="team_id"
-                        class="w-full sm:w-48 px-4 py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-sm bg-white appearance-none outline-none transition">
+                        class="w-full sm:w-48 px-3 md:px-4 py-2 md:py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-xs md:text-sm bg-white appearance-none outline-none transition">
                         <option value="">Semua Klub</option>
                         @foreach ($teams as $team)
                             <option value="{{ \App\Helpers\Hashid::encode($team->id) }}" {{ $teamHash === \App\Helpers\Hashid::encode($team->id) ? 'selected' : '' }}>
@@ -111,22 +111,22 @@
                     </select>
 
                     <select name="gender"
-                        class="w-full sm:w-36 px-4 py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-sm bg-white appearance-none outline-none transition">
+                        class="w-full sm:w-36 px-3 md:px-4 py-2 md:py-2.5 border border-outline-variant rounded focus:border-crimson-red focus:ring-1 focus:ring-crimson-red/20 font-body-md text-xs md:text-sm bg-white appearance-none outline-none transition">
                         <option value="">Semua Gender</option>
                         <option value="L" {{ $gender === 'L' ? 'selected' : '' }}>Putra (L)</option>
                         <option value="P" {{ $gender === 'P' ? 'selected' : '' }}>Putri (P)</option>
                     </select>
 
                     <button type="submit"
-                        class="bg-charcoal text-off-white font-label-bold px-6 py-2.5 rounded hover:bg-crimson-red transition-colors flex items-center justify-center gap-2 text-sm">
-                        <span class="material-symbols-outlined text-[16px]">tune</span>
+                        class="bg-charcoal text-off-white font-label-bold px-4 md:px-6 py-2 md:py-2.5 rounded hover:bg-crimson-red transition-colors flex items-center justify-center gap-2 text-xs md:text-sm">
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">tune</span>
                         FILTER
                     </button>
 
                     @if ($search || $teamHash || $districtHash || $gender)
                         <a href="{{ route('athletes.index') }}"
-                            class="border border-outline-variant text-secondary font-label-bold px-5 py-2.5 rounded hover:bg-surface-variant transition-colors flex items-center justify-center gap-1 text-sm">
-                            <span class="material-symbols-outlined text-[16px]">close</span>
+                            class="border border-outline-variant text-secondary font-label-bold px-4 py-2 md:py-2.5 rounded hover:bg-surface-variant transition-colors flex items-center justify-center gap-1 text-xs md:text-sm">
+                            <span class="material-symbols-outlined text-[14px] md:text-[16px]">close</span>
                             RESET
                         </a>
                     @endif

@@ -38,13 +38,13 @@
 @endpush
 
 @section('main')
-    <main class="mt-20">
+    <main class="mt-16 md:mt-20">
 
         <!-- Hero -->
         <div class="hero-bg border-b-4 border-crimson-red overflow-hidden relative">
             <div class="hero-dot-grid absolute inset-0 pointer-events-none"></div>
 
-            <div class="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-16 md:py-24">
+            <div class="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-10 md:py-16 lg:py-24">
 
                 <!-- Breadcrumb -->
                 <p class="font-label-bold text-crimson-red uppercase tracking-widest text-xs mb-8 anim-fade-up">
@@ -53,7 +53,7 @@
                     <span class="text-surface-variant">{{ $district->name }}</span>
                 </p>
 
-                <div class="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+                <div class="flex flex-col lg:flex-row gap-6 md:gap-10 lg:gap-16 items-center lg:items-start">
 
                     <!-- Logo -->
                     <div class="flex-shrink-0 anim-logo">
@@ -69,14 +69,14 @@
                     </div>
 
                     <!-- Info -->
-                    <div class="flex-1 min-w-0">
+                    <div class="flex-1 min-w-0 text-center lg:text-left">
                         <h1 class="font-headline-xl text-off-white uppercase leading-none mb-2 text-headline-xl-mobile md:text-headline-xl anim-fade-up anim-delay-1">
                             {{ $district->name }}
                         </h1>
                         @if ($district->district_name)
                             <p class="font-body-lg text-surface-variant mb-4 anim-fade-up anim-delay-1">{{ $district->district_name }}</p>
                         @endif
-                        <div class="w-12 h-0.5 bg-crimson-red mb-6 anim-fade-up anim-delay-2"></div>
+                        <div class="w-12 h-0.5 bg-crimson-red mb-6 mx-auto lg:mx-0 anim-fade-up anim-delay-2"></div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 anim-fade-up anim-delay-2">
                             @if ($district->pic)
@@ -121,27 +121,27 @@
                     </div>
 
                     <!-- Stats -->
-                    <div class="grid grid-cols-2 lg:grid-cols-1 gap-5 flex-shrink-0 anim-fade-up anim-delay-3">
-                        <div class="border-l-2 border-crimson-red pl-5">
-                            <span class="font-headline-xl oswald text-off-white leading-none block text-[clamp(28px,4vw,48px)]">
+                    <div class="grid grid-cols-4 md:grid-cols-2 gap-3 sm:gap-5 flex-shrink-0 mx-auto lg:mx-0 anim-fade-up anim-delay-3">
+                        <div class="border-l-2 border-crimson-red pl-3 md:pl-5">
+                            <span class="font-headline-xl oswald text-off-white leading-none block text-[clamp(24px,4vw,48px)]">
                                 {{ $district->teams_count }}
                             </span>
                             <p class="font-label-bold text-xs text-surface-variant uppercase tracking-widest mt-1">Klub</p>
                         </div>
-                        <div class="border-l-2 border-[#3b82f6] pl-5">
-                            <span class="font-headline-xl oswald text-[#3b82f6] leading-none block text-[clamp(28px,4vw,48px)]">
+                        <div class="border-l-2 border-[#3b82f6] pl-3 md:pl-5">
+                            <span class="font-headline-xl oswald text-[#3b82f6] leading-none block text-[clamp(24px,4vw,48px)]">
                                 {{ $district->players_count }}
                             </span>
                             <p class="font-label-bold text-xs text-surface-variant uppercase tracking-widest mt-1">Atlet</p>
                         </div>
-                        <div class="border-l-2 border-[#10b981] pl-5">
-                            <span class="font-headline-xl oswald text-[#10b981] leading-none block text-[clamp(28px,4vw,48px)]">
+                        <div class="border-l-2 border-[#10b981] pl-3 md:pl-5">
+                            <span class="font-headline-xl oswald text-[#10b981] leading-none block text-[clamp(24px,4vw,48px)]">
                                 {{ $district->coaches_count }}
                             </span>
                             <p class="font-label-bold text-xs text-surface-variant uppercase tracking-widest mt-1">Pelatih</p>
                         </div>
-                        <div class="border-l-2 border-amber-gold pl-5">
-                            <span class="font-headline-xl oswald text-amber-gold leading-none block text-[clamp(28px,4vw,48px)]">
+                        <div class="border-l-2 border-amber-gold pl-3 md:pl-5">
+                            <span class="font-headline-xl oswald text-amber-gold leading-none block text-[clamp(24px,4vw,48px)]">
                                 {{ $district->referees_count }}
                             </span>
                             <p class="font-label-bold text-xs text-surface-variant uppercase tracking-widest mt-1">Wasit</p>
@@ -154,7 +154,7 @@
         <!-- Clubs Section -->
         <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12">
 
-            <div class="flex items-center gap-4 mb-8">
+            <div class="flex flex-wrap items-center gap-3 mb-8">
                 <div class="w-1 h-8 bg-amber-gold flex-shrink-0"></div>
                 <h2 class="font-headline-md text-charcoal uppercase tracking-wide text-xl">
                     Klub di {{ $district->name }}
@@ -176,7 +176,7 @@
                         <a href="{{ route('clubs.detail', $team->slug) }}"
                             class="club-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col">
 
-                            <div class="relative aspect-square bg-surface-container-low overflow-hidden flex items-center justify-center p-4">
+                            <div class="relative aspect-square bg-surface-container-low overflow-hidden flex items-center justify-center p-1 md:p-2">
                                 @if ($team->img_path)
                                     <img class="club-logo w-full h-full object-contain"
                                         src="{{ \App\Helpers\Media::url($team->img_path) }}"

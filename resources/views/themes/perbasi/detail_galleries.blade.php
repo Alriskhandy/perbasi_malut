@@ -30,7 +30,7 @@
 @endpush
 
 @section('main')
-    <main class="mt-20">
+    <main class="mt-16 md:mt-20">
 
         <!-- Hero -->
         <div class="hero-bg border-b-4 border-crimson-red overflow-hidden relative">
@@ -141,7 +141,7 @@
         </button>
 
         <!-- Image container -->
-        <div class="flex flex-col items-center max-w-[90vw] max-h-[90vh] px-14">
+        <div class="flex flex-col items-center max-w-[90vw] max-h-[90vh] px-8 md:px-14">
             <img id="lb-img" src="" alt=""
                  class="max-w-full max-h-[78vh] object-contain rounded shadow-2xl" />
             <div class="flex items-center gap-4 mt-4">

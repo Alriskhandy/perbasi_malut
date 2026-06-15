@@ -13,10 +13,10 @@
 @endpush
 
 @section('main')
-    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-padding mt-20">
+    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-padding mt-16 md:mt-20">
         <!-- Page Header -->
         <div class="mb-section-padding border-l-8 border-crimson-red pl-gutter">
-            <h1 class="font-headline-xl text-headline-xl uppercase mb-stack-sm tracking-tighter">
+            <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase mb-stack-sm tracking-tighter">
                 @if (isset($category))
                     {{ $category->name }}
                 @else
@@ -50,9 +50,9 @@
                                 <span>{{ strtoupper($featured->created_at->format('d F Y')) }}</span>
                             </div>
                             <h2
-                                class="font-headline-lg text-headline-lg mb-stack-md leading-tight group-hover:text-crimson-red transition-colors">
+                                class="font-headline-lg text-3xl md:text-headline-lg mb-stack-md leading-tight group-hover:text-crimson-red transition-colors">
                                 {{ strtoupper($featured->title) }}</h2>
-                            <p class="text-body-md text-secondary mb-stack-lg line-clamp-3">
+                            <p class="text-[14px] md:text-body-md text-secondary mb-stack-lg line-clamp-3">
                                 {{ Str::limit(strip_tags($featured->content), 200) }}
                             </p>
                             <a class="inline-flex items-center gap-2 text-crimson-red font-label-bold text-label-bold hover:gap-4 transition-all"
@@ -81,9 +81,9 @@
                                     <div class="p-stack-md flex-1 flex flex-col border-b-4 border-crimson-red">
                                         <span
                                             class="text-secondary text-sm font-label-bold mb-2">{{ strtoupper($post->created_at->format('d F Y')) }}</span>
-                                        <h3 class="font-headline-md text-headline-md mb-stack-sm line-clamp-2">
+                                        <h3 class="font-headline-md text-xl md:text-headline-md mb-stack-sm line-clamp-2">
                                             {{ $post->title }}</h3>
-                                        <p class="text-body-md text-secondary mb-stack-md line-clamp-2">
+                                        <p class="text-[14px] md:text-body-md text-secondary mb-stack-md line-clamp-2">
                                             {{ Str::limit(strip_tags($post->content), 120) }}</p>
                                         <a class="mt-auto inline-flex items-center gap-1 text-crimson-red font-label-bold text-label-bold hover:underline"
                                             href="{{ route('posts.show', $post->slug) }}">
@@ -104,7 +104,7 @@
                 @else
                     <div class="bg-white border border-charcoal/10 p-stack-lg text-center shadow-sm">
                         <span class="material-symbols-outlined text-secondary text-6xl mb-4">article</span>
-                        <h3 class="font-headline-md text-headline-md text-charcoal mb-stack-md">Belum ada berita
+                        <h3 class="font-headline-md text-2xl md:text-headline-md text-charcoal mb-stack-md">Belum ada berita
                         </h3>
                         <p class="font-body-md text-secondary">Belum ada berita yang dipublikasikan.</p>
                     </div>

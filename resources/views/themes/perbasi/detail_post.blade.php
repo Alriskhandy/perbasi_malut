@@ -33,7 +33,7 @@
 @endpush
 
 @section('main')
-    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-padding mt-20">
+    <main class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-padding-mobile md:py-section-padding mt-16 md:mt-20">
         <!-- Page Header -->
         <div class="mb-section-padding border-l-8 border-crimson-red pl-gutter">
             <nav class="flex items-center gap-2 font-label-bold text-label-bold text-secondary mb-stack-sm text-sm">
@@ -46,7 +46,7 @@
                         class="hover:text-crimson-red transition-colors">{{ $page->category->name }}</a>
                 @endif
             </nav>
-            <h1 class="font-headline-xl text-headline-xl uppercase mb-stack-sm tracking-tighter">
+            <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl uppercase mb-stack-sm tracking-tighter">
                 {{ $page->title }}
             </h1>
             <div class="flex items-center gap-4 text-secondary font-label-bold text-label-bold">
@@ -104,7 +104,7 @@
                     <!-- Comments Section -->
                     <div class="bg-white border border-charcoal/10 shadow-sm">
                         <div class="border-b-4 border-crimson-red px-stack-lg py-stack-md">
-                            <h3 class="font-headline-md text-headline-md uppercase tracking-tight">
+                            <h3 class="font-headline-md text-2xl md:text-headline-md uppercase tracking-tight">
                                 Komentar <span class="text-crimson-red">({{ $comments->count() }})</span>
                             </h3>
                         </div>
@@ -158,11 +158,9 @@
         window.addEventListener('scroll', () => {
             if (header) {
                 if (window.scrollY > 50) {
-                    header.classList.add('py-1', 'h-16');
-                    header.classList.remove('h-20');
+                    header.classList.add('py-1', '!h-14');
                 } else {
-                    header.classList.remove('py-1', 'h-16');
-                    header.classList.add('h-20');
+                    header.classList.remove('py-1', '!h-14');
                 }
             }
         });

@@ -51,7 +51,7 @@
 @endpush
 
 @section('main')
-    <main class="mt-20">
+    <main class="mt-16 md:mt-20">
 
         <!-- Page Hero -->
         <div class="hero-bg border-b-4 border-crimson-red overflow-hidden relative">
@@ -162,7 +162,7 @@
             {{-- ── PELATIH ────────────────────────────────────────────── --}}
             <section>
                 <div class="flex justify-between items-end mb-stack-md">
-                    <h2 class="font-headline-md text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6">
+                    <h2 class="font-headline-md text-2xl md:text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6">
                         Pelatih
                     </h2>
                     <span class="text-secondary font-label-bold text-sm">{{ $activeCoaches->count() }} pelatih aktif</span>
@@ -201,7 +201,7 @@
             {{-- ── ATLET ──────────────────────────────────────────────── --}}
             <section>
                 <div class="flex justify-between items-end mb-stack-md">
-                    <h2 class="font-headline-md text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6">
+                    <h2 class="font-headline-md text-2xl md:text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6">
                         Daftar Atlet
                     </h2>
                     <span class="text-secondary font-label-bold text-sm">{{ $activePlayers->count() }} atlet aktif</span>
@@ -244,7 +244,7 @@
             @if ($officials->isNotEmpty())
                 <section>
                     <div class="flex justify-between items-end mb-stack-md">
-                        <h2 class="font-headline-md text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6">
+                        <h2 class="font-headline-md text-2xl md:text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6">
                             Official
                         </h2>
                         <span class="text-secondary font-label-bold text-sm">{{ $officials->count() }} official</span>

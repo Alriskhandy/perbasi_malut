@@ -133,6 +133,7 @@
                         "stack-sm": "8px",
                         "container-max": "1280px",
                         "section-padding": "80px",
+                        "section-padding-mobile": "40px",
                         "margin-desktop": "64px",
                         "gutter": "24px"
                     },
@@ -152,8 +153,8 @@
                             "letterSpacing": "0.05em",
                             "fontWeight": "700"
                         }],
-                        "headline-xl-mobile": ["40px", {
-                            "lineHeight": "44px",
+                        "headline-xl-mobile": ["32px", {
+                            "lineHeight": "40px",
                             "letterSpacing": "-0.01em",
                             "fontWeight": "700"
                         }],
@@ -165,6 +166,10 @@
                             "lineHeight": "56px",
                             "letterSpacing": "0em",
                             "fontWeight": "600"
+                        }],
+                        "body-sm": ["12px", {
+                            "lineHeight": "20px",
+                            "fontWeight": "400"
                         }],
                         "body-md": ["16px", {
                             "lineHeight": "24px",
@@ -204,11 +209,11 @@
     @yield('main')
 
     <!-- Footer -->
-    <footer class="bg-charcoal text-off-white border-t border-crimson-red/30 py-section-padding w-full px-margin-desktop">
+    <footer class="bg-charcoal text-off-white border-t border-crimson-red/30 py-section-padding w-full px-margin-mobile md:px-margin-desktop">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start max-w-container-max mx-auto">
             <!-- Kiri: Logo -->
             <div class="flex flex-col items-center gap-2">
-                <img alt="PERBASI Logo" class="h-48 w-auto"
+                <img alt="PERBASI Logo" class="h-32 md:h-48 w-auto"
                     src="{{ asset('backend/assets/img/logo-vertikal.png') }}" />
             </div>
 

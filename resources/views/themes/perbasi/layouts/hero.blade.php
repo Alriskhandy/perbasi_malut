@@ -9,14 +9,14 @@
 
     <div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <!-- Left Side: Content & Stats -->
-        <div class="text-left">
-            <h1 class="font-headline-xl text-headline-xl text-off-white uppercase leading-[1] mb-6 text-shadow-hero">
+        <div class="text-center lg:text-left">
+            <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-off-white uppercase leading-[1] mb-6 text-shadow-hero">
                 Malut bisa,<br /><span class="text-crimson-red">Malut juara</span>
             </h1>
-            <p class="font-body-lg text-body-lg text-off-white/80 max-w-xl mb-10">
+            <p class="font-body-lg text-body-lg text-off-white/80 max-w-xl mx-auto lg:mx-0 mb-10">
                 Menjadikan olahraga bola basket di Maluku Utara sebagai sarana pembinaan generasi muda yang berkarakter, berprestasi, dan mampu membawa nama baik daerah hingga ke kancah nasional maupun internasional.
             </p>
-            <div class="flex flex-wrap gap-4 mb-16">
+            <div class="flex flex-wrap justify-center lg:justify-start gap-4 mb-16">
                 <a href="{{ route('allPosts') }}"
                     class="bg-crimson-red text-off-white px-8 py-4 rounded-DEFAULT font-label-bold text-label-bold hover:bg-primary-container transition-all flex items-center justify-center gap-2 uppercase">
                     LIHAT BERITA <span class="material-symbols-outlined">sports_basketball</span>
@@ -27,21 +27,21 @@
                 </a>
             </div>
             <!-- Stats Row -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-6 border-t border-white/10 pt-8">
-                <div class="flex flex-col gap-1">
-                    <span class="font-headline-xl text-3xl md:text-4xl text-off-white leading-none">{{ $klubCount ?? 54 }}</span>
+            <div class="grid grid-cols-4 gap-x-3 md:gap-x-6 gap-y-6 border-t border-white/10 pt-8">
+                <div class="flex flex-col items-center lg:items-start gap-1">
+                    <span class="font-headline-xl text-4xl md:text-5xl text-off-white leading-none">{{ $klubCount ?? 54 }}</span>
                     <span class="font-label-bold text-xs text-crimson-red uppercase tracking-widest mt-1">Klub</span>
                 </div>
-                <div class="flex flex-col gap-1">
-                    <span class="font-headline-xl text-3xl md:text-4xl text-off-white leading-none">{{ $pelatihCount ?? 85 }}</span>
+                <div class="flex flex-col items-center lg:items-start gap-1">
+                    <span class="font-headline-xl text-4xl md:text-5xl text-off-white leading-none">{{ $pelatihCount ?? 85 }}</span>
                     <span class="font-label-bold text-xs text-crimson-red uppercase tracking-widest mt-1">Pelatih</span>
                 </div>
-                <div class="flex flex-col gap-1">
-                    <span class="font-headline-xl text-3xl md:text-4xl text-off-white leading-none">{{ $atletCount ?? 0 }}</span>
+                <div class="flex flex-col items-center lg:items-start gap-1">
+                    <span class="font-headline-xl text-4xl md:text-5xl text-off-white leading-none">{{ $atletCount ?? 0 }}</span>
                     <span class="font-label-bold text-xs text-crimson-red uppercase tracking-widest mt-1">Pemain</span>
                 </div>
-                <div class="flex flex-col gap-1">
-                    <span class="font-headline-xl text-3xl md:text-4xl text-off-white leading-none">{{ $wasitCount ?? 42 }}</span>
+                <div class="flex flex-col items-center lg:items-start gap-1">
+                    <span class="font-headline-xl text-4xl md:text-5xl text-off-white leading-none">{{ $wasitCount ?? 42 }}</span>
                     <span class="font-label-bold text-xs text-crimson-red uppercase tracking-wider mt-1">Wasit</span>
                 </div>
             </div>

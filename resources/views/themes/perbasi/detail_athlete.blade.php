@@ -94,19 +94,19 @@
 @endpush
 
 @section('main')
-    <main class="mt-20">
+    <main class="mt-16 md:mt-20">
 
         <!-- Page Hero -->
         <div class="hero-bg border-b-4 border-crimson-red overflow-hidden relative">
             <div class="hero-dot-grid absolute inset-0 pointer-events-none"></div>
             <!-- Ghost name decoration -->
-            <div class="absolute right-0 bottom-0 flex items-end pr-margin-desktop pb-2 select-none pointer-events-none overflow-hidden">
+            <div class="absolute right-0 bottom-0 hidden md:flex items-end pr-margin-desktop pb-2 select-none pointer-events-none overflow-hidden">
                 <span class="font-headline-xl oswald text-white/[0.03] uppercase leading-none text-[clamp(80px,14vw,200px)] tracking-tighter">
                     {{ Str::upper(Str::words($player->name, 1, '')) }}
                 </span>
             </div>
 
-            <div class="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-10 pb-16 md:pb-24">
+            <div class="relative max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pt-8 md:pt-10 pb-10 md:pb-24">
                 <!-- Breadcrumb -->
                 <nav class="flex items-center gap-2 font-label-bold text-xs uppercase tracking-widest mb-10 anim-fade-up">
                     <a href="{{ route('athletes.index') }}" class="text-surface-variant hover:text-crimson-red transition-colors">
@@ -201,25 +201,25 @@
                         @endif
 
                         <!-- Stats strip -->
-                        <div class="flex justify-center md:justify-start gap-8 anim-fade-up anim-delay-4">
+                        <div class="flex justify-center md:justify-start gap-4 sm:gap-8 anim-fade-up anim-delay-4">
                             @if ($player->height)
-                                <div class="border-l-2 border-crimson-red pl-4">
-                                    <span class="font-headline-md oswald text-off-white leading-none block text-4xl">
+                                <div class="border-l-2 border-crimson-red pl-3 md:pl-4">
+                                    <span class="font-headline-md oswald text-off-white leading-none block text-3xl md:text-4xl">
                                         {{ $player->height }}
                                     </span>
                                     <p class="font-label-bold text-[10px] text-surface-variant uppercase tracking-widest mt-1">cm</p>
                                 </div>
                             @endif
                             @if ($player->weight)
-                                <div class="border-l-2 border-off-white/20 pl-4">
-                                    <span class="font-headline-md oswald text-off-white leading-none block text-4xl">
+                                <div class="border-l-2 border-off-white/20 pl-3 md:pl-4">
+                                    <span class="font-headline-md oswald text-off-white leading-none block text-3xl md:text-4xl">
                                         {{ $player->weight }}
                                     </span>
                                     <p class="font-label-bold text-[10px] text-surface-variant uppercase tracking-widest mt-1">kg</p>
                                 </div>
                             @endif
-                            <div class="border-l-2 border-amber-gold pl-4">
-                                <span class="font-headline-md oswald text-amber-gold leading-none block text-4xl uppercase">
+                            <div class="border-l-2 border-amber-gold pl-3 md:pl-4">
+                                <span class="font-headline-md oswald text-amber-gold leading-none block text-3xl md:text-4xl uppercase">
                                     {{ $player->gender }}
                                 </span>
                                 <p class="font-label-bold text-[10px] text-surface-variant uppercase tracking-widest mt-1">
@@ -238,7 +238,7 @@
 
                 <!-- Profil Atlet -->
                 <div class="w-full lg:max-w-xl flex-shrink-0">
-                    <h2 class="font-headline-md text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6 mb-stack-md">
+                    <h2 class="font-headline-md text-2xl md:text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6 mb-stack-md">
                         Profil Atlet
                     </h2>
                     <div class="bg-white border border-charcoal/10 divide-y divide-outline-variant/50"
@@ -314,9 +314,9 @@
 
                 {{-- Atlet Lainnya (1 Klub) --}}
                 @if ($relatedPlayers->isNotEmpty())
-                    <div class="flex-1 min-w-0">
-                        <div class="flex items-end justify-between mb-stack-md">
-                            <h2 class="font-headline-md text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6">
+                    <div class="w-full flex-1 min-w-0">
+                        <div class="flex flex-wrap items-end justify-between gap-2 mb-stack-md">
+                            <h2 class="font-headline-md text-2xl md:text-headline-md oswald uppercase border-l-8 border-crimson-red pl-6">
                                 Atlet Lainnya
                             </h2>
                             @if ($player->team)
@@ -333,7 +333,7 @@
                             </p>
                         @endif
 
-                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4">
                             @foreach ($relatedPlayers as $related)
                                 <a href="{{ route('athletes.detail', \App\Helpers\Hashid::encode($related->id)) }}"
                                     class="group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col

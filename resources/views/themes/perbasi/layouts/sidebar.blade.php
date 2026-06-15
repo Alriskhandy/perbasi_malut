@@ -27,7 +27,7 @@
     <!-- Artikel Terbaru -->
     @if (isset($trendingPosts) && $trendingPosts->count() > 0)
         <div class="bg-white p-gutter border-t-4 border-crimson-red shadow-sm">
-            <h3 class="font-headline-md text-headline-md mb-gutter uppercase">Artikel Lainnya</h3>
+            <h3 class="font-headline-md text-2xl md:text-headline-md mb-gutter uppercase">Artikel Lainnya</h3>
             <div class="space-y-stack-md">
                 @foreach ($trendingPosts as $post)
                     <a class="group flex gap-stack-md items-center"
@@ -53,7 +53,7 @@
     @if (isset($categoriesAll) && $categoriesAll->count() > 0)
         <div class="bg-charcoal p-gutter shadow-lg">
             <h3
-                class="font-headline-md text-headline-md text-off-white mb-gutter uppercase border-b-2 border-crimson-red pb-2">
+                class="font-headline-md text-2xl md:text-headline-md text-off-white mb-gutter uppercase border-b-2 border-crimson-red pb-2">
                 Kategori</h3>
             <ul class="space-y-4">
                 @foreach ($categoriesAll as $category)

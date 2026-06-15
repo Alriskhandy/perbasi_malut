@@ -32,7 +32,7 @@
 @endpush
 
 @section('main')
-    <main class="mt-20 hero-bg min-h-[calc(100vh-80px)] relative overflow-hidden flex items-center">
+    <main class="mt-16 md:mt-20 hero-bg min-h-[calc(100vh-64px)] md:min-h-[calc(100vh-80px)] relative overflow-hidden flex items-center">
 
         <!-- Dot pattern -->
         <div class="hero-pattern absolute inset-0 pointer-events-none"></div>

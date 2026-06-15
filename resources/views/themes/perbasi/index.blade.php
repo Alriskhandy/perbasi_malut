@@ -22,15 +22,15 @@
 @endpush
 
 @section('main')
-    <main class="mt-20">
+    <main class="mt-16 md:mt-20">
         @include('themes.perbasi.layouts.hero')
 
         <!-- News Slider Section -->
-        <section class="py-section-padding px-margin-desktop max-w-container-max mx-auto">
+        <section class="py-section-padding px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
             <div class="flex justify-between items-end mb-stack-lg">
                 <div>
                     <h2
-                        class="font-headline-lg text-headline-lg text-charcoal uppercase leading-tight tracking-tight">
+                        class="font-headline-lg text-3xl md:text-headline-lg text-charcoal uppercase leading-tight tracking-tight">
                         Berita <span class="text-crimson-red">Terbaru</span></h2>
                     <div class="h-1 w-20 bg-crimson-red mt-2"></div>
                 </div>
@@ -54,9 +54,9 @@
                                     class="material-symbols-outlined text-sm">calendar_today</span>
                                 {{ $post->created_at->format('d M Y') }}</div>
                             <h3
-                                class="font-headline-md text-[22px] text-charcoal leading-tight mb-3 group-hover:text-crimson-red transition-colors">
+                                class="font-headline-md text-[16px] md:text-[22px] text-charcoal leading-tight mb-3 group-hover:text-crimson-red transition-colors">
                                 {{ Str::limit($post->title, 70) }}</h3>
-                            <p class="font-body-md text-body-md text-secondary line-clamp-3">
+                            <p class="font-body-md text-[14px] md:text-body-md text-secondary line-clamp-3">
                                 {{ Str::limit(strip_tags($post->content), 150) }}</p>
                         </div>
                         <div class="px-stack-md pb-stack-md">
@@ -76,15 +76,15 @@
 
         <!-- Media Gallery Section -->
         <section class="py-section-padding bg-white">
-            <div class="px-margin-desktop max-w-container-max mx-auto">
-                <div class="flex justify-between items-end mb-stack-lg">
+            <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-stack-lg">
                     <div>
                         <h2
-                            class="font-headline-lg text-headline-lg text-charcoal uppercase leading-tight tracking-tight">
+                            class="font-headline-lg text-3xl md:text-headline-lg text-charcoal uppercase leading-tight tracking-tight">
                             Galeri <span class="text-crimson-red">Foto</span></h2>
                         <p class="text-secondary font-body-md mt-2">Momen Berharga, Semangat Kompetisi dan Dedikasi Pengembangan Basket di Maluku Utara.</p>
                     </div>
-                    <a class="text-crimson-red font-label-bold flex items-center gap-1 hover:underline"
+                    <a class="text-crimson-red font-label-bold flex items-center gap-1 hover:underline self-start md:self-auto"
                         href="{{ route('galleries.front') }}">LIHAT SEMUA <span
                             class="material-symbols-outlined">arrow_forward</span></a>
                 </div>

@@ -1,9 +1,9 @@
 <nav
-    class="bg-charcoal fixed top-0 w-full z-50 border-b border-crimson-red shadow-md h-20 flex justify-between items-center px-margin-desktop">
-    <div class="flex items-center gap-stack-md">
-        <img alt="PERBASI Logo" class="h-12 w-auto"
+1    class="bg-charcoal fixed top-0 w-full z-50 border-b border-crimson-red shadow-md h-16 md:h-20 flex justify-between items-center px-margin-mobile md:px-margin-desktop">
+    <div class="flex items-center gap-stack-sm md:gap-stack-md">
+        <img alt="PERBASI Logo" class="h-10 md:h-12 w-auto flex-shrink-0"
             src="{{ isset($site_logo) ? \App\Helpers\Media::url($site_logo->value) : asset('backend/assets/img/logo-perbasi.png') }}" />
-        <span class="font-headline-md text-headline-md font-bold text-off-white tracking-tighter">PERBASI
+        <span class="font-headline-md text-base md:text-headline-md font-bold text-off-white tracking-tighter whitespace-nowrap">PERBASI
             MALUT</span>
     </div>
 
@@ -146,7 +146,7 @@
             class="hidden md:block material-symbols-outlined text-off-white hover:text-crimson-red transition-colors">search</button>
         {{-- <a href="{{ route('login') }}"
             class="bg-crimson-red text-off-white px-6 py-2 rounded-DEFAULT font-label-bold text-label-bold hover:bg-primary-container transition-all active:scale-95 duration-150 uppercase">Login</a> --}}
-        <button id="mobile-menu-btn" class="md:hidden material-symbols-outlined text-off-white">menu</button>
+        <button id="mobile-menu-btn" class="md:hidden material-symbols-outlined text-off-white text-3xl p-2 -mr-2">menu</button>
     </div>
 </nav>
 
@@ -170,108 +170,118 @@
 
 <!-- Mobile Menu -->
 <div id="mobile-menu" style="display:none"
-    class="fixed inset-0 bg-charcoal z-[55] flex-col items-center justify-center gap-6 overflow-y-auto py-20">
-    <button id="mobile-close-btn"
-        class="absolute top-6 right-6 text-off-white material-symbols-outlined text-3xl">close</button>
-
-    <a class="font-headline-md text-headline-md {{ request()->is('/') ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors"
-        href="/">Beranda</a>
-
-    @if (isset($menus))
-        @foreach ($menus as $menu)
-            @foreach ($menu->items as $item)
-                @php
-                    $href = $item->page
-                        ? route('pages.show', $item->page->slug)
-                        : ($item->post
-                            ? route('posts.show', $item->post->slug)
-                            : ($item->category
-                                ? route('categories.show', $item->category->slug)
-                                : ($item->url ?:
-                                '#')));
-                    $hasChildren = $item->children->isNotEmpty();
-                @endphp
-
-                @if ($hasChildren)
-                    <div class="w-full max-w-xs text-center">
-                        <button
-                            class="mobile-dropdown-btn w-full font-headline-md text-headline-md text-off-white hover:text-crimson-red transition-colors flex items-center justify-center gap-2">
-                            {{ $item->label }}
-                            <span
-                                class="material-symbols-outlined mobile-chevron transition-transform duration-200">expand_more</span>
-                        </button>
-                        <div class="mobile-dropdown-content hidden flex-col gap-3 mt-3 border-t border-white/10 pt-3">
-                            @foreach ($item->children as $child)
-                                @php
-                                    $childHref = $child->page
-                                        ? route('pages.show', $child->page->slug)
-                                        : ($child->post
-                                            ? route('posts.show', $child->post->slug)
-                                            : ($child->category
-                                                ? route('categories.show', $child->category->slug)
-                                                : $child->url));
-                                @endphp
-                                <a href="{{ $childHref }}"
-                                    class="font-label-bold text-label-bold text-surface-variant hover:text-crimson-red transition-colors">
-                                    {{ $child->label }}
-                                </a>
-                                @foreach ($child->children as $subchild)
-                                    @php
-                                        $subHref = $subchild->page
-                                            ? route('pages.show', $subchild->page->slug)
-                                            : ($subchild->post
-                                                ? route('posts.show', $subchild->post->slug)
-                                                : ($subchild->category
-                                                    ? route('categories.show', $subchild->category->slug)
-                                                    : $subchild->url));
-                                    @endphp
-                                    <a href="{{ $subHref }}"
-                                        class="font-label-bold text-label-bold text-surface-variant/60 hover:text-crimson-red transition-colors pl-4">
-                                        — {{ $subchild->label }}
-                                    </a>
-                                @endforeach
-                            @endforeach
-                        </div>
-                    </div>
-                @else
-                    <a class="font-headline-md text-headline-md {{ url()->current() === $href ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors"
-                        href="{{ $href }}">{{ $item->label }}</a>
-                @endif
-            @endforeach
-        @endforeach
-    @endif
-
-    <div class="w-full max-w-xs text-center">
-        <button
-            class="mobile-dropdown-btn w-full font-headline-md text-headline-md {{ $resourcesActive ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
-            Resources
-            <span class="material-symbols-outlined mobile-chevron transition-transform duration-200">expand_more</span>
-        </button>
-        <div class="mobile-dropdown-content hidden flex-col gap-3 mt-3 border-t border-white/10 pt-3">
-            <a href="{{ route('athletes.index') }}"
-                class="font-label-bold text-label-bold {{ request()->routeIs('athletes.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-[16px]">person</span>Atlet
-            </a>
-            <a href="{{ route('clubs.index') }}"
-                class="font-label-bold text-label-bold {{ request()->routeIs('clubs.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-[16px]">groups</span>Klub
-            </a>
-            <a href="{{ route('coaches.front') }}"
-                class="font-label-bold text-label-bold {{ request()->routeIs('coaches.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-[16px]">sports</span>Pelatih
-            </a>
-            <a href="{{ route('referees.front') }}"
-                class="font-label-bold text-label-bold {{ request()->routeIs('referees.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-crimson-red' }} transition-colors flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined text-[16px]">sports_cricket</span>Wasit
-            </a>
+    class="fixed inset-0 z-[55] flex-col bg-off-white">
+    <!-- Mobile menu top bar -->
+    <div class="h-16 flex-shrink-0 bg-charcoal border-b border-crimson-red flex items-center justify-between px-margin-mobile">
+        <div class="flex items-center gap-2">
+            <img alt="PERBASI Logo" class="h-9 w-auto flex-shrink-0"
+                src="{{ isset($site_logo) ? \App\Helpers\Media::url($site_logo->value) : asset('backend/assets/img/logo-perbasi.png') }}" />
+            <span class="font-headline-md text-sm font-bold text-off-white tracking-tighter">PERBASI MALUT</span>
         </div>
+        <button id="mobile-close-btn" class="text-off-white material-symbols-outlined text-2xl">close</button>
     </div>
 
-    <a class="font-headline-md text-headline-md {{ request()->routeIs('dpd.*') ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors"
-        href="{{ route('dpd.index') }}">Perbasi DPD</a>
+    <!-- Mobile menu list -->
+    <div class="flex-1 overflow-y-auto px-margin-mobile">
+        <a class="block py-3.5 font-label-bold text-xs {{ request()->is('/') ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
+            href="/">Beranda</a>
 
-    <a class="font-headline-md text-headline-md {{ request()->routeIs('galleries.front') ? 'text-crimson-red' : 'text-off-white hover:text-crimson-red' }} transition-colors"
-        href="{{ route('galleries.front') }}">Galeri</a>
+        @if (isset($menus))
+            @foreach ($menus as $menu)
+                @foreach ($menu->items as $item)
+                    @php
+                        $href = $item->page
+                            ? route('pages.show', $item->page->slug)
+                            : ($item->post
+                                ? route('posts.show', $item->post->slug)
+                                : ($item->category
+                                    ? route('categories.show', $item->category->slug)
+                                    : ($item->url ?:
+                                    '#')));
+                        $hasChildren = $item->children->isNotEmpty();
+                    @endphp
+
+                    @if ($hasChildren)
+                        <div class="border-b border-outline-variant/60">
+                            <button
+                                class="mobile-dropdown-btn w-full flex items-center justify-between py-3.5 font-label-bold text-xs text-secondary uppercase tracking-widest">
+                                {{ $item->label }}
+                                <span
+                                    class="material-symbols-outlined mobile-chevron text-[18px] transition-transform duration-200">expand_more</span>
+                            </button>
+                            <div class="mobile-dropdown-content hidden flex-col pb-2">
+                                @foreach ($item->children as $child)
+                                    @php
+                                        $childHref = $child->page
+                                            ? route('pages.show', $child->page->slug)
+                                            : ($child->post
+                                                ? route('posts.show', $child->post->slug)
+                                                : ($child->category
+                                                    ? route('categories.show', $child->category->slug)
+                                                    : $child->url));
+                                    @endphp
+                                    <a href="{{ $childHref }}"
+                                        class="block py-2.5 font-label-bold text-xs text-charcoal hover:text-crimson-red transition-colors">
+                                        {{ $child->label }}
+                                    </a>
+                                    @foreach ($child->children as $subchild)
+                                        @php
+                                            $subHref = $subchild->page
+                                                ? route('pages.show', $subchild->page->slug)
+                                                : ($subchild->post
+                                                    ? route('posts.show', $subchild->post->slug)
+                                                    : ($subchild->category
+                                                        ? route('categories.show', $subchild->category->slug)
+                                                        : $subchild->url));
+                                        @endphp
+                                        <a href="{{ $subHref }}"
+                                            class="block py-2 pl-4 font-label-bold text-xs text-secondary hover:text-crimson-red transition-colors">
+                                            — {{ $subchild->label }}
+                                        </a>
+                                    @endforeach
+                                @endforeach
+                            </div>
+                        </div>
+                    @else
+                        <a class="block py-3.5 font-label-bold text-xs {{ url()->current() === $href ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
+                            href="{{ $href }}">{{ $item->label }}</a>
+                    @endif
+                @endforeach
+            @endforeach
+        @endif
+
+        <div class="border-b border-outline-variant/60">
+            <button
+                class="mobile-dropdown-btn w-full flex items-center justify-between py-3.5 font-label-bold text-xs {{ $resourcesActive ? 'text-crimson-red' : 'text-secondary' }} uppercase tracking-widest">
+                Resources
+                <span class="material-symbols-outlined mobile-chevron text-[18px] transition-transform duration-200">expand_more</span>
+            </button>
+            <div class="mobile-dropdown-content hidden flex-col pb-2">
+                <a href="{{ route('athletes.index') }}"
+                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs {{ request()->routeIs('athletes.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">person</span>Atlet
+                </a>
+                <a href="{{ route('clubs.index') }}"
+                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs {{ request()->routeIs('clubs.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">groups</span>Klub
+                </a>
+                <a href="{{ route('coaches.front') }}"
+                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs {{ request()->routeIs('coaches.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">sports</span>Pelatih
+                </a>
+                <a href="{{ route('referees.front') }}"
+                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs {{ request()->routeIs('referees.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">sports_cricket</span>Wasit
+                </a>
+            </div>
+        </div>
+
+        <a class="block py-3.5 font-label-bold text-xs {{ request()->routeIs('dpd.*') ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
+            href="{{ route('dpd.index') }}">Perbasi DPD</a>
+
+        <a class="block py-3.5 font-label-bold text-xs {{ request()->routeIs('galleries.front') ? 'text-crimson-red' : 'text-charcoal' }}"
+            href="{{ route('galleries.front') }}">Galeri</a>
+    </div>
 </div>
 
 @push('scripts')
