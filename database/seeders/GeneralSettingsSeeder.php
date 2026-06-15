@@ -12,19 +12,19 @@ class GeneralSettingsSeeder extends Seeder
         DB::table('general_settings')->insert([
             [
                 'key' => 'site_name',
-                'value' => 'Universitas Khairun',
+                'value' => 'Perbasi Malut',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'key' => 'site_logo',
-                'value' => '/images/logo.png',
+                'value' => '/backend/assets/img/logo-perbasi.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'key' => 'footer_text',
-                'value' => '© 2024 Universitas Khairun. All rights reserved.',
+                'value' => '© 2024 Perbasi Malut. All rights reserved.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -44,7 +44,7 @@ class GeneralSettingsSeeder extends Seeder
             // mail
             [
                 'key' => 'site_email',
-                'value' => env('MAIL_FROM_ADDRESS', 'info@unkhair.ac.id'),
+                'value' => env('MAIL_FROM_ADDRESS', 'info@perbasi-malut.id'),
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

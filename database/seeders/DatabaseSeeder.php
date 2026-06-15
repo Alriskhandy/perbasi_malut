@@ -18,20 +18,20 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // $this->call([
-        //     CategoriesSeeder::class,
-        //     PostSeeder::class, // Pastikan PostSeeder juga ditambahkan di sini
-        //     MenuSeeder::class,
-        //     GeneralSettingsSeeder::class,
-        // ]);
+        $this->call([
+            CategoriesSeeder::class,
+            PostSeeder::class, // Pastikan PostSeeder juga ditambahkan di sini
+            MenuSeeder::class,
+            GeneralSettingsSeeder::class,
+        ]);
 
         // Seed User
-        // User::create([
-        //     'name' => 'admin',
-        //     'is_admin' => 1,
-        //     'email' => 'admin@gmail.com',
-        //     'password' => Hash::make('admin123'), // Hash the password
-        // ]);
+        User::create([
+            'name' => 'admin',
+            'is_admin' => 1,
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('admin123'), // Hash the password
+        ]);
 
         // Seed Tema
         // Theme::create([
@@ -71,8 +71,8 @@ class DatabaseSeeder extends Seeder
             'active' => 0,
         ]);
 
-        // $this->call([
-        //     GalleriesSeeder::class,
-        // ]);
+        $this->call([
+            GalleriesSeeder::class,
+        ]);
     }
 }
