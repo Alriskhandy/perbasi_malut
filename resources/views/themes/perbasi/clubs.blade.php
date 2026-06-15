@@ -93,7 +93,7 @@
         </div>
 
         <!-- Filter Bar -->
-        <div class="bg-white border-b border-outline-variant sticky top-20 z-30 shadow-sm">
+        <div class="bg-white border-b border-outline-variant sticky top-16 md:top-20 z-30 shadow-sm">
             <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-3 md:py-4">
                 <form method="GET" action="{{ route('clubs.index') }}"
                     class="flex flex-col sm:flex-row gap-2 md:gap-3 items-stretch sm:items-center">
