@@ -9,7 +9,7 @@
 
     <!-- Desktop Nav -->
     <div class="hidden md:flex items-center gap-stack-lg">
-        <a class="font-label-bold text-label-bold {{ request()->is('/') ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
+        <a class="font-label-bold text-label-bold uppercase {{ request()->is('/') ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
             href="/">Beranda</a>
 
         @if (isset($menus))
@@ -31,7 +31,7 @@
                         <!-- Dropdown Item -->
                         <div class="relative nav-dropdown-wrapper">
                             <button
-                                class="nav-dropdown-btn flex items-center gap-1 font-label-bold text-label-bold text-off-white hover:text-crimson-red transition-colors duration-300">
+                                class="nav-dropdown-btn flex items-center gap-1 font-label-bold text-label-bold uppercase text-off-white hover:text-crimson-red transition-colors duration-300">
                                 {{ $item->label }}
                                 <span
                                     class="material-symbols-outlined text-[16px] nav-chevron transition-transform duration-200">expand_more</span>
@@ -92,7 +92,7 @@
                             </div>
                         </div>
                     @else
-                        <a class="font-label-bold text-label-bold {{ url()->current() === $href ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
+                        <a class="font-label-bold text-label-bold uppercase {{ url()->current() === $href ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
                             href="{{ $href }}">{{ $item->label }}</a>
                     @endif
                 @endforeach
@@ -104,7 +104,7 @@
         @endphp
         <div class="relative nav-dropdown-wrapper">
             <button
-                class="nav-dropdown-btn flex items-center gap-1 font-label-bold text-label-bold {{ $resourcesActive ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300">
+                class="nav-dropdown-btn flex items-center gap-1 font-label-bold text-label-bold uppercase {{ $resourcesActive ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300">
                 Data
                 <span
                     class="material-symbols-outlined text-[16px] nav-chevron transition-transform duration-200">expand_more</span>
@@ -112,32 +112,32 @@
             <div
                 class="nav-dropdown-menu absolute top-full left-0 mt-2 w-48 bg-charcoal border-t-2 border-crimson-red shadow-xl opacity-0 invisible translate-y-2 transition-all duration-200 z-50">
                 <a href="{{ route('athletes.index') }}"
-                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold {{ request()->routeIs('athletes.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
+                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold uppercase {{ request()->routeIs('athletes.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
                     <span class="material-symbols-outlined text-[17px]">person</span>
                     Atlet
                 </a>
                 <a href="{{ route('clubs.index') }}"
-                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold {{ request()->routeIs('clubs.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
+                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold uppercase {{ request()->routeIs('clubs.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
                     <span class="material-symbols-outlined text-[17px]">groups</span>
                     Klub
                 </a>
                 <a href="{{ route('coaches.front') }}"
-                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold {{ request()->routeIs('coaches.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
+                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold uppercase {{ request()->routeIs('coaches.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors border-b border-white/5">
                     <span class="material-symbols-outlined text-[17px]">sports</span>
                     Pelatih
                 </a>
                 <a href="{{ route('referees.front') }}"
-                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold {{ request()->routeIs('referees.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors">
+                    class="flex items-center gap-3 px-4 py-3 font-label-bold text-label-bold uppercase {{ request()->routeIs('referees.*') ? 'text-crimson-red' : 'text-surface-variant hover:text-off-white' }} hover:bg-white/5 transition-colors">
                     <span class="material-symbols-outlined text-[17px]">sports_cricket</span>
                     Wasit
                 </a>
             </div>
         </div>
 
-        <a class="font-label-bold text-label-bold {{ request()->routeIs('dpd.*') ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
+        <a class="font-label-bold text-label-bold uppercase {{ request()->routeIs('dpd.*') ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
             href="{{ route('dpd.index') }}">Perbasi DPD</a>
 
-        <a class="font-label-bold text-label-bold {{ request()->routeIs('galleries.front') ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
+        <a class="font-label-bold text-label-bold uppercase {{ request()->routeIs('galleries.front') ? 'text-crimson-red border-b-2 border-crimson-red pb-1' : 'text-off-white hover:text-crimson-red' }} transition-colors duration-300"
             href="{{ route('galleries.front') }}">Galeri</a>
     </div>
 
@@ -183,7 +183,7 @@
 
     <!-- Mobile menu list -->
     <div class="flex-1 overflow-y-auto px-margin-mobile">
-        <a class="block py-3.5 font-label-bold text-xs {{ request()->is('/') ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
+        <a class="block py-3.5 font-label-bold text-xs uppercase {{ request()->is('/') ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
             href="/">Beranda</a>
 
         @if (isset($menus))
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                     @else
-                        <a class="block py-3.5 font-label-bold text-xs {{ url()->current() === $href ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
+                        <a class="block py-3.5 font-label-bold text-xs uppercase {{ url()->current() === $href ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
                             href="{{ $href }}">{{ $item->label }}</a>
                     @endif
                 @endforeach
@@ -258,28 +258,28 @@
             </button>
             <div class="mobile-dropdown-content hidden flex-col pb-2">
                 <a href="{{ route('athletes.index') }}"
-                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs {{ request()->routeIs('athletes.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
+                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs uppercase {{ request()->routeIs('athletes.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
                     <span class="material-symbols-outlined text-[18px]">person</span>Atlet
                 </a>
                 <a href="{{ route('clubs.index') }}"
-                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs {{ request()->routeIs('clubs.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
+                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs uppercase {{ request()->routeIs('clubs.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
                     <span class="material-symbols-outlined text-[18px]">groups</span>Klub
                 </a>
                 <a href="{{ route('coaches.front') }}"
-                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs {{ request()->routeIs('coaches.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
+                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs uppercase {{ request()->routeIs('coaches.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
                     <span class="material-symbols-outlined text-[18px]">sports</span>Pelatih
                 </a>
                 <a href="{{ route('referees.front') }}"
-                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs {{ request()->routeIs('referees.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
+                    class="flex items-center gap-3 py-2.5 font-label-bold text-xs uppercase {{ request()->routeIs('referees.*') ? 'text-crimson-red' : 'text-charcoal' }} hover:text-crimson-red transition-colors">
                     <span class="material-symbols-outlined text-[18px]">sports_cricket</span>Wasit
                 </a>
             </div>
         </div>
 
-        <a class="block py-3.5 font-label-bold text-xs {{ request()->routeIs('dpd.*') ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
+        <a class="block py-3.5 font-label-bold text-xs uppercase {{ request()->routeIs('dpd.*') ? 'text-crimson-red' : 'text-charcoal' }} border-b border-outline-variant/60"
             href="{{ route('dpd.index') }}">Perbasi DPD</a>
 
-        <a class="block py-3.5 font-label-bold text-xs {{ request()->routeIs('galleries.front') ? 'text-crimson-red' : 'text-charcoal' }}"
+        <a class="block py-3.5 font-label-bold text-xs uppercase {{ request()->routeIs('galleries.front') ? 'text-crimson-red' : 'text-charcoal' }}"
             href="{{ route('galleries.front') }}">Galeri</a>
     </div>
 </div>
