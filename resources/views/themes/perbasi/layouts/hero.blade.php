@@ -9,10 +9,11 @@
 
     <div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <!-- Left Side: Content & Stats -->
-        <div class="text-center lg:text-left">
-            <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-off-white uppercase leading-[1] mb-6 text-shadow-hero">
+        <div class="flex flex-col items-center justify-center text-center">
+            {{-- <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-off-white uppercase leading-[1] mb-6 text-shadow-hero">
                 Malut bisa,<br /><span class="text-crimson-red">Malut juara</span>
-            </h1>
+            </h1> --}}
+            <img src="{{ asset('backend/assets/img/tag-malut bisa.png') }}" alt="Tag Malut Bisa, Malut Juara" class="mx-auto lg:mx-0 mb-6 w-64 md:w-80" />
             <p class="font-body-lg text-body-lg text-off-white/80 max-w-xl mx-auto lg:mx-0 mb-10">
                 Menjadikan olahraga bola basket di Maluku Utara sebagai sarana pembinaan generasi muda yang berkarakter, berprestasi, dan mampu membawa nama baik daerah hingga ke kancah nasional maupun internasional.
             </p>

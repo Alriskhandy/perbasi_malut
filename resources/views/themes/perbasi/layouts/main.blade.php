@@ -259,7 +259,11 @@
             </div>
         </div>
 
-        <div class="mt-16 pt-8 border-t border-white/5 text-center text-surface-variant text-[10px] max-w-container-max mx-auto uppercase tracking-widest">
+        <div class="mt-10 md:mt-12 text-center">
+            <img alt="Tag Malut Bisa, Mallut Juara" class="h-24 md:h-40 w-auto mx-auto" src="{{ asset('backend/assets/img/tag-malut bisa.png') }}" />
+        </div>
+
+        <div class="mt-4 md:mt-6 pt-8 border-t border-white/5 text-center text-surface-variant text-[10px] max-w-container-max mx-auto uppercase tracking-widest">
             © {{ date('Y') }} PERBASI Maluku Utara. All Rights Reserved.
         </div>
     </footer>
