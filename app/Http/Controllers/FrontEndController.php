@@ -117,7 +117,7 @@ class FrontEndController extends Controller
         $teamId     = $teamHash !== '' ? Hashid::decode($teamHash) : null;
         $districtId = $districtHash !== '' ? Hashid::decode($districtHash) : null;
 
-        $query = Player::with('team.district')->where('status', 'active');
+        $query = Player::with('team.district')->where('status', 'registered');
 
         if ($safeLike !== '') {
             $query->where('name', 'like', '%' . $safeLike . '%');
@@ -143,12 +143,12 @@ class FrontEndController extends Controller
     {
         $id     = Hashid::decode($hash) ?? abort(404);
         $theme  = Theme::where('active', true)->first()->path;
-        $player = Player::with('team.district')->where('status', 'active')->findOrFail($id);
+        $player = Player::with('team.district')->where('status', 'registered')->findOrFail($id);
 
         $relatedPlayers = collect();
         if ($player->team_id) {
             $relatedPlayers = Player::with('team')
-                ->where('status', 'active')
+                ->where('status', 'registered')
                 ->where('team_id', $player->team_id)
                 ->where('id', '!=', $player->id)
                 ->orderBy('name')
@@ -186,7 +186,7 @@ class FrontEndController extends Controller
 
         $teams = Team::where('district_id', $district->id)
             ->where('status', 'aktif')
-            ->withCount(['players' => fn ($q) => $q->where('status', 'active')])
+            ->withCount(['players' => fn ($q) => $q->where('status', 'registered')])
             ->orderBy('name')
             ->get();
 
@@ -202,7 +202,7 @@ class FrontEndController extends Controller
 
         $districtId = $districtHash !== '' ? Hashid::decode($districtHash) : null;
 
-        $query = Coach::with('team.district')->where('status', 'active');
+        $query = Coach::with('team.district')->where('status', 'registered');
 
         if ($safeLike !== '') {
             $query->where('name', 'like', '%' . $safeLike . '%');
@@ -279,8 +279,8 @@ class FrontEndController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        $activePlayers = $team->players()->where('status', 'active')->get();
-        $activeCoaches = $team->coaches()->where('status', 'active')->get();
+        $activePlayers = $team->players()->where('status', 'registered')->get();
+        $activeCoaches = $team->coaches()->where('status', 'registered')->get();
         $officials     = $team->officials()->get();
 
         return view($theme . '.detail_club', compact('team', 'activePlayers', 'activeCoaches', 'officials'));

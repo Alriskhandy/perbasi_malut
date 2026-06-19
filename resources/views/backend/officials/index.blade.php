@@ -26,6 +26,13 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="col-md-2">
+                    <select name="status" class="form-select form-select-sm">
+                        <option value="">Semua Status</option>
+                        <option value="registered"     {{ request('status') === 'registered'     ? 'selected' : '' }}>Registered</option>
+                        <option value="not registered" {{ request('status') === 'not registered' ? 'selected' : '' }}>Not Registered</option>
+                    </select>
+                </div>
                 <div class="col-auto d-flex gap-2">
                     <button type="submit" class="btn btn-sm btn-primary">Filter</button>
                     <a href="{{ route('officials.index') }}" class="btn btn-sm btn-outline-secondary">Reset</a>
@@ -41,19 +48,22 @@
                                 <div class="d-flex mb-3 gap-2">
                                     <select name="action" class="form-select" style="width:220px">
                                         <option value="" disabled selected>Pilih Tindakan Bulk</option>
+                                        <option value="registered">Register</option>
+                                        <option value="not_registered">Unregister</option>
                                         <option value="hapus">Hapus</option>
                                     </select>
                                     <button type="button" class="btn btn-primary btn-apply-bulk">Terapkan</button>
                                 </div>
                                 <div class="table-responsive">
-                                    <table id="basic-datatables" class="display table table-striped table-hover">
+                                    <table id="basic-datatables" class="display table table-striped table-hover" style="white-space:nowrap">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" class="select-all-cb"></th>
                                                 <th>Foto</th>
                                                 <th>Nama</th>
                                                 <th>Klub</th>
-                                                <th>Tanggal Ditambahkan</th>
+                                                <th>Jabatan</th>
+                                                <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -71,7 +81,14 @@
                                                     </td>
                                                     <td>{{ $official->name }}</td>
                                                     <td>{{ $official->team->name ?? '-' }}</td>
-                                                    <td>{{ $official->created_at->format('d M Y') }}</td>
+                                                    <td>{{ $official->position ?? '-' }}</td>
+                                                    <td>
+                                                        @if ($official->status === 'registered')
+                                                            <span class="badge badge-success">Registered</span>
+                                                        @else
+                                                            <span class="badge badge-danger">Not Registered</span>
+                                                        @endif
+                                                    </td>
                                                     <td>
                                                         <a href="{{ route('officials.edit', $official->id) }}"
                                                             class="btn btn-warning btn-sm">

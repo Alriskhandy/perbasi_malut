@@ -34,10 +34,20 @@
                     </select>
                 </div>
                 <div class="col-md-2">
+                    <select name="position" class="form-select form-select-sm">
+                        <option value="">Semua Posisi</option>
+                        <option value="Point Guard" {{ request('position') === 'Point Guard' ? 'selected' : '' }}>Point Guard</option>
+                        <option value="Shooting Guard" {{ request('position') === 'Shooting Guard' ? 'selected' : '' }}>Shooting Guard</option>
+                        <option value="Small Forward" {{ request('position') === 'Small Forward' ? 'selected' : '' }}>Small Forward</option>
+                        <option value="Power Forward" {{ request('position') === 'Power Forward' ? 'selected' : '' }}>Power Forward</option>
+                        <option value="Center" {{ request('position') === 'Center' ? 'selected' : '' }}>Center</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <select name="status" class="form-select form-select-sm">
                         <option value="">Semua Status</option>
-                        <option value="active"   {{ request('status') === 'active'   ? 'selected' : '' }}>Aktif</option>
-                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
+                        <option value="registered"       {{ request('status') === 'registered'       ? 'selected' : '' }}>Registered</option>
+                        <option value="not registered"   {{ request('status') === 'not registered'   ? 'selected' : '' }}>Not Registered</option>
                     </select>
                 </div>
                 <div class="col-auto d-flex gap-2">
@@ -56,20 +66,20 @@
                                 <div class="d-flex mb-3 gap-2">
                                     <select name="action" class="form-select" style="width:220px">
                                         <option value="" disabled selected>Pilih Tindakan Bulk</option>
-                                        <option value="aktifkan">Aktifkan</option>
-                                        <option value="nonaktifkan">Nonaktifkan</option>
+                                        <option value="registered">Register</option>
+                                        <option value="not_registered">Unregister</option>
                                         <option value="hapus">Hapus</option>
                                     </select>
                                     <button type="button" class="btn btn-primary btn-apply-bulk">Terapkan</button>
                                 </div>
                                 <div class="table-responsive">
-                                    <table id="basic-datatables" class="display table table-striped table-hover">
+                                    <table id="basic-datatables" class="display table table-striped table-hover" style="white-space:nowrap">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" class="select-all-cb"></th>
                                                 <th>Foto</th>
                                                 <th>Nama</th>
-                                                <th>Tim</th>
+                                                <th>Klub</th>
                                                 <th>Gender</th>
                                                 <th>Posisi</th>
                                                 <th>TB/BB</th>
@@ -99,10 +109,10 @@
                                                         {{ $player->weight ? $player->weight . ' kg' : '-' }}
                                                     </td>
                                                     <td>
-                                                        @if ($player->status === 'active')
-                                                            <span class="badge badge-success">Aktif</span>
+                                                        @if ($player->status === 'registered')
+                                                            <span class="badge badge-success">Registered</span>
                                                         @else
-                                                            <span class="badge badge-danger">Tidak Aktif</span>
+                                                            <span class="badge badge-danger">Not Registered</span>
                                                         @endif
                                                     </td>
                                                     <td>

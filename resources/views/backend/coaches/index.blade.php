@@ -27,10 +27,20 @@
                     </select>
                 </div>
                 <div class="col-md-2">
+                    <select name="license" class="form-select form-select-sm">
+                        <option value="">Semua Lisensi</option>
+                        <option value="LEVEL A" {{ request('license') === 'LEVEL A' ? 'selected' : '' }}>Level A</option>
+                        <option value="LEVEL B" {{ request('license') === 'LEVEL B' ? 'selected' : '' }}>Level B</option>
+                        <option value="LEVEL C" {{ request('license') === 'LEVEL C' ? 'selected' : '' }}>Level C</option>
+                        <option value="FIBA" {{ request('license') === 'FIBA' ? 'selected' : '' }}>FIBA</option>
+                        <option value="Non-Lisensi" {{ request('license') === 'Non-Lisensi' ? 'selected' : '' }}>Non-Lisensi</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <select name="status" class="form-select form-select-sm">
                         <option value="">Semua Status</option>
-                        <option value="active"   {{ request('status') === 'active'   ? 'selected' : '' }}>Aktif</option>
-                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Tidak Aktif</option>
+                        <option value="registered"     {{ request('status') === 'registered'     ? 'selected' : '' }}>Registered</option>
+                        <option value="not registered" {{ request('status') === 'not registered' ? 'selected' : '' }}>Not Registered</option>
                     </select>
                 </div>
                 <div class="col-auto d-flex gap-2">
@@ -48,14 +58,14 @@
                                 <div class="d-flex mb-3 gap-2">
                                     <select name="action" class="form-select" style="width:220px">
                                         <option value="" disabled selected>Pilih Tindakan Bulk</option>
-                                        <option value="aktifkan">Aktifkan</option>
-                                        <option value="nonaktifkan">Nonaktifkan</option>
+                                        <option value="registered">Register</option>
+                                        <option value="not_registered">Unregister</option>
                                         <option value="hapus">Hapus</option>
                                     </select>
                                     <button type="button" class="btn btn-primary btn-apply-bulk">Terapkan</button>
                                 </div>
                                 <div class="table-responsive">
-                                    <table id="basic-datatables" class="display table table-striped table-hover">
+                                    <table id="basic-datatables" class="display table table-striped table-hover" style="white-space:nowrap">
                                         <thead>
                                             <tr>
                                                 <th><input type="checkbox" class="select-all-cb"></th>
@@ -63,6 +73,7 @@
                                                 <th>Nama</th>
                                                 <th>Klub</th>
                                                 <th>Kontak</th>
+                                                <th>Lisensi</th>
                                                 <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -82,11 +93,12 @@
                                                     <td>{{ $coach->name }}</td>
                                                     <td>{{ $coach->team->name ?? '-' }}</td>
                                                     <td>{{ $coach->contact ?? '-' }}</td>
+                                                    <td>{{ $coach->license ?? 'Non-Lisensi' }}</td>
                                                     <td>
-                                                        @if ($coach->status === 'active')
-                                                            <span class="badge badge-success">Aktif</span>
+                                                        @if ($coach->status === 'registered')
+                                                            <span class="badge badge-success">Registered</span>
                                                         @else
-                                                            <span class="badge badge-danger">Tidak Aktif</span>
+                                                            <span class="badge badge-danger">Not Registered</span>
                                                         @endif
                                                     </td>
                                                     <td>

@@ -19,17 +19,15 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="basic-datatables" class="display table table-striped table-hover">
+                                <table id="basic-datatables" class="display table table-striped table-hover" style="white-space:nowrap">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Logo</th>
                                             <th>Nama</th>
-                                            <th>Slug</th>
-                                            <th>PIC</th>
+                                            <th>Penanggung Jawab</th>
                                             <th>Kontak</th>
-                                            <th>Tim</th>
-                                            <th>Wasit</th>
+                                            <th>Klub</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -52,21 +50,37 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($district->slug)
-                                                        <code class="text-muted small">{{ $district->slug }}</code>
+                                                    @if ($district->pic)
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            @if ($district->pic_img_path)
+                                                                <img src="{{ \App\Helpers\Media::url($district->pic_img_path) }}"
+                                                                    alt="{{ $district->pic }}"
+                                                                    style="width:35px;height:35px;object-fit:cover;border-radius:50%;">
+                                                            @endif
+                                                            <div>
+                                                                <strong>{{ $district->pic }}</strong>
+                                                                @if ($district->pic_position)
+                                                                    <br><small class="text-muted">{{ $district->pic_position }}</small>
+                                                                @endif
+                                                            </div>
+                                                        </div>
                                                     @else
-                                                        <span class="badge badge-warning">belum ada</span>
+                                                        <span class="text-muted">-</span>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    {{ $district->pic ?? '-' }}
-                                                    @if ($district->pic_position)
-                                                        <br><small class="text-muted">{{ $district->pic_position }}</small>
+                                                    @if ($district->email || $district->contact)
+                                                        @if ($district->email)
+                                                            <small>{{ $district->email }}</small><br>
+                                                        @endif
+                                                        @if ($district->contact)
+                                                            <small class="text-muted">{{ $district->contact }}</small>
+                                                        @endif
+                                                    @else
+                                                        <span class="text-muted">-</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $district->contact ?? '-' }}</td>
                                                 <td><span class="badge badge-info">{{ $district->teams_count }}</span></td>
-                                                <td><span class="badge badge-secondary">{{ $district->referees_count }}</span></td>
                                                 <td>
                                                     <a href="{{ route('districts.edit', $district->id) }}"
                                                         class="btn btn-warning btn-sm">

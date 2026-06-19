@@ -11,9 +11,22 @@ class Official extends Model
 
     protected $fillable = [
         'name',
+        'education',
+        'email',
+        'contact',
+        'joined_at',
+        'position',
+        'status',
         'img_path',
         'team_id',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'joined_at' => 'date',
+        ];
+    }
 
     public function team()
     {

@@ -10,7 +10,7 @@ class DistrictController extends Controller
 {
     public function index()
     {
-        $districts = District::withCount(['teams', 'referees'])->latest()->get();
+        $districts = District::withCount(['teams'])->latest()->get();
         return view('backend.districts.index', compact('districts'));
     }
 
@@ -32,6 +32,8 @@ class DistrictController extends Controller
             'address'       => 'nullable|string',
             'web_url'       => 'nullable|url|max:255',
             'img_path'      => 'nullable|string|max:255',
+            'pic_img_path'  => 'nullable|string|max:255',
+            'sk_path'       => 'nullable|string|max:255',
         ]);
 
         try {
@@ -45,6 +47,8 @@ class DistrictController extends Controller
                 'address'       => $request->address,
                 'web_url'       => $request->web_url,
                 'img_path'      => Media::toRelativePath($request->img_path),
+                'pic_img_path'  => Media::toRelativePath($request->pic_img_path),
+                'sk_path'       => Media::toRelativePath($request->sk_path),
             ];
             if ($request->filled('slug')) {
                 $data['slug'] = $request->slug;
@@ -80,6 +84,8 @@ class DistrictController extends Controller
             'address'       => 'nullable|string',
             'web_url'       => 'nullable|url|max:255',
             'img_path'      => 'nullable|string|max:255',
+            'pic_img_path'  => 'nullable|string|max:255',
+            'sk_path'       => 'nullable|string|max:255',
         ]);
 
         try {
@@ -93,6 +99,8 @@ class DistrictController extends Controller
                 'address'       => $request->address,
                 'web_url'       => $request->web_url,
                 'img_path'      => Media::toRelativePath($request->img_path),
+                'pic_img_path'  => Media::toRelativePath($request->pic_img_path),
+                'sk_path'       => Media::toRelativePath($request->sk_path),
             ];
             if ($request->filled('slug')) {
                 $data['slug'] = $request->slug;

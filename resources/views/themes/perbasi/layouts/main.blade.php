@@ -243,24 +243,25 @@
             <div class="flex flex-col gap-2">
                 <h4 class="font-label-bold text-crimson-red uppercase tracking-widest text-[12px]">Informasi Kontak</h4>
                 <p class="text-surface-variant text-sm leading-loose">
-                    Jl. Pahlawan Revolusi No. 12<br />
-                    Ternate, Maluku Utara
+                    Gang Al-Qomar, Jalan Falajawa II,<br />
+                    Kel. Bastiong Karance, Kec. Ternate Selatan,<br />
+                    Kota Ternate, Maluku Utara
                 </p>
                 <div class="flex flex-col gap-2">
-                    <a href="mailto:info@perbasimalut.id"
+                    <a href="mailto:perbasi.malut@gmail.com"
                         class="text-amber-gold font-semibold text-sm hover:text-off-white transition-colors">
-                        info@perbasimalut.id
+                        perbasi.malut@gmail.com
                     </a>
-                    <a href="tel:+6281234567890"
+                    <a href="tel:+6282291585234"
                         class="text-amber-gold font-semibold text-sm hover:text-off-white transition-colors">
-                        +62 812 3456 7890
+                        +62 822 9158 5234 
                     </a>
                 </div>
             </div>
         </div>
 
         <div class="mt-10 md:mt-12 text-center">
-            <img alt="Tag Malut Bisa, Mallut Juara" class="h-24 md:h-40 w-auto mx-auto" src="{{ asset('backend/assets/img/tag-malut bisa.png') }}" />
+            <img alt="Tag Malut Bisa, Mallut Juara" class="h-24 md:h-40 w-auto mx-auto" src="{{ asset('backend/assets/img/tag-malut bisa-red.png') }}" />
         </div>
 
         <div class="mt-4 md:mt-6 pt-8 border-t border-white/5 text-center text-surface-variant text-[10px] max-w-container-max mx-auto uppercase tracking-widest">

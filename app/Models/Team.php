@@ -19,7 +19,19 @@ class Team extends Model
         'status',
         'img_path',
         'district_id',
+        'pic',
+        'pic_img_path',
+        'founded_at',
+        'bank_account',
+        'sk_path',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'founded_at' => 'date',
+        ];
+    }
 
     protected static function boot(): void
     {

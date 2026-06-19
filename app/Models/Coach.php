@@ -10,6 +10,7 @@ class Coach extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_number',
         'name',
         'email',
         'contact',
@@ -17,6 +18,11 @@ class Coach extends Model
         'status',
         'img_path',
         'team_id',
+        'education',
+        'province',
+        'city',
+        'license',
+        'license_number',
     ];
 
     public function team()

@@ -32,11 +32,21 @@ class TeamController extends Controller
             'status'      => 'required|in:aktif,tidak aktif',
             'img_path'    => 'nullable|string|max:255',
             'district_id' => 'required|exists:districts,id',
+            'pic'         => 'nullable|string|max:255',
+            'pic_img_path' => 'nullable|string|max:255',
+            'founded_at'  => 'nullable|date',
+            'bank_account' => 'nullable|string|max:255',
+            'sk_path'     => 'nullable|string|max:255',
         ]);
 
         try {
-            $data = $request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']);
-            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            $data = $request->only([
+                'name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id',
+                'pic', 'pic_img_path', 'founded_at', 'bank_account', 'sk_path',
+            ]);
+            $data['img_path']     = Media::toRelativePath($data['img_path'] ?? null);
+            $data['pic_img_path'] = Media::toRelativePath($data['pic_img_path'] ?? null);
+            $data['sk_path']      = Media::toRelativePath($data['sk_path'] ?? null);
             if ($request->filled('slug')) {
                 $data['slug'] = $request->slug;
             }
@@ -70,11 +80,21 @@ class TeamController extends Controller
             'status'      => 'required|in:aktif,tidak aktif',
             'img_path'    => 'nullable|string|max:255',
             'district_id' => 'required|exists:districts,id',
+            'pic'         => 'nullable|string|max:255',
+            'pic_img_path' => 'nullable|string|max:255',
+            'founded_at'  => 'nullable|date',
+            'bank_account' => 'nullable|string|max:255',
+            'sk_path'     => 'nullable|string|max:255',
         ]);
 
         try {
-            $data = $request->only(['name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id']);
-            $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
+            $data = $request->only([
+                'name', 'email', 'contact', 'address', 'status', 'img_path', 'district_id',
+                'pic', 'pic_img_path', 'founded_at', 'bank_account', 'sk_path',
+            ]);
+            $data['img_path']     = Media::toRelativePath($data['img_path'] ?? null);
+            $data['pic_img_path'] = Media::toRelativePath($data['pic_img_path'] ?? null);
+            $data['sk_path']      = Media::toRelativePath($data['sk_path'] ?? null);
             if ($request->filled('slug')) {
                 $data['slug'] = $request->slug;
             }

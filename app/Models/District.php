@@ -23,6 +23,8 @@ class District extends Model
         'address',
         'web_url',
         'img_path',
+        'pic_img_path',
+        'sk_path',
     ];
 
     protected static function boot(): void

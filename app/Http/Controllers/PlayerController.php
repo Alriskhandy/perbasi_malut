@@ -13,9 +13,10 @@ class PlayerController extends Controller
     {
         $query = Player::with('team')->latest();
 
-        if ($request->filled('team_id')) $query->where('team_id', $request->team_id);
-        if ($request->filled('gender'))  $query->where('gender', $request->gender);
-        if ($request->filled('status'))  $query->where('status', $request->status);
+        if ($request->filled('team_id'))  $query->where('team_id', $request->team_id);
+        if ($request->filled('gender'))   $query->where('gender', $request->gender);
+        if ($request->filled('position')) $query->where('position', $request->position);
+        if ($request->filled('status'))   $query->where('status', $request->status);
 
         $players = $query->get();
         $teams   = Team::orderBy('name')->get();
@@ -31,13 +32,13 @@ class PlayerController extends Controller
         }
 
         match ($request->action) {
-            'aktifkan'    => Player::whereIn('id', $ids)->update(['status' => 'active']),
-            'nonaktifkan' => Player::whereIn('id', $ids)->update(['status' => 'inactive']),
-            'hapus'       => Player::whereIn('id', $ids)->delete(),
-            default       => null,
+            'registered'     => Player::whereIn('id', $ids)->update(['status' => 'registered']),
+            'not_registered' => Player::whereIn('id', $ids)->update(['status' => 'not registered']),
+            'hapus'          => Player::whereIn('id', $ids)->delete(),
+            default          => null,
         };
 
-        $labels = ['aktifkan' => 'diaktifkan', 'nonaktifkan' => 'dinonaktifkan', 'hapus' => 'dihapus'];
+        $labels = ['registered' => 'di-register', 'not_registered' => 'di-unregister', 'hapus' => 'dihapus'];
         notify()->success('Pemain berhasil ' . ($labels[$request->action] ?? 'diproses') . '.');
         return redirect()->route('players.index');
     }
@@ -51,18 +52,31 @@ class PlayerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'gender'   => 'required|in:L,P',
-            'height'   => 'nullable|integer|min:100|max:250',
-            'weight'   => 'nullable|integer|min:30|max:200',
-            'status'   => 'required|in:active,inactive',
-            'position' => 'nullable|string|max:100',
-            'img_path' => 'nullable|string|max:255',
-            'team_id'  => 'required|exists:teams,id',
+            'name'        => 'required|string|max:255',
+            'id_number'   => 'nullable|string|max:100',
+            'gender'      => 'required|in:L,P',
+            'height'      => 'nullable|integer|min:100|max:250',
+            'weight'      => 'nullable|integer|min:30|max:200',
+            'status'      => 'required|in:registered,not registered',
+            'position'    => 'nullable|string|max:100',
+            'img_path'    => 'nullable|string|max:255',
+            'team_id'     => 'required|exists:teams,id',
+            'birth_place' => 'nullable|string|max:255',
+            'birth_date'  => 'nullable|date',
+            'education'   => 'nullable|string|max:255',
+            'joined_at'   => 'nullable|date',
+            'contact'     => 'nullable|string|max:50',
+            'email'       => 'nullable|email|max:255',
+            'province'    => 'nullable|string|max:255',
+            'city'        => 'nullable|string|max:255',
         ]);
 
         try {
-            $data = $request->only(['name', 'gender', 'height', 'weight', 'status', 'position', 'img_path', 'team_id']);
+            $data = $request->only([
+                'name', 'id_number', 'gender', 'height', 'weight', 'status', 'position',
+                'img_path', 'team_id', 'birth_place', 'birth_date', 'education',
+                'joined_at', 'contact', 'email', 'province', 'city',
+            ]);
             $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
             Player::create($data);
 
@@ -86,18 +100,31 @@ class PlayerController extends Controller
         $player = Player::findOrFail($id);
 
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'gender'   => 'required|in:L,P',
-            'height'   => 'nullable|integer|min:100|max:250',
-            'weight'   => 'nullable|integer|min:30|max:200',
-            'status'   => 'required|in:active,inactive',
-            'position' => 'nullable|string|max:100',
-            'img_path' => 'nullable|string|max:255',
-            'team_id'  => 'required|exists:teams,id',
+            'name'        => 'required|string|max:255',
+            'id_number'   => 'nullable|string|max:100',
+            'gender'      => 'required|in:L,P',
+            'height'      => 'nullable|integer|min:100|max:250',
+            'weight'      => 'nullable|integer|min:30|max:200',
+            'status'      => 'required|in:registered,not registered',
+            'position'    => 'nullable|string|max:100',
+            'img_path'    => 'nullable|string|max:255',
+            'team_id'     => 'required|exists:teams,id',
+            'birth_place' => 'nullable|string|max:255',
+            'birth_date'  => 'nullable|date',
+            'education'   => 'nullable|string|max:255',
+            'joined_at'   => 'nullable|date',
+            'contact'     => 'nullable|string|max:50',
+            'email'       => 'nullable|email|max:255',
+            'province'    => 'nullable|string|max:255',
+            'city'        => 'nullable|string|max:255',
         ]);
 
         try {
-            $data = $request->only(['name', 'gender', 'height', 'weight', 'status', 'position', 'img_path', 'team_id']);
+            $data = $request->only([
+                'name', 'id_number', 'gender', 'height', 'weight', 'status', 'position',
+                'img_path', 'team_id', 'birth_place', 'birth_date', 'education',
+                'joined_at', 'contact', 'email', 'province', 'city',
+            ]);
             $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
             $player->update($data);
 

@@ -22,16 +22,15 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="basic-datatables" class="display table table-striped table-hover">
+                                <table id="basic-datatables" class="display table table-striped table-hover" style="white-space:nowrap">
                                     <thead>
                                         <tr>
                                             <th>#</th>
                                             <th>Logo</th>
                                             <th>Nama Klub</th>
-                                            <th>Slug</th>
                                             <th>DPD</th>
+                                            <th>Penanggung Jawab</th>
                                             <th>Kontak</th>
-                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -48,20 +47,31 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $team->name }}</td>
+                                                <td>{{ $team->district->name ?? '-' }}</td>
                                                 <td>
-                                                    @if ($team->slug)
-                                                        <code class="text-muted small">{{ $team->slug }}</code>
+                                                    @if ($team->pic)
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            @if ($team->pic_img_path)
+                                                                <img src="{{ \App\Helpers\Media::url($team->pic_img_path) }}"
+                                                                    alt="{{ $team->pic }}"
+                                                                    style="width:35px;height:35px;object-fit:cover;border-radius:50%;">
+                                                            @endif
+                                                            <strong>{{ $team->pic }}</strong>
+                                                        </div>
                                                     @else
-                                                        <span class="badge badge-warning">belum ada</span>
+                                                        <span class="text-muted">-</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $team->district->name ?? '-' }}</td>
-                                                <td>{{ $team->contact ?? '-' }}</td>
                                                 <td>
-                                                    @if ($team->status === 'aktif')
-                                                        <span class="badge badge-success">Aktif</span>
+                                                    @if ($team->email || $team->contact)
+                                                        @if ($team->email)
+                                                            <small>{{ $team->email }}</small><br>
+                                                        @endif
+                                                        @if ($team->contact)
+                                                            <small class="text-muted">{{ $team->contact }}</small>
+                                                        @endif
                                                     @else
-                                                        <span class="badge badge-danger">Tidak Aktif</span>
+                                                        <span class="text-muted">-</span>
                                                     @endif
                                                 </td>
                                                 <td>

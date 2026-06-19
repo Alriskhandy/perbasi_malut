@@ -14,6 +14,7 @@ class OfficialController extends Controller
         $query = Official::with('team')->latest();
 
         if ($request->filled('team_id')) $query->where('team_id', $request->team_id);
+        if ($request->filled('status'))  $query->where('status', $request->status);
 
         $officials = $query->get();
         $teams     = Team::orderBy('name')->get();
@@ -28,11 +29,15 @@ class OfficialController extends Controller
             return redirect()->back()->withInput();
         }
 
-        if ($request->action === 'hapus') {
-            Official::whereIn('id', $ids)->delete();
-            notify()->success('Official berhasil dihapus.');
-        }
+        match ($request->action) {
+            'registered'     => Official::whereIn('id', $ids)->update(['status' => 'registered']),
+            'not_registered' => Official::whereIn('id', $ids)->update(['status' => 'not registered']),
+            'hapus'          => Official::whereIn('id', $ids)->delete(),
+            default          => null,
+        };
 
+        $labels = ['registered' => 'di-register', 'not_registered' => 'di-unregister', 'hapus' => 'dihapus'];
+        notify()->success('Official berhasil ' . ($labels[$request->action] ?? 'diproses') . '.');
         return redirect()->route('officials.index');
     }
 
@@ -45,13 +50,22 @@ class OfficialController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'img_path' => 'nullable|string|max:255',
-            'team_id'  => 'required|exists:teams,id',
+            'name'      => 'required|string|max:255',
+            'education' => 'nullable|string|max:255',
+            'email'     => 'nullable|email|max:255',
+            'contact'   => 'nullable|string|max:50',
+            'joined_at' => 'nullable|date',
+            'position'  => 'nullable|string|max:255',
+            'status'    => 'required|in:registered,not registered',
+            'img_path'  => 'nullable|string|max:255',
+            'team_id'   => 'required|exists:teams,id',
         ]);
 
         try {
-            $data = $request->only(['name', 'img_path', 'team_id']);
+            $data = $request->only([
+                'name', 'education', 'email', 'contact', 'joined_at',
+                'position', 'status', 'img_path', 'team_id',
+            ]);
             $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
             Official::create($data);
 
@@ -75,13 +89,22 @@ class OfficialController extends Controller
         $official = Official::findOrFail($id);
 
         $request->validate([
-            'name'     => 'required|string|max:255',
-            'img_path' => 'nullable|string|max:255',
-            'team_id'  => 'required|exists:teams,id',
+            'name'      => 'required|string|max:255',
+            'education' => 'nullable|string|max:255',
+            'email'     => 'nullable|email|max:255',
+            'contact'   => 'nullable|string|max:50',
+            'joined_at' => 'nullable|date',
+            'position'  => 'nullable|string|max:255',
+            'status'    => 'required|in:registered,not registered',
+            'img_path'  => 'nullable|string|max:255',
+            'team_id'   => 'required|exists:teams,id',
         ]);
 
         try {
-            $data = $request->only(['name', 'img_path', 'team_id']);
+            $data = $request->only([
+                'name', 'education', 'email', 'contact', 'joined_at',
+                'position', 'status', 'img_path', 'team_id',
+            ]);
             $data['img_path'] = Media::toRelativePath($data['img_path'] ?? null);
             $official->update($data);
 
