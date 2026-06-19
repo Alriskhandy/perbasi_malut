@@ -27,7 +27,7 @@
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
                     <a class="btn btn-primary" href="/" target="_blank" role="button">
-                        <i class="fa fa-globe me-1"></i> Visit Website
+                        <i class="fa fa-globe me-1"></i> Kunjungi Web
                     </a>
                 </li>
 

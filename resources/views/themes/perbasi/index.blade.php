@@ -82,7 +82,8 @@
                         <h2
                             class="font-headline-lg text-3xl md:text-headline-lg text-charcoal uppercase leading-tight tracking-tight">
                             Galeri <span class="text-crimson-red">Foto</span></h2>
-                        <p class="text-secondary font-body-md mt-2">Momen Berharga, Semangat Kompetisi dan Dedikasi Pengembangan Basket di Maluku Utara.</p>
+                        <p class="text-secondary font-body-md mt-2">Momen Berharga, Semangat Kompetisi dan Dedikasi
+                            Pengembangan Basket di Maluku Utara.</p>
                     </div>
                     <a class="text-crimson-red font-label-bold flex items-center gap-1 hover:underline self-start md:self-auto"
                         href="{{ route('galleries.front') }}">LIHAT SEMUA <span
@@ -110,10 +111,29 @@
                 </div>
             </div>
         </section>
+
+        <!-- Instagram Section -->
+        <section class="py-section-padding bg-white">
+            <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-stack-lg">
+                    <div>
+                        <h2
+                            class="font-headline-lg text-3xl md:text-headline-lg text-charcoal uppercase leading-tight tracking-tight">
+                            <span class="text-crimson-red">Instagram</span></h2>
+                    </div>
+                </div>
+
+                <div>
+                    <iframe onload="iFrameResize(this)" src="https://fb52c851ef9342e59abacb72d0b31bc1.elf.site"
+                        style="border:none;width:100%;"></iframe>
+                </div>
+            </div>
+        </section>
     </main>
 @endsection
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.10/iframeResizer.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const observerOptions = {
