@@ -1,6 +1,6 @@
 @extends('themes.perbasi.layouts.main')
 
-@section('title', $category->name . ' - Berita ' . $site_name->value)
+@section('title', (isset($category) && $category ? $category->name . ' - Berita ' : 'Berita ') . $site_name->value)
 
 @push('styles')
     <style>

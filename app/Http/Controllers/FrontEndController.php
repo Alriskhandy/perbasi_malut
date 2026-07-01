@@ -97,11 +97,12 @@ class FrontEndController extends Controller
         $theme = Theme::where('active', true)->first()->path;
         // $data = []; // Data yang diperlukan
 
+        $category = null;
         $posts = Posts::whereIn('status', ['published', 'approved'])->latest()->paginate(8);
 
 
         // dd($posts);
-        return view($theme . '.posts_categories', compact('posts'));
+        return view($theme . '.posts_categories', compact('category', 'posts'));
     }
 
     public function athletes(Request $request)
