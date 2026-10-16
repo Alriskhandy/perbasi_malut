@@ -40,7 +40,7 @@
                     <div
                         class="bg-white border border-charcoal/5 group flex flex-col shadow-sm hover:shadow-xl transition-all duration-300">
                         <div class="h-56 overflow-hidden relative">
-                            <img alt="{{ $post->title }}"
+                            <img loading="lazy" decoding="async" alt="{{ $post->title }}"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                                 src="{{ \App\Helpers\Media::url($post->image) }}" />
                             @if ($post->category)
@@ -94,7 +94,7 @@
                         @if ($index === 2)
                             <div class="aspect-square md:row-span-2 md:col-span-2 relative">
                                 <div class="relative w-full h-full overflow-hidden group z-10">
-                                    <img alt="{{ $gallery->title }}"
+                                    <img loading="lazy" decoding="async" alt="{{ $gallery->title }}"
                                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                         src="{{ \App\Helpers\Media::url($gallery->cover_image ?? $gallery->image) }}" />
                                 </div>
@@ -102,7 +102,7 @@
                             </div>
                         @else
                             <div class="aspect-square overflow-hidden group">
-                                <img alt="{{ $gallery->title }}"
+                                <img loading="lazy" decoding="async" alt="{{ $gallery->title }}"
                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                     src="{{ \App\Helpers\Media::url($gallery->cover_image ?? $gallery->image) }}" />
                             </div>

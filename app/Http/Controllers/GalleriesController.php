@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\Media;
 use App\Models\Galleries;
 use App\Models\GalleriesMeta;
-use App\Models\Theme;
+use App\Support\SiteCache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -199,9 +199,9 @@ class GalleriesController extends Controller
         }
     }
     function front() {
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
         $data = []; // Data yang diperlukan
-       $galleries = Galleries::where('status', 'active')->latest()->get();
+       $galleries = Galleries::where('status', 'active')->withCount('metas as images_count')->latest()->get();
         return view($theme . '.galleries', compact('data','galleries'));
     }
 
@@ -214,7 +214,7 @@ class GalleriesController extends Controller
         $meta = GalleriesMeta::where('gallery_id', $gallery->id)->get();
     
         // Kirim data gallery dan meta ke view
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
         return view($theme . '.detail_galleries', compact('gallery', 'meta'));
     }
     

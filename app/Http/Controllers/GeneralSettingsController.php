@@ -107,7 +107,8 @@ class GeneralSettingsController extends Controller
                     ]);
                 }
             }
-    
+
+            \App\Support\SiteCache::flush();
             notify()->success('Settings berhasil diperbarui.');
             return redirect()->back();
     

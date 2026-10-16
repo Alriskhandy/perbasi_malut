@@ -71,7 +71,7 @@
                                 <article
                                     class="bg-white border border-charcoal/10 overflow-hidden bento-grid-item flex flex-col">
                                     <div class="relative h-64 overflow-hidden">
-                                        <img class="w-full h-full object-cover" src="{{ \App\Helpers\Media::url($post->image) }}"
+                                        <img loading="lazy" decoding="async" class="w-full h-full object-cover" src="{{ \App\Helpers\Media::url($post->image) }}"
                                             alt="{{ $post->title }}" />
                                         @if ($post->category)
                                             <div class="absolute top-4 left-4">

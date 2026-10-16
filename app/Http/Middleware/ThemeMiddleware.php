@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Theme;
+use App\Support\SiteCache;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -17,13 +17,7 @@ class ThemeMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $theme = Theme::where('active', true)->first();
-
-        if ($theme) {
-            view()->share('theme', $theme->path);
-        } else {
-            view()->share('theme', 'themes/default');
-        }
+        view()->share('theme', SiteCache::themePath());
 
         // Log untuk debugging
         // Log::info('Theme Middleware dijalankan dengan tema: ' . ($theme ? $theme->path : 'default'));

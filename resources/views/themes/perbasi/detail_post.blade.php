@@ -88,17 +88,17 @@
                     <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('posts.show', $page->slug)) }}"
                         target="_blank"
                         class="flex items-center gap-2 bg-charcoal text-off-white px-4 py-2 text-sm font-label-bold hover:bg-crimson-red transition-colors">
-                        <img src="{{ asset('assets/facebook.svg') }}" alt="Facebook" width="18"> Facebook
+                        <img loading="lazy" decoding="async" src="{{ asset('assets/facebook.svg') }}" alt="Facebook" width="18"> Facebook
                     </a>
                     <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('posts.show', $page->slug)) }}&text={{ urlencode($page->title) }}"
                         target="_blank"
                         class="flex items-center gap-2 bg-charcoal text-off-white px-4 py-2 text-sm font-label-bold hover:bg-crimson-red transition-colors">
-                        <img src="{{ asset('assets/x.svg') }}" alt="X / Twitter" width="18"> Twitter
+                        <img loading="lazy" decoding="async" src="{{ asset('assets/x.svg') }}" alt="X / Twitter" width="18"> Twitter
                     </a>
                     <a href="https://api.whatsapp.com/send?text={{ urlencode($page->title . ' ' . route('posts.show', $page->slug)) }}"
                         target="_blank"
                         class="flex items-center gap-2 bg-charcoal text-off-white px-4 py-2 text-sm font-label-bold hover:bg-crimson-red transition-colors">
-                        <img src="{{ asset('assets/whatsapp.svg') }}" alt="WhatsApp" width="18"> WhatsApp
+                        <img loading="lazy" decoding="async" src="{{ asset('assets/whatsapp.svg') }}" alt="WhatsApp" width="18"> WhatsApp
                     </a>
                 </div>
 

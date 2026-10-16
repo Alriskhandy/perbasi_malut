@@ -180,7 +180,7 @@
                             class="athlete-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col">
 
                             <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                <img loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                     src="{{ $player->img_path ? \App\Helpers\Media::url($player->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
                                     alt="{{ $player->name }}" />
                                 <div class="absolute top-2 right-2 bg-charcoal/80 text-off-white font-label-bold text-[10px] px-2 py-0.5 rounded uppercase">

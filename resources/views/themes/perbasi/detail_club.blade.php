@@ -179,7 +179,7 @@
                         @foreach ($activeCoaches as $coach)
                             <div class="person-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden">
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    <img loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         src="{{ $coach->img_path ? \App\Helpers\Media::url($coach->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
                                         alt="{{ $coach->name }}" />
                                 </div>
@@ -215,7 +215,7 @@
                             <a href="{{ route('athletes.detail', \App\Helpers\Hashid::encode($player->id)) }}"
                                 class="person-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden">
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    <img loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         src="{{ $player->img_path ? \App\Helpers\Media::url($player->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
                                         alt="{{ $player->name }}" />
                                     <!-- Gender badge -->
@@ -246,7 +246,7 @@
                         @foreach ($officials as $official)
                             <div class="person-card group bg-white border border-charcoal/10 rounded-lg overflow-hidden">
                                 <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                    <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    <img loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         src="{{ $official->img_path ? \App\Helpers\Media::url($official->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
                                         alt="{{ $official->name }}" />
                                 </div>

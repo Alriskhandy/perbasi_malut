@@ -149,7 +149,8 @@ class PostsController extends Controller
                 notify()->error('Pilih Tindakan!');
                 return redirect()->back();
             }
-    
+
+            \App\Support\SiteCache::flush();
             return redirect()->route('posts.index', ['status' => $request->query('status')]);
         } else {
             notify()->error('Pilih Post Terlebih Dahulu!');

@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "build:perbasi": "tailwindcss -c tailwind.perbasi.config.js -i resources/css/perbasi.css -o public/themes/perbasi/css/app.css --minify"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.2",

@@ -97,7 +97,7 @@
                         <div class="photo-card group relative bg-surface-container-low overflow-hidden rounded-lg aspect-square cursor-pointer"
                              data-index="{{ $i }}"
                              onclick="openLightbox({{ $i }})">
-                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            <img loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                  src="{{ \App\Helpers\Media::url($item->image) }}"
                                  alt="{{ $item->description ?? $gallery->name }}"
                                  loading="lazy" />

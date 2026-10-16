@@ -82,7 +82,7 @@
                         class="album-card group relative bg-white overflow-hidden rounded-lg border border-charcoal/10 flex flex-col cursor-pointer">
 
                         <div class="relative aspect-[4/3] overflow-hidden">
-                            <img class="w-full h-full object-cover transition-transform duration-500"
+                            <img loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-500"
                                 src="{{ \App\Helpers\Media::url($gallery->cover_image ?? $gallery->image) }}"
                                 alt="{{ $gallery->name }}" />
                             <div class="album-overlay absolute inset-0 bg-charcoal/50 opacity-0 transition-opacity duration-300 flex items-center justify-center">

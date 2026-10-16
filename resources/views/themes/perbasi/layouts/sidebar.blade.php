@@ -33,7 +33,7 @@
                     <a class="group flex gap-stack-md items-center"
                         href="{{ route('posts.show', $post->slug) }}">
                         <div class="w-20 h-20 flex-shrink-0 overflow-hidden border border-charcoal/10">
-                            <img class="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                            <img loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-110 transition-transform"
                                 src="{{ \App\Helpers\Media::url($post->image) }}" alt="{{ $post->title }}" />
                         </div>
                         <div>

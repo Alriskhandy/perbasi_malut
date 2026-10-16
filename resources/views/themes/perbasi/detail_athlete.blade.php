@@ -335,7 +335,7 @@
                                     class="group bg-white border border-charcoal/10 rounded-lg overflow-hidden flex flex-col
                                            transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
                                     <div class="relative aspect-[3/4] bg-surface-container-low overflow-hidden flex items-center justify-center">
-                                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                        <img loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                             src="{{ $related->img_path ? \App\Helpers\Media::url($related->img_path) : asset('backend/assets/img/foto-default.jpeg') }}"
                                             alt="{{ $related->name }}" />
                                         <div class="absolute top-2 right-2 bg-charcoal/75 text-off-white font-label-bold text-[9px] px-1.5 py-0.5 rounded uppercase">

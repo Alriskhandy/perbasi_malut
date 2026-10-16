@@ -43,10 +43,6 @@
         <meta name="geo.position" content="0.7714;127.3771" />
         <meta name="ICBM" content="0.7714, 127.3771" />
 
-        <!-- Cache Control -->
-        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-        <meta http-equiv="Pragma" content="no-cache">
-        <meta http-equiv="Expires" content="0">
     @else
         <title>@yield('title', $site_name->value)</title>
         <meta name="description" content="{{ $seo_description }}">
@@ -61,150 +57,18 @@
     <link rel="apple-touch-icon" href="{{ asset('themes/perbasi/favicon/apple-touch-icon.png') }}" />
     <link rel="manifest" href="{{ asset('themes/perbasi/favicon/site.webmanifest') }}" />
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@400;600;700&display=swap"
         rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    {{-- Hanya ikon yang dipakai tema. Tambah ikon baru? Masukkan namanya (urut abjad) ke icon_names. --}}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0..1&icon_names=arrow_back,arrow_forward,article,calendar_today,call,chevron_left,chevron_right,close,download,expand_more,filter_list,groups,home,language,location_on,mail,menu,person,phone,photo_library,refresh,search,search_off,shield,sports,sports_basketball,sports_cricket,tune,visibility,zoom_in&display=block"
         rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "off-white": "#F8F9FA",
-                        "primary": "#87021e",
-                        "crimson-red": "#A92333",
-                        "on-primary": "#ffffff",
-                        "tertiary-fixed-dim": "#e9c349",
-                        "amber-gold": "#D4AF37",
-                        "primary-fixed-dim": "#ffb3b3",
-                        "tertiary-container": "#cba72f",
-                        "charcoal": "#1A1D20",
-                        "surface-container-high": "#e7e8e9",
-                        "inverse-primary": "#ffb3b3",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container": "#edeeef",
-                        "on-tertiary-fixed-variant": "#574500",
-                        "on-primary-fixed": "#400009",
-                        "surface-variant": "#e1e3e4",
-                        "secondary-fixed-dim": "#c5c6ca",
-                        "primary-container": "#a92333",
-                        "on-secondary-fixed": "#191c1f",
-                        "secondary-fixed": "#e1e2e6",
-                        "on-surface": "#191c1d",
-                        "inverse-surface": "#2e3132",
-                        "surface-tint": "#b12938",
-                        "surface": "#f8f9fa",
-                        "primary-fixed": "#ffdad9",
-                        "outline-variant": "#e0bfbe",
-                        "on-secondary-container": "#606366",
-                        "on-surface-variant": "#594140",
-                        "error": "#ba1a1a",
-                        "inverse-on-surface": "#f0f1f2",
-                        "tertiary-fixed": "#ffe088",
-                        "surface-container-highest": "#e1e3e4",
-                        "on-error-container": "#93000a",
-                        "on-primary-container": "#ffc0bf",
-                        "on-primary-fixed-variant": "#8f0c23",
-                        "error-container": "#ffdad6",
-                        "on-background": "#191c1d",
-                        "surface-bright": "#f8f9fa",
-                        "surface-container-low": "#f3f4f5",
-                        "on-error": "#ffffff",
-                        "on-tertiary-container": "#4e3d00",
-                        "surface-dim": "#d9dadb",
-                        "background": "#f8f9fa",
-                        "tertiary": "#735c00",
-                        "on-tertiary": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "secondary-container": "#dee0e4",
-                        "secondary": "#5c5f62",
-                        "on-tertiary-fixed": "#241a00",
-                        "outline": "#8d7070",
-                        "on-secondary-fixed-variant": "#44474a"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "stack-lg": "32px",
-                        "margin-mobile": "20px",
-                        "stack-md": "16px",
-                        "stack-sm": "8px",
-                        "container-max": "1280px",
-                        "section-padding": "80px",
-                        "section-padding-mobile": "40px",
-                        "margin-desktop": "64px",
-                        "gutter": "24px"
-                    },
-                    "fontFamily": {
-                        "label-bold": ["Inter"],
-                        "headline-xl-mobile": ["Oswald"],
-                        "headline-md": ["Oswald"],
-                        "headline-lg": ["Oswald"],
-                        "body-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "stats-display": ["Oswald"],
-                        "headline-xl": ["Oswald"]
-                    },
-                    "fontSize": {
-                        "label-bold": ["14px", {
-                            "lineHeight": "20px",
-                            "letterSpacing": "0.05em",
-                            "fontWeight": "700"
-                        }],
-                        "headline-xl-mobile": ["32px", {
-                            "lineHeight": "40px",
-                            "letterSpacing": "-0.01em",
-                            "fontWeight": "700"
-                        }],
-                        "headline-md": ["32px", {
-                            "lineHeight": "40px",
-                            "fontWeight": "600"
-                        }],
-                        "headline-lg": ["48px", {
-                            "lineHeight": "56px",
-                            "letterSpacing": "0em",
-                            "fontWeight": "600"
-                        }],
-                        "body-sm": ["12px", {
-                            "lineHeight": "20px",
-                            "fontWeight": "400"
-                        }],
-                        "body-md": ["16px", {
-                            "lineHeight": "24px",
-                            "fontWeight": "400"
-                        }],
-                        "body-lg": ["18px", {
-                            "lineHeight": "28px",
-                            "fontWeight": "400"
-                        }],
-                        "stats-display": ["24px", {
-                            "lineHeight": "32px",
-                            "fontWeight": "700"
-                        }],
-                        "headline-xl": ["64px", {
-                            "lineHeight": "72px",
-                            "letterSpacing": "-0.02em",
-                            "fontWeight": "700"
-                        }]
-                    }
-                },
-            },
-        }
-    </script>
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            display: inline-block;
-            vertical-align: middle;
-        }
-    </style>
+    {{-- CSS hasil build: npm run build:perbasi --}}
+    <link rel="stylesheet"
+        href="{{ asset('themes/perbasi/css/app.css') }}?v={{ filemtime(public_path('themes/perbasi/css/app.css')) }}" />
     @stack('styles')
 </head>
 
@@ -218,8 +82,8 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-start max-w-container-max mx-auto">
             <!-- Kiri: Logo -->
             <div class="flex flex-col items-center gap-2">
-                <img alt="PERBASI Logo" class="h-32 md:h-48 w-auto"
-                    src="{{ asset('backend/assets/img/logo-vertikal.png') }}" />
+                <img alt="PERBASI Logo" class="h-32 md:h-48 w-auto" width="400" height="400" loading="lazy" decoding="async"
+                    src="{{ asset('themes/perbasi/img/logo-vertikal.webp') }}" />
             </div>
 
             <!-- Tengah: Deskripsi -->
@@ -261,7 +125,8 @@
         </div>
 
         <div class="mt-10 md:mt-12 text-center">
-            <img alt="Tag Malut Bisa, Mallut Juara" class="h-24 md:h-40 w-auto mx-auto" src="{{ asset('backend/assets/img/tag-malut bisa-red.png') }}" />
+            <img alt="Tag Malut Bisa, Mallut Juara" class="h-24 md:h-40 w-auto mx-auto" width="1200" height="336" loading="lazy" decoding="async"
+                src="{{ asset('themes/perbasi/img/tag-malut-bisa-red.webp') }}" />
         </div>
 
         <div class="mt-4 md:mt-6 pt-8 border-t border-white/5 text-center text-surface-variant text-[10px] max-w-container-max mx-auto uppercase tracking-widest">

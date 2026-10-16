@@ -2,8 +2,8 @@
 <section class="relative min-h-screen w-full flex items-center bg-charcoal overflow-hidden py-stack-lg">
     <!-- Background Overlay -->
     <div class="absolute inset-0 z-0">
-        <img alt="Epic Basketball Background" class="w-full h-full object-cover opacity-30"
-            src="{{ isset($heroBg) ? $heroBg : 'https://lh3.googleusercontent.com/aida-public/AB6AXuBjoRgi5IvT2t4k9Zx2kdkbtsE81A5QjiQZPOe-J-trEPK_kmS8B--xTsY-zBBfIDQEePfzSdzT950N5GaCjdHguY_HYObyTXud0RuW3dL9aSeem2ZQKwa0TBLUoWlHwV-eSPPtxDnRSyXrX_k65OUnnkvj36K8WWEU_rTu0XC_cE7D7VvWKGv5gD-hJF3ruWE-j1PHVsXqdRa8zdLYYii9wTd_pkCxlRk71nSthW5tYWZNuAKVG5LbmncT1ElahiQYzwMvuTJDQNa4' }}" />
+        <img alt="Epic Basketball Background" class="w-full h-full object-cover opacity-30" fetchpriority="high"
+            src="{{ $heroBg ?? asset('themes/perbasi/img/hero-bg.webp') }}" />
         <div class="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/80 to-transparent"></div>
     </div>
 
@@ -13,7 +13,7 @@
             {{-- <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-off-white uppercase leading-[1] mb-6 text-shadow-hero">
                 Malut bisa,<br /><span class="text-crimson-red">Malut juara</span>
             </h1> --}}
-            <img src="{{ asset('backend/assets/img/tag-malut bisa.png') }}" alt="Tag Malut Bisa, Malut Juara" class="mx-auto lg:mx-0 mb-6 w-64 md:w-80" />
+            <img src="{{ asset('themes/perbasi/img/tag-malut-bisa.webp') }}" alt="Tag Malut Bisa, Malut Juara" class="mx-auto lg:mx-0 mb-6 w-64 md:w-80" width="800" height="224" />
             <p class="font-body-lg text-body-lg text-off-white/80 max-w-xl mx-auto lg:mx-0 mb-10">
                 Menjadikan olahraga bola basket di Maluku Utara sebagai sarana pembinaan generasi muda yang berkarakter, berprestasi, dan mampu membawa nama baik daerah hingga ke kancah nasional maupun internasional.
             </p>
@@ -62,7 +62,7 @@
                                 data-index="{{ $i }}">
                                 <!-- Image -->
                                 <div class="relative overflow-hidden group" style="height: 270px;">
-                                    <img alt="{{ $carouselPost->title }}"
+                                    <img alt="{{ $carouselPost->title }}" @if ($i > 0) loading="lazy" @endif decoding="async"
                                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         src="{{ \App\Helpers\Media::url($carouselPost->image) }}" />
                                     @if ($carouselPost->category)

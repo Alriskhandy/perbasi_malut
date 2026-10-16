@@ -176,7 +176,7 @@
                             <!-- Logo 1:1 -->
                             <div class="relative aspect-square bg-surface-container-low overflow-hidden flex items-center justify-center p-1 md:p-2">
                                 @if ($team->img_path)
-                                    <img class="club-logo w-full h-full object-contain"
+                                    <img loading="lazy" decoding="async" class="club-logo w-full h-full object-contain"
                                         src="{{ \App\Helpers\Media::url($team->img_path) }}"
                                         alt="Logo {{ $team->name }}" />
                                 @else

@@ -111,6 +111,7 @@ class MenuItemController extends Controller
 
         // Update the menu items
         updateMenuItems($menuItems);
+        \App\Support\SiteCache::flush();
 
         // Return a JSON response
         return response()->json(['success' => true, 'message' => 'Menu order updated successfully']);

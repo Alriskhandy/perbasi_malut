@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use App\Models\Posts;
-use App\Models\Theme;
+use App\Support\SiteCache;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
@@ -57,12 +57,12 @@ class SearchController extends Controller
             'q' => ['nullable', 'string', 'max:100'],
         ]);
 
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
 
         $query = strip_tags(trim($request->input('q', '')));
 
         if ($query !== '') {
-            $posts = Posts::where('title', 'LIKE', '%' . $query . '%')
+            $posts = Posts::with('category')->where('title', 'LIKE', '%' . $query . '%')
                 ->orWhere('content', 'LIKE', '%' . $query . '%')
                 ->paginate(10)
                 ->withQueryString();

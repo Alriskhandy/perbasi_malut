@@ -155,7 +155,7 @@
                             <div class="relative bg-gradient-to-br from-charcoal to-[#2a1f3a] p-6 flex items-center gap-4">
                                 <div class="w-14 h-14 rounded-full bg-white/10 border border-white/20 flex items-center justify-center overflow-hidden flex-shrink-0">
                                     @if ($district->img_path)
-                                        <img src="{{ \App\Helpers\Media::url($district->img_path) }}"
+                                        <img loading="lazy" decoding="async" src="{{ \App\Helpers\Media::url($district->img_path) }}"
                                             class="w-full h-full object-cover"
                                             alt="{{ $district->name }}" />
                                     @else

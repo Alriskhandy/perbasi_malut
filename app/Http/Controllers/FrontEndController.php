@@ -14,13 +14,13 @@ use App\Models\Coach;
 use App\Models\Player;
 use App\Models\Referee;
 use Illuminate\Http\Request;
-use App\Models\Theme;
+use App\Support\SiteCache;
 class FrontEndController extends Controller
 {
    
     public function index()
     {
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
 
         // Ambil berita utama
         $beritaUtama = Posts::where('is_featured', 1)->latest()->get();
@@ -31,26 +31,26 @@ class FrontEndController extends Controller
             ->toArray();
 
         // Ambil berita lainnya yang tidak termasuk dalam berita utama dan pengumuman
-        $posts = Posts::whereIn('status', ['published', 'approved'])
+        $posts = Posts::with('category')
+            ->whereIn('status', ['published', 'approved'])
             ->whereNotIn('id', $excludedIds)
             ->latest()
+            ->limit(12)
             ->get();
 
         // Ambil Galleri
-        $galleries = Galleries::all();
+        $galleries = Galleries::where('status', 'active')->latest()->limit(12)->get();
 
-        // Statistik klub, pelatih, atlet, wasit
-        $klubCount = Team::count();
-        $pelatihCount = Coach::count();
-        $atletCount = Player::count();
-        $wasitCount = Referee::count();
+        // Statistik klub, pelatih, atlet, wasit (cache 10 menit)
+        ['klubCount' => $klubCount, 'pelatihCount' => $pelatihCount, 'atletCount' => $atletCount, 'wasitCount' => $wasitCount]
+            = SiteCache::homeStats();
 
         return view($theme . '.index', compact('beritaUtama', 'posts', 'galleries', 'klubCount', 'pelatihCount', 'atletCount', 'wasitCount'));
     }
 
     public function showPage($slug)
     {
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
         $data = []; // Data yang diperlukan
     
         // Temukan halaman berdasarkan slug
@@ -61,7 +61,7 @@ class FrontEndController extends Controller
 
     public function showPost($slug)
     {
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
 
         // Temukan halaman berdasarkan slug
         $page = Posts::where('slug', $slug)
@@ -81,24 +81,24 @@ class FrontEndController extends Controller
 
     public function showCategories($slug)
     {
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
         // $data = []; // Data yang diperlukan
     
         // Temukan halaman berdasarkan slug
         $category = Categories::where('slug', $slug)->firstOrFail();
 
-        $posts = Posts::where('category_id', $category->id)->latest()->paginate(8); // Batasi 10 posting per halaman
+        $posts = Posts::with('category')->where('category_id', $category->id)->latest()->paginate(8); // Batasi 10 posting per halaman
 
         // dd($posts);
         return view($theme . '.posts_categories', compact('category','posts'));
     }
 
     public function allPosts(){
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
         // $data = []; // Data yang diperlukan
 
         $category = null;
-        $posts = Posts::whereIn('status', ['published', 'approved'])->latest()->paginate(8);
+        $posts = Posts::with('category')->whereIn('status', ['published', 'approved'])->latest()->paginate(8);
 
 
         // dd($posts);
@@ -107,7 +107,7 @@ class FrontEndController extends Controller
 
     public function athletes(Request $request)
     {
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
 
         $search       = $request->input('search', '');
         $teamHash     = (string) ($request->input('team_id') ?? '');
@@ -143,7 +143,7 @@ class FrontEndController extends Controller
     public function athleteDetail(string $hash)
     {
         $id     = Hashid::decode($hash) ?? abort(404);
-        $theme  = Theme::where('active', true)->first()->path;
+        $theme  = SiteCache::themePath();
         $player = Player::with('team.district')->where('status', 'registered')->findOrFail($id);
 
         $relatedPlayers = collect();
@@ -162,7 +162,7 @@ class FrontEndController extends Controller
 
     public function dpd(Request $request)
     {
-        $theme    = Theme::where('active', true)->first()->path;
+        $theme    = SiteCache::themePath();
         $search   = $request->input('search', '');
         $safeLike = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
 
@@ -180,7 +180,7 @@ class FrontEndController extends Controller
 
     public function dpdDetail(string $slug)
     {
-        $theme    = Theme::where('active', true)->first()->path;
+        $theme    = SiteCache::themePath();
         $district = District::withCount(['teams', 'referees', 'players', 'coaches'])
             ->where('slug', $slug)
             ->firstOrFail();
@@ -196,7 +196,7 @@ class FrontEndController extends Controller
 
     public function coaches(Request $request)
     {
-        $theme        = Theme::where('active', true)->first()->path;
+        $theme        = SiteCache::themePath();
         $search       = $request->input('search', '');
         $districtHash = (string) ($request->input('district_id') ?? '');
         $safeLike     = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
@@ -221,7 +221,7 @@ class FrontEndController extends Controller
 
     public function referees(Request $request)
     {
-        $theme        = Theme::where('active', true)->first()->path;
+        $theme        = SiteCache::themePath();
         $search       = $request->input('search', '');
         $districtHash = (string) ($request->input('district_id') ?? '');
         $safeLike     = str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], trim($search));
@@ -245,7 +245,7 @@ class FrontEndController extends Controller
 
     public function clubs(Request $request)
     {
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
 
         $search       = $request->input('search', '');
         $districtHash = (string) ($request->input('district_id') ?? '');
@@ -273,7 +273,7 @@ class FrontEndController extends Controller
 
     public function clubDetail(string $slug)
     {
-        $theme = Theme::where('active', true)->first()->path;
+        $theme = SiteCache::themePath();
 
         $team = Team::with('district')
             ->where('status', 'aktif')

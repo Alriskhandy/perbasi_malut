@@ -24,7 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, $request) {
-            $theme = \App\Models\Theme::where('active', true)->first()?->path ?? 'themes/perbasi';
+            $theme = \App\Support\SiteCache::themePath();
             return response()->view($theme . '.error.404', [], 404);
         });
     })->create();
