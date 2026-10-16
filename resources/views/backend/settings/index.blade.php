@@ -8,24 +8,6 @@
                     <h3 class="fw-bold mb-1 fs-3">Settings</h3>
                     <p class="mb-0 text-muted">Versi Saat Ini: <strong>{{ $currentVersion }}</strong></p>
                 </div>
-
-                <div class="ms-md-auto py-2 py-md-0">
-                    {{-- Tombol update --}}
-                    <form id="updateForm" action="{{ route('admin.update.app') }}" method="POST" class="mt-3">
-                        @csrf
-                        <button id="updateButton" type="submit" class="btn btn-warning d-flex align-items-center"
-                            @if (version_compare($remoteVersion, $currentVersion, '<=')) disabled style="opacity: 0.5; cursor: not-allowed;" @endif>
-                            <span class="spinner-border spinner-border-sm me-2 d-none" id="updateSpinner" role="status"
-                                aria-hidden="true"></span>
-                            @if (version_compare($remoteVersion, $currentVersion, '<='))
-                                ✅ Sudah versi paling terbaru
-                            @else
-                                🔄 Perbarui Aplikasi ke Versi {{ $remoteVersion }}
-                            @endif
-                        </button>
-                    </form>
-
-                </div>
             </div>
 
             {{-- Card untuk Settings --}}

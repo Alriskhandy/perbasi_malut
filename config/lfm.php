@@ -49,6 +49,32 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Validasi Upload
+    |--------------------------------------------------------------------------
+    |
+    | Default package untuk should_validate_mime & disallowed_extensions
+    | tidak aman jika key ini tidak diset (file .php bisa lolos upload).
+    |
+    */
+    'should_validate_mime' => true,
+    'should_validate_size' => true,
+    'rename_file' => false,
+    'alphanumeric_filename' => true,
+    'alphanumeric_directory' => true,
+    'over_write_on_duplicate' => false,
+    'disallowed_mimetypes' => [
+        'text/x-php', 'application/x-php', 'application/x-httpd-php',
+        'text/html', 'application/xhtml+xml', 'image/svg+xml',
+        'text/javascript', 'application/javascript', 'application/x-sh',
+    ],
+    'disallowed_extensions' => [
+        'php', 'php3', 'php4', 'php5', 'php7', 'php8', 'phtml', 'pht', 'phar', 'phps',
+        'html', 'htm', 'xhtml', 'shtml', 'svg', 'svgz', 'js', 'mjs',
+        'htaccess', 'htpasswd', 'ini', 'sh', 'cgi', 'pl', 'py', 'exe',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Disk
     |--------------------------------------------------------------------------
     |

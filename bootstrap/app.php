@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\ThemeMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -14,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // Tambahkan ThemeMiddleware
         $middleware->append(ThemeMiddleware::class);
+        $middleware->append(SecurityHeaders::class);
+        // Invalidasi sesi lain saat password user berubah
+        $middleware->web(append: [\Illuminate\Session\Middleware\AuthenticateSession::class]);
          $middleware->alias([
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
     ]);

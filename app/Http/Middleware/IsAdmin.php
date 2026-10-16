@@ -12,7 +12,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         // Misalnya diasumsikan user punya field 'is_admin' di tabel users
-        if (Auth::check() && Auth::user()->is_admin == 1) {
+        if (Auth::check() && (bool) Auth::user()->is_admin === true) {
             return $next($request);
         }
 

@@ -57,7 +57,6 @@ class MediaController extends Controller
         // Simulasi pengolahan file (misalnya, menyimpan URL ke database)
         // Contoh:
         // FileModel::create(['url' => $fileUrl]);
-        dd($fileUrl);
         return redirect()->back()->with('success', 'File uploaded successfully!');
     }
 }

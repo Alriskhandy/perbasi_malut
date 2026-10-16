@@ -44,6 +44,26 @@
                             </div>
                         </div>
 
+                        <div class="form-group mt-3">
+                            <label>Password Saat Ini <small>(Wajib jika mengganti email atau password)</small></label>
+                            <div class="position-relative">
+                                <input type="password" name="current_password" id="current_password"
+                                    class="form-control pr-5" autocomplete="current-password">
+                                <i class="fa fa-eye position-absolute top-50 end-0 translate-middle-y me-3 text-muted toggle-password"
+                                    toggle="#current_password" style="cursor: pointer;"></i>
+                            </div>
+                        </div>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger mt-3 mb-0">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <button type="submit" class="btn btn-primary mt-4">Simpan Perubahan</button>
                     </form>
                 </div>

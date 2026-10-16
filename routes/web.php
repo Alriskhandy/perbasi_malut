@@ -14,7 +14,7 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 Route::get('/search', [SearchController::class, 'searchPosts'])->name('search')->middleware('throttle:30,1');
 
 // Daftarkan rute-rute Laravel File Manager secara terpisah
-Route::group(['prefix' => 'files', 'middleware' => ['web', 'auth']], function () {
+Route::group(['prefix' => 'files', 'middleware' => ['web', 'auth', 'throttle:120,1']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
@@ -34,15 +34,15 @@ Route::get('p/{slug}', [FrontEndController::class, 'showPage'])->name('pages.sho
 
 // Route for DPD
 Route::get('/dpd', [FrontEndController::class, 'dpd'])->name('dpd.index')->middleware('throttle:60,1');
-Route::get('/dpd/{slug}', [FrontEndController::class, 'dpdDetail'])->name('dpd.detail')->where('slug', '[a-z0-9-]+');
+Route::get('/dpd/{slug}', [FrontEndController::class, 'dpdDetail'])->name('dpd.detail')->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1');
 
 // Route for Athletes
 Route::get('/atlet', [FrontEndController::class, 'athletes'])->name('athletes.index')->middleware('throttle:60,1');
-Route::get('/atlet/{hash}', [FrontEndController::class, 'athleteDetail'])->name('athletes.detail')->where('hash', '[a-zA-Z0-9]+');
+Route::get('/atlet/{hash}', [FrontEndController::class, 'athleteDetail'])->name('athletes.detail')->where('hash', '[a-zA-Z0-9]+')->middleware('throttle:60,1');
 
 // Route for Clubs
 Route::get('/klub', [FrontEndController::class, 'clubs'])->name('clubs.index')->middleware('throttle:60,1');
-Route::get('/klub/{slug}', [FrontEndController::class, 'clubDetail'])->name('clubs.detail')->where('slug', '[a-z0-9-]+');
+Route::get('/klub/{slug}', [FrontEndController::class, 'clubDetail'])->name('clubs.detail')->where('slug', '[a-z0-9-]+')->middleware('throttle:60,1');
 
 // Route for Coaches, Officials, Referees
 Route::get('/pelatih', [FrontEndController::class, 'coaches'])->name('coaches.front')->middleware('throttle:60,1');

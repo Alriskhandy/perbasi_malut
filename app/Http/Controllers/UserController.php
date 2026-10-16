@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
@@ -21,16 +23,18 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
+            'password' => ['required', 'string', Password::min(8)->letters()->numbers()],
             'is_admin' => 'required|boolean',
         ]);
 
-        User::create([
+        // is_admin sengaja tidak ada di $fillable, jadi diset eksplisit
+        $user = new User([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_admin' => $request->is_admin,
         ]);
+        $user->is_admin = $request->boolean('is_admin');
+        $user->save();
           notify()->success('User added successfully!');
         return redirect()->route('users.index');
     }
@@ -53,11 +57,15 @@ class UserController extends Controller
             'is_admin' => 'required|boolean',
         ]);
 
-        $user->update([
+        $user->fill([
             'name' => $request->name,
             'email' => $request->email,
-            'is_admin' => $request->is_admin,
         ]);
+        // Admin tidak boleh mencabut hak admin dirinya sendiri
+        if ($user->id !== Auth::id()) {
+            $user->is_admin = $request->boolean('is_admin');
+        }
+        $user->save();
 
         notify()->success('User updated successfully!');
         return redirect()->route('users.index');
@@ -66,13 +74,14 @@ class UserController extends Controller
     // Delete the specified user
     public function destroy($id)
     {
-        if ($id != 1) {
-            # code...
-            $user = User::findOrFail($id);
-            $user->delete();
-    
-             notify()->success('User deleted successfully!');
-            return redirect()->route('users.index');
+        if ((int) $id === 1 || (int) $id === Auth::id()) {
+            abort(403, 'User ini tidak dapat dihapus.');
         }
+
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        notify()->success('User deleted successfully!');
+        return redirect()->route('users.index');
     }
 }

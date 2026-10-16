@@ -23,7 +23,7 @@ use App\Http\Controllers\RefereeController;
 use App\Http\Controllers\TeamImportController;
 
 
-Route::prefix('/dashboard')->middleware('auth')->group(function () {
+Route::prefix('/dashboard')->middleware(['auth', 'throttle:120,1'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     
 
@@ -111,9 +111,10 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::post('/profile/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::prefix('/dashboard')->middleware(['is_admin','auth'])->group(function () {
+Route::prefix('/dashboard')->middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/settings', [GeneralSettingsController::class, 'index'])->name('settings.index');
     Route::post('/settings', [GeneralSettingsController::class, 'update'])->name('settings.update');
-    Route::post('/admin/update-app', [UpdateController::class, 'updateApp'])->name('admin.update.app');
+    // Auto-update dinonaktifkan: mengunduh & mengekstrak ZIP dari server pihak ketiga ke root aplikasi (risiko RCE)
+    // Route::post('/admin/update-app', [UpdateController::class, 'updateApp'])->name('admin.update.app');
     Route::resource('users', UserController::class);
 });

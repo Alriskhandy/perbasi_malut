@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PostStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,6 +15,14 @@ class Posts extends Model
     protected $casts = [
         'status' => PostStatus::class,
     ];
+
+    // Bersihkan HTML dari editor agar tidak bisa disisipi script (stored XSS)
+    protected function content(): Attribute
+    {
+        return Attribute::make(
+            set: fn (?string $value) => $value === null ? null : clean($value, 'content'),
+        );
+    }
 
     // public function categories()
     // {
